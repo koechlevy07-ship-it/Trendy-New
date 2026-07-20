@@ -1,22 +1,23 @@
-{
-  "name": "trendy-wardrobe-design-system",
-  "version": "1.0.0",
-  "description": "Luxury Fashion E-Commerce Design System - Module 1 Foundation",
-  "private": true,
-  "scripts": {
-    "test": "echo \"No tests specified\"",
-    "build:css": "postcss src/styles/main.css -o dist/trendy-wardrobe.css",
-    "watch:css": "postcss src/styles/main.css -o dist/trendy-wardrobe.css --watch"
-  },
-  "devDependencies": {
-    "postcss": "^8.4.31",
-    "postcss-cli": "^10.1.0",
-    "postcss-import": "^15.1.0",
-    "autoprefixer": "^10.4.16"
-  },
-  "browserslist": [
-    "last 2 versions",
-    "not dead",
-    "> 0.5%"
-  ]
-}
+# Server
+NODE_ENV=development
+PORT=5000
+
+# Database
+MONGODB_URI=mongodb+srv://<user>:<password>@<cluster>.mongodb.net/trendy-wardrobe?retryWrites=true&w=majority
+
+# Auth
+JWT_SECRET=replace-with-a-long-random-secret
+JWT_EXPIRES_IN=7d
+JWT_REFRESH_SECRET=replace-with-a-different-long-random-secret
+JWT_REFRESH_EXPIRES_IN=30d
+
+# Cloudinary
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+
+# CORS
+FRONTEND_URL=http://localhost:3000
+
+# Currency
+DEFAULT_CURRENCY=KES
