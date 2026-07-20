@@ -1,35 +1,18 @@
-const { body, validationResult } = require('express-validator');
-const { ApiError } = require('../../utils/ApiError');
+const express = require('express');
+const shippingZoneController = require('../controllers/shippingZoneController');
+const { requireAuth, requireRole } = require('../middleware/auth');
 
-function handleValidation(req, res, next) {
-  const result = validationResult(req);
-  if (!result.isEmpty()) {
-    const messages = result.array().map((e) => e.msg);
-    return next(new ApiError(400, 'Validation failed', messages));
-  }
-  next();
-}
+const router = express.Router();
 
-const registerRules = [
-  body('firstName').trim().notEmpty().withMessage('First name is required').isLength({ max: 60 }),
-  body('lastName').trim().notEmpty().withMessage('Last name is required').isLength({ max: 60 }),
-  body('email').trim().isEmail().withMessage('A valid email is required').normalizeEmail(),
-  body('phone')
-    .optional({ checkFalsy: true })
-    .matches(/^\+?[0-9]{7,15}$/)
-    .withMessage('A valid phone number is required'),
-  body('password')
-    .isLength({ min: 8 })
-    .withMessage('Password must be at least 8 characters')
-    .matches(/\d/)
-    .withMessage('Password must contain at least one number'),
-  handleValidation,
-];
+const ADMIN_ROLES = ['admin', 'super_admin'];
 
-const loginRules = [
-  body('email').trim().isEmail().withMessage('A valid email is required').normalizeEmail(),
-  body('password').notEmpty().withMessage('Password is required'),
-  handleValidation,
-];
+// Public
+router.get('/quote', shippingZoneController.getQuote);
+router.get('/zones', shippingZoneController.listZones);
 
-module.exports = { registerRules, loginRules };
+// Admin
+router.post('/zones', requireAuth, requireRole(...ADMIN_ROLES), shippingZoneController.createZone);
+router.patch('/zones/:id', requireAuth, requireRole(...ADMIN_ROLES), shippingZoneController.updateZone);
+router.delete('/zones/:id', requireAuth, requireRole(...ADMIN_ROLES), shippingZoneController.deleteZone);
+
+module.exports = router;

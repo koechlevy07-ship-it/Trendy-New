@@ -1,41 +1,60 @@
-/**
- * Environment variable loader + validator.
- * Fails fast at startup if required config is missing, rather than
- * surfacing confusing errors deep in a request handler later.
- */
-require('dotenv').config();
+const { getSettings } = require('../models/Settings');
+const { sendSuccess } = require('../utils/apiResponse');
 
-const required = ['MONGODB_URI', 'JWT_SECRET', 'JWT_REFRESH_SECRET'];
-
-function validateEnv() {
-  const missing = required.filter((key) => !process.env[key]);
-  if (missing.length > 0) {
-    // eslint-disable-next-line no-console
-    console.error(
-      `[config] Missing required environment variables: ${missing.join(', ')}\n` +
-        'Copy .env.example to .env and fill in real values before starting the server.'
-    );
-    process.exit(1);
+async function getPublicSettings(req, res, next) {
+  try {
+    const settings = await getSettings();
+    // Only expose fields the storefront actually needs — not an admin dump
+    return sendSuccess(res, 200, {
+      settings: {
+        storeName: settings.storeName,
+        supportEmail: settings.supportEmail,
+        supportPhone: settings.supportPhone,
+        currency: settings.currency,
+        socialLinks: settings.socialLinks,
+        maintenanceMode: settings.maintenanceMode,
+        maintenanceMessage: settings.maintenanceMode ? settings.maintenanceMessage : undefined,
+        homepageAnnouncementBar: settings.homepageAnnouncementBar,
+      },
+    });
+  } catch (err) {
+    next(err);
   }
 }
 
-const env = {
-  nodeEnv: process.env.NODE_ENV || 'development',
-  port: parseInt(process.env.PORT, 10) || 5000,
-  mongodbUri: process.env.MONGODB_URI,
-  jwt: {
-    secret: process.env.JWT_SECRET,
-    expiresIn: process.env.JWT_EXPIRES_IN || '7d',
-    refreshSecret: process.env.JWT_REFRESH_SECRET,
-    refreshExpiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '30d',
-  },
-  cloudinary: {
-    cloudName: process.env.CLOUDINARY_CLOUD_NAME,
-    apiKey: process.env.CLOUDINARY_API_KEY,
-    apiSecret: process.env.CLOUDINARY_API_SECRET,
-  },
-  frontendUrl: process.env.FRONTEND_URL || 'http://localhost:3000',
-  defaultCurrency: process.env.DEFAULT_CURRENCY || 'KES',
-};
+async function getAdminSettings(req, res, next) {
+  try {
+    const settings = await getSettings();
+    return sendSuccess(res, 200, { settings });
+  } catch (err) {
+    next(err);
+  }
+}
 
-module.exports = { env, validateEnv };
+async function updateSettings(req, res, next) {
+  try {
+    const settings = await getSettings();
+
+    const updatable = [
+      'storeName',
+      'supportEmail',
+      'supportPhone',
+      'taxRatePercent',
+      'socialLinks',
+      'maintenanceMode',
+      'maintenanceMessage',
+      'homepageAnnouncementBar',
+    ];
+    updatable.forEach((field) => {
+      if (req.body[field] !== undefined) settings[field] = req.body[field];
+    });
+    settings.updatedBy = req.user._id;
+
+    await settings.save();
+    return sendSuccess(res, 200, { settings });
+  } catch (err) {
+    next(err);
+  }
+}
+
+module.exports = { getPublicSettings, getAdminSettings, updateSettings };

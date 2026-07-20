@@ -24,7 +24,9 @@
     "express-validator": "^7.2.0",
     "morgan": "^1.10.0",
     "compression": "^1.7.4",
-    "cookie-parser": "^1.4.6"
+    "cookie-parser": "^1.4.6",
+    "axios": "^1.7.4",
+    "nodemailer": "^6.9.14"
   },
   "devDependencies": {
     "nodemon": "^3.1.4"
