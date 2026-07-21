@@ -1,0 +1,1 @@
+app.use('/api/rbac', require('./routes/rbac.routes'));   // RBAC admin user management, roles, departments, sessions, security, audit

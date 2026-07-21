@@ -1,0 +1,542 @@
+/* ============================================================
+   ORDER CONFIRMATION PAGE — Trendy Wardrobe
+   ============================================================ */
+
+.confirmation-page {
+    min-height: 80vh;
+    padding: 40px 20px 60px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* ---- Loading / Error ---- */
+.conf-loading,
+.conf-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    text-align: center;
+    gap: 16px;
+}
+
+.conf-loading-spinner {
+    font-size: 2.5rem;
+    color: var(--color-gold);
+}
+
+.conf-error-box {
+    background: var(--bg-secondary);
+    border-radius: 16px;
+    padding: 48px 32px;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: var(--shadow-lg);
+}
+
+.conf-error-box i {
+    font-size: 3.5rem;
+    color: #DC2626;
+    margin-bottom: 8px;
+}
+
+.conf-error-box h2 {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+}
+
+.conf-error-box p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 24px;
+}
+
+/* ---- Success Banner ---- */
+.conf-success-banner {
+    text-align: center;
+    padding: 48px 20px 32px;
+}
+
+.conf-success-icon {
+    font-size: 4rem;
+    color: #2e7d32;
+    margin-bottom: 16px;
+    animation: successBounce 0.6s ease-out;
+}
+
+@keyframes successBounce {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.conf-success-banner h1 {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+}
+
+.conf-success-banner p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+/* ---- Order ID Card ---- */
+.conf-order-id-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    border: 1px solid var(--border-light);
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.conf-label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.conf-order-number {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-gold);
+    letter-spacing: 1px;
+}
+
+.conf-order-date {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+/* ---- Status Timeline Bar ---- */
+.conf-status-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 24px 0;
+    margin-bottom: 16px;
+    overflow-x: auto;
+}
+
+.conf-status-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-width: 60px;
+}
+
+.conf-status-dot {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--border-light);
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    transition: 0.3s;
+}
+
+.conf-status-step.active .conf-status-dot {
+    background: #2e7d32;
+    color: #fff;
+}
+
+.conf-status-step.completed .conf-status-dot {
+    background: #2e7d32;
+    color: #fff;
+}
+
+.conf-status-step span {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+.conf-status-step.active span {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.conf-status-step.completed span {
+    color: #2e7d32;
+}
+
+.conf-status-line {
+    width: 48px;
+    height: 2px;
+    background: var(--border-light);
+    margin-bottom: 28px;
+}
+
+.conf-status-line.active {
+    background: #2e7d32;
+}
+
+.conf-status-line.completed {
+    background: #2e7d32;
+}
+
+.conf-status-detail {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: center;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 28px;
+}
+
+.conf-status-badge {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.conf-status-badge.pending { background: #fef3c7; color: #92400e; }
+.conf-status-badge.confirmed { background: #dbeafe; color: #1e40af; }
+.conf-status-badge.processing { background: #e0e7ff; color: #3730a3; }
+.conf-status-badge.packed { background: #f3e8ff; color: #6b21a8; }
+.conf-status-badge.shipped { background: #e0f2fe; color: #075985; }
+.conf-status-badge.out-for-delivery { background: #d1fae5; color: #065f46; }
+.conf-status-badge.delivered { background: #d1fae5; color: #065f46; }
+.conf-status-badge.cancelled { background: #fce4ec; color: #c62828; }
+.conf-status-badge.refunded { background: #f3e5f5; color: #7b1fa2; }
+
+/* ---- Grid ---- */
+.conf-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 32px;
+    align-items: start;
+}
+
+/* ---- Sections ---- */
+.conf-section {
+    margin-bottom: 24px;
+}
+
+.conf-section h2 {
+    font-size: 1.1rem;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+/* ---- Items ---- */
+.conf-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.conf-item {
+    display: flex;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.conf-item:last-child {
+    border-bottom: none;
+}
+
+.conf-item img {
+    width: 60px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+
+.conf-item-info {
+    flex: 1;
+}
+
+.conf-item-name {
+    font-weight: 500;
+    font-size: 0.88rem;
+}
+
+.conf-item-meta {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+.conf-item-qty {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+.conf-item-price {
+    font-weight: 600;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    text-align: right;
+}
+
+/* ---- Address, Delivery, Payment ---- */
+.conf-address,
+.conf-delivery,
+.conf-payment {
+    font-size: 0.88rem;
+    line-height: 1.8;
+    color: var(--text-primary);
+    padding: 4px 0;
+}
+
+/* ---- Timeline ---- */
+.conf-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.conf-timeline-item {
+    display: flex;
+    gap: 14px;
+    padding: 12px 0;
+    border-left: 2px solid var(--border-light);
+    padding-left: 20px;
+    margin-left: 8px;
+    position: relative;
+}
+
+.conf-timeline-item:last-child {
+    border-left-color: transparent;
+}
+
+.conf-timeline-item::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-gold);
+    position: absolute;
+    left: -6px;
+    top: 16px;
+}
+
+.conf-timeline-status {
+    font-weight: 500;
+    font-size: 0.85rem;
+    text-transform: capitalize;
+}
+
+.conf-timeline-note {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+.conf-timeline-date {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+/* ---- Sidebar ---- */
+.conf-sidebar {
+    position: sticky;
+    top: 100px;
+}
+
+.conf-summary-card {
+    background: var(--bg-secondary);
+    border-radius: 16px;
+    padding: 24px;
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+}
+
+.conf-summary-card h3 {
+    font-size: 1rem;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.conf-summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.88rem;
+    padding: 8px 0;
+    color: var(--text-secondary);
+}
+
+.conf-summary-row.total {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.conf-summary-divider {
+    height: 1px;
+    background: var(--border-light);
+    margin: 8px 0;
+}
+
+.conf-summary-payment-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    padding: 8px 0;
+}
+
+/* ---- Actions ---- */
+.conf-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.conf-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 24px;
+    background: var(--text-primary);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.conf-btn:hover {
+    opacity: 0.85;
+}
+
+.conf-btn.secondary {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1.5px solid var(--border-light);
+}
+
+.conf-btn.secondary:hover {
+    border-color: var(--text-secondary);
+    color: var(--text-primary);
+}
+
+.conf-support {
+    text-align: center;
+    padding: 20px;
+    background: var(--bg-primary);
+    border-radius: 12px;
+    border: 1px solid var(--border-light);
+}
+
+.conf-support p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+}
+
+.conf-support a {
+    display: inline-block;
+    margin: 4px 8px;
+    font-size: 0.82rem;
+    color: var(--color-gold);
+    text-decoration: none;
+}
+
+.conf-support a:hover {
+    text-decoration: underline;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+    .confirmation-page {
+        padding: 24px 16px 40px;
+    }
+
+    .conf-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .conf-sidebar {
+        position: static;
+    }
+
+    .conf-order-id-card {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .conf-success-banner h1 {
+        font-size: 1.4rem;
+    }
+
+    .conf-status-bar {
+        justify-content: flex-start;
+    }
+
+    .conf-status-line {
+        width: 28px;
+    }
+
+    .conf-item {
+        flex-wrap: wrap;
+    }
+
+    .conf-item-price {
+        flex-basis: 100%;
+        text-align: left;
+        margin-top: 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    .conf-order-id-card {
+        padding: 16px;
+    }
+
+    .conf-order-number {
+        font-size: 1.1rem;
+    }
+
+    .conf-summary-card {
+        padding: 16px;
+    }
+
+    .conf-status-dot {
+        width: 30px;
+        height: 30px;
+        font-size: 0.7rem;
+    }
+
+    .conf-status-line {
+        width: 20px;
+    }
+
+    .conf-status-step span {
+        font-size: 0.6rem;
+    }
+}

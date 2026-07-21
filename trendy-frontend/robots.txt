@@ -1,0 +1,38 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /*.json$
+
+# Block internal paths
+Disallow: /_vercel/
+Disallow: /.git/
+
+# Crawl-delay for polite bots
+Crawl-delay: 1
+
+# Sitemaps
+Sitemap: https://trendy-frontend-ashen.vercel.app/sitemap.xml
+
+# Googlebot
+User-agent: Googlebot
+Allow: /
+Disallow: /admin
+Disallow: /admin.html
+
+# Bingbot
+User-agent: bingbot
+Allow: /
+Disallow: /admin
+Disallow: /admin.html
+
+# Social media crawlers (for link previews)
+User-agent: FacebookExternalHit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /

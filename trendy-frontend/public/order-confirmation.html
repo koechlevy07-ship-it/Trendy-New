@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <title>Order Confirmation — Trendy Wardrobe | Luxury Fashion</title>
+    <meta name="description" content="Your order has been confirmed at Trendy Wardrobe." />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="canonical" href="https://trendy-frontend-ashen.vercel.app/order-confirmation.html" />
+    <link rel="icon" type="image/svg+xml" href="/assets/images/logo-icon.svg" />
+    <link rel="apple-touch-icon" href="/assets/images/logo-icon.svg" />
+    <meta name="theme-color" content="#C8A35A" />
+    <script>
+        window.CLOUDINARY_CONFIG = {
+            cloudName: 'vbnlibtl',
+            uploadPreset: 'trendy-wardrobe',
+            baseUrl: 'https://res.cloudinary.com/vbnlibtl/image/upload',
+            productTransform: 'f_auto,q_auto,w_800,c_limit',
+            thumbnailTransform: 'f_auto,q_auto,w_400,h_400,c_fill,g_auto'
+        };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Great+Vibes&family=Oswald:wght@400;700&family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" media="print" onload="this.media='all'" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/order-confirmation.css" />
+</head>
+<body>
+    <main class="confirmation-page">
+        <!-- Loading -->
+        <div class="conf-loading" id="confLoading" style="display:flex;">
+            <div class="conf-loading-spinner"><i class="fas fa-spinner fa-spin"></i></div>
+            <p>Loading order details...</p>
+        </div>
+
+        <!-- Error -->
+        <div class="conf-error" id="confError" style="display:none;">
+            <div class="conf-error-box">
+                <i class="fas fa-exclamation-circle"></i>
+                <h2>Order Not Found</h2>
+                <p id="confErrorMessage">We couldn't find this order.</p>
+                <a href="/" class="conf-btn"><i class="fas fa-home"></i> Go Home</a>
+                <a href="/cart.html" class="conf-btn secondary"><i class="fas fa-shopping-bag"></i> Back to Cart</a>
+            </div>
+        </div>
+
+        <!-- Confirmation Content -->
+        <div class="conf-content" id="confContent" style="display:none;">
+
+            <!-- Success Banner -->
+            <div class="conf-success-banner">
+                <div class="conf-success-icon"><i class="fas fa-check-circle"></i></div>
+                <h1>Thank You for Your Order!</h1>
+                <p id="confSuccessMsg">Your order has been placed successfully.</p>
+            </div>
+
+            <!-- Order Identifier -->
+            <div class="conf-order-id-card">
+                <div class="conf-order-number-section">
+                    <span class="conf-label">Order Number</span>
+                    <span class="conf-order-number" id="confOrderNumber">TW-2026-000001</span>
+                </div>
+                <div class="conf-order-date-section">
+                    <span class="conf-label">Order Date</span>
+                    <span class="conf-order-date" id="confOrderDate">Loading...</span>
+                </div>
+            </div>
+
+            <!-- Status Timeline -->
+            <div class="conf-section">
+                <h2>Order Status</h2>
+                <div class="conf-status-bar">
+                    <div class="conf-status-step active">
+                        <div class="conf-status-dot"><i class="fas fa-check"></i></div>
+                        <span>Placed</span>
+                    </div>
+                    <div class="conf-status-line active"></div>
+                    <div class="conf-status-step">
+                        <div class="conf-status-dot"><i class="fas fa-hourglass-half"></i></div>
+                        <span>Confirmed</span>
+                    </div>
+                    <div class="conf-status-line"></div>
+                    <div class="conf-status-step">
+                        <div class="conf-status-dot"><i class="fas fa-box"></i></div>
+                        <span>Processing</span>
+                    </div>
+                    <div class="conf-status-line"></div>
+                    <div class="conf-status-step">
+                        <div class="conf-status-dot"><i class="fas fa-shipping-fast"></i></div>
+                        <span>Shipped</span>
+                    </div>
+                    <div class="conf-status-line"></div>
+                    <div class="conf-status-step">
+                        <div class="conf-status-dot"><i class="fas fa-home"></i></div>
+                        <span>Delivered</span>
+                    </div>
+                </div>
+                <div class="conf-status-detail" id="confStatusDetail">
+                    <span class="conf-status-badge pending">Pending</span>
+                    <span>Your order is being processed</span>
+                </div>
+            </div>
+
+            <!-- Two column grid -->
+            <div class="conf-grid">
+
+                <!-- Left: Details -->
+                <div class="conf-main">
+
+                    <!-- Items -->
+                    <div class="conf-section">
+                        <h2>Items Ordered</h2>
+                        <div class="conf-items" id="confItems"></div>
+                    </div>
+
+                    <!-- Delivery Address -->
+                    <div class="conf-section">
+                        <h2>Delivery Address</h2>
+                        <div class="conf-address" id="confAddress"></div>
+                    </div>
+
+                    <!-- Delivery Method -->
+                    <div class="conf-section">
+                        <h2>Delivery Method</h2>
+                        <div class="conf-delivery" id="confDelivery"></div>
+                    </div>
+
+                    <!-- Payment -->
+                    <div class="conf-section">
+                        <h2>Payment Method</h2>
+                        <div class="conf-payment" id="confPayment"></div>
+                    </div>
+
+                    <!-- Timeline -->
+                    <div class="conf-section">
+                        <h2>Order Timeline</h2>
+                        <div class="conf-timeline" id="confTimeline"></div>
+                    </div>
+
+                </div>
+
+                <!-- Right: Order Summary -->
+                <aside class="conf-sidebar">
+                    <div class="conf-summary-card">
+                        <h3>Order Summary</h3>
+                        <div class="conf-summary-row">
+                            <span>Subtotal</span>
+                            <span id="confSummarySubtotal">Ksh 0</span>
+                        </div>
+                        <div class="conf-summary-row" id="confSummaryDiscountRow" style="display:none;">
+                            <span>Coupon Discount</span>
+                            <span id="confSummaryDiscount" style="color:#2e7d32;">- Ksh 0</span>
+                        </div>
+                        <div class="conf-summary-row">
+                            <span>Delivery</span>
+                            <span id="confSummaryDelivery">Ksh 0</span>
+                        </div>
+                        <div class="conf-summary-divider"></div>
+                        <div class="conf-summary-row total">
+                            <span>Total</span>
+                            <span id="confSummaryTotal">Ksh 0</span>
+                        </div>
+                        <div class="conf-summary-divider"></div>
+                        <div class="conf-summary-payment-status" id="confPaymentStatus">
+                            <span>Payment</span>
+                            <span class="conf-status-badge pending">Pending</span>
+                        </div>
+                    </div>
+
+                    <div class="conf-actions">
+                        <a href="/" class="conf-btn"><i class="fas fa-home"></i> Continue Shopping</a>
+                        <a href="/product-details.html" class="conf-btn secondary"><i class="fas fa-eye"></i> Browse Products</a>
+                    </div>
+
+                    <div class="conf-support">
+                        <p>Need help with your order?</p>
+                        <a href="/contact.html"><i class="fas fa-envelope"></i> Contact Support</a>
+                        <a href="https://wa.me/254728985417" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"><span id="toastMessage"></span><span class="toast-close" id="toastClose">&times;</span></div>
+
+    <script src="/js/order-confirmation.js"></script>
+</body>
+</html>

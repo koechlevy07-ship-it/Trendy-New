@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <title>My Account — Trendy Wardrobe | Luxury Fashion</title>
+    <meta name="description" content="Manage your Trendy Wardrobe account, orders, wishlist, addresses, and profile." />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="My Account — Trendy Wardrobe" />
+    <meta property="og:description" content="Manage your account, orders, and preferences." />
+    <link rel="canonical" href="https://trendy-frontend-ashen.vercel.app/account.html" />
+    <link rel="icon" type="image/svg+xml" href="/assets/images/logo-icon.svg" />
+    <link rel="apple-touch-icon" href="/assets/images/logo-icon.svg" />
+    <meta name="theme-color" content="#C8A35A" />
+    <script>window.CLOUDINARY_CONFIG={cloudName:'vbnlibtl',uploadPreset:'trendy-wardrobe',baseUrl:'https://res.cloudinary.com/vbnlibtl/image/upload',productTransform:'f_auto,q_auto,w_800,c_limit',thumbnailTransform:'f_auto,q_auto,w_400,h_400,c_fill,g_auto'};</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Great+Vibes&family=Oswald:wght@400;700&family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" media="print" onload="this.media='all'" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/account.css" />
+</head>
+<body>
+
+    <!-- STICKY HEADER -->
+    <header class="sticky-header" id="stickyHeader">
+        <div class="header-inner">
+            <div class="header-mobile" role="banner">
+                <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
+                    <span class="hamburger-line"></span><span class="hamburger-line"></span><span class="hamburger-line"></span>
+                </button>
+                <a href="/" class="logo-link-mobile" aria-label="Trendy Wardrobe — Home">
+                    <svg class="logo-svg-mobile" viewBox="0 0 320 100" aria-hidden="true">
+                        <defs><linearGradient id="goldGradientMobile" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#D4AF37"/><stop offset="50%" stop-color="#F0D87A"/><stop offset="100%" stop-color="#D4AF37"/></linearGradient></defs>
+                        <polygon points="28,0 56,28 28,56 0,28" fill="none" stroke="url(#goldGradientMobile)" stroke-width="1.5"/>
+                        <text x="28" y="36" text-anchor="middle" font-family="Georgia, serif" font-size="24" font-weight="400" fill="url(#goldGradientMobile)" letter-spacing="1">T<tspan baseline-shift="-6" font-size="20">W</tspan></text>
+                        <text x="66" y="28" font-family="Georgia, serif" font-size="16" font-weight="300" fill="#1A1A1A" letter-spacing="3" class="logo-wordmark-mobile">TRENDY</text>
+                        <text x="66" y="48" font-family="Georgia, serif" font-size="11" font-weight="300" fill="#888" letter-spacing="5" class="logo-sub-mobile">WARDROBE</text>
+                    </svg>
+                </a>
+                <div class="header-actions">
+                    <button class="search-btn" id="searchBtnMobile" aria-label="Search" aria-expanded="false"><i class="fas fa-search"></i></button>
+                    <div class="mobile-search-bar" id="mobileSearchBar" role="search">
+                        <div class="search-input-wrap">
+                            <i class="fas fa-search search-input-icon"></i>
+                            <input type="text" id="mobileSearchInput" placeholder="Search products..." autocomplete="off" />
+                            <button type="submit" class="search-submit"><i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                    <button class="icon-btn wishlist-btn" id="wishlistBtn" aria-label="Wishlist"><i class="far fa-heart"></i><span class="badge wishlist-badge" id="wishlistBadge">0</span></button>
+                    <button class="icon-btn cart-btn" id="cartBtn" aria-label="Cart"><i class="fas fa-shopping-bag"></i><span class="badge cart-badge" id="cartBadge">0</span></button>
+                    <div class="profile-btn-wrapper" id="profileBtnWrapper">
+                        <button class="icon-btn profile-btn" id="profileBtn" aria-label="Account" aria-expanded="false"><i class="far fa-user"></i></button>
+                        <div class="profile-dropdown" id="profileDropdown" role="menu">
+                            <div class="dropdown-header" id="dropdownHeader"></div>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item" id="ddProfile"><i class="far fa-user"></i>Profile</a>
+                            <a href="#" class="dropdown-item" id="ddOrders"><i class="fas fa-box"></i>Orders</a>
+                            <a href="/wishlist.html" class="dropdown-item" id="ddWishlist"><i class="far fa-heart"></i>Wishlist</a>
+                            <a href="#" class="dropdown-item" id="ddAddresses"><i class="fas fa-map-marker-alt"></i>Addresses</a>
+                            <a href="#" class="dropdown-item" id="ddSettings"><i class="fas fa-cog"></i>Settings</a>
+                            <div class="dropdown-divider"></div>
+                            <button class="dropdown-item logout-btn" id="ddLogout"><i class="fas fa-sign-out-alt"></i>Logout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="header-desktop">
+                <div class="header-top">
+                    <div class="logo-group">
+                        <a href="/" class="logo-link">
+                            <svg class="logo-svg" viewBox="0 0 320 100" width="280" height="56">
+                                <defs><linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#D4AF37"/><stop offset="50%" stop-color="#F0D87A"/><stop offset="100%" stop-color="#D4AF37"/></linearGradient></defs>
+                                <polygon points="28,0 56,28 28,56 0,28" fill="none" stroke="url(#goldGradient)" stroke-width="1.5"/>
+                                <text x="28" y="36" text-anchor="middle" font-family="Georgia, serif" font-size="24" font-weight="400" fill="url(#goldGradient)" letter-spacing="1">T<tspan baseline-shift="-6" font-size="20">W</tspan></text>
+                                <text x="66" y="28" font-family="Georgia, serif" font-size="18" font-weight="300" fill="#1A1A1A" letter-spacing="3" class="logo-wordmark">TRENDY</text>
+                                <text x="66" y="50" font-family="Georgia, serif" font-size="13" font-weight="300" fill="#888" letter-spacing="6" class="logo-sub">WARDROBE</text>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="search-wrapper">
+                        <input type="text" id="searchInput" placeholder="Search products..." aria-label="Search" />
+                        <span class="search-icon" id="searchBtn"><i class="fas fa-search"></i></span>
+                    </div>
+                    <button class="search-icon-mobile" id="searchIconMobile"><i class="fas fa-search"></i></button>
+                    <div class="header-icons">
+                        <button class="icon-btn" aria-label="Account" id="userBtn"><i class="far fa-user" id="userIcon"></i></button>
+                        <button class="icon-btn" aria-label="Wishlist" id="wishlistBtnDesktop"><i class="far fa-heart heart-icon" id="wishlistIconDesktop"></i><span class="badge" id="wishlistBadgeDesktop" style="background:#D81B60;display:none;"></span></button>
+                        <button class="icon-btn" aria-label="Cart" id="cartBtnDesktop"><i class="fas fa-shopping-bag"></i><span class="badge" id="cartBadgeDesktop">0</span></button>
+                        <button class="hamburger" id="hamburgerBtnDesktop" aria-label="Menu"><i class="fas fa-bars"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MOBILE SEARCH / DRAWER / NAV (same as other pages for consistency) -->
+    <div class="search-overlay" id="searchOverlay">
+        <button class="search-close" id="searchClose"><i class="fas fa-times"></i></button>
+        <div class="search-panel">
+            <div class="search-input-wrap"><i class="fas fa-search search-input-icon"></i><input type="text" id="searchOverlayInput" placeholder="Search products..." autocomplete="off" /><button class="search-submit" id="searchOverlaySubmit"><i class="fas fa-arrow-right"></i></button></div>
+        </div>
+        <div class="search-results-area" id="searchResultsArea"></div>
+    </div>
+
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <div class="drawer" id="drawer">
+        <div class="drawer-header">
+            <a href="/" class="logo-link"><svg class="logo-svg" viewBox="0 0 320 100" width="240" height="48"><defs><linearGradient id="goldGradientDrawer" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#D4AF37"/><stop offset="50%" stop-color="#F0D87A"/><stop offset="100%" stop-color="#D4AF37"/></linearGradient></defs><polygon points="28,0 56,28 28,56 0,28" fill="none" stroke="url(#goldGradientDrawer)" stroke-width="1.5"/><text x="28" y="36" text-anchor="middle" font-family="Georgia, serif" font-size="24" font-weight="400" fill="url(#goldGradientDrawer)" letter-spacing="1">T<tspan baseline-shift="-6" font-size="20">W</tspan></text><text x="66" y="28" font-family="Georgia, serif" font-size="18" font-weight="300" fill="#1A1A1A" letter-spacing="3">TRENDY</text><text x="66" y="50" font-family="Georgia, serif" font-size="13" font-weight="300" fill="#888" letter-spacing="6">WARDROBE</text></svg></a>
+            <button class="close-drawer" id="closeDrawer"><i class="fas fa-times"></i></button>
+        </div>
+        <nav class="drawer-nav">
+            <a href="/">Home</a>
+            <a href="/account.html" class="active">My Account</a>
+            <a href="/wishlist.html">Wishlist</a>
+            <a href="/cart.html">Shopping Cart</a>
+            <a href="/about.html">About Us</a>
+            <a href="/contact.html">Contact Us</a>
+            <a href="#" id="drawerLogout"><i class="fas fa-sign-out-alt" style="margin-right:10px;color:#D81B60;"></i>Log Out</a>
+        </nav>
+        <div class="drawer-footer">
+            <div class="social-icons" id="drawerSocialLinks"></div>
+            <p>&copy; 2026 Trendy_Wardrobe</p>
+        </div>
+    </div>
+
+    <div class="nav-container">
+        <div class="container" style="padding:0 20px;">
+            <nav class="nav-bar" id="mainNav">
+                <a href="/">HOME</a>
+                <div class="dropdown" data-category="trench-coat">
+                    <a href="#" class="dropdown-toggle">TRENDY TRENCH COATS <span class="plus-icon">+</span></a>
+                    <div class="dropdown-content">
+                        <div class="dropdown-col"><h4>Styles</h4><a href="#">Classic</a><a href="#">Belted</a><a href="#">Double‑Breasted</a><a href="#">Short</a></div>
+                        <div class="dropdown-col"><h4>Collections</h4><a href="#">New Arrivals</a><a href="#">Best Sellers</a><a href="#">Sale</a></div>
+                        <div class="dropdown-banner"><img src="https://placehold.co/400x180/FAF9F6/C8A35A?text=TRENCH" alt="" loading="lazy" /><div class="banner-text">Iconic Trench</div></div>
+                    </div>
+                </div>
+                <div class="dropdown" data-category="wardrobe">
+                    <a href="#" class="dropdown-toggle">TRENDY WARDROBE <span class="plus-icon">+</span></a>
+                    <div class="dropdown-content">
+                        <div class="dropdown-col"><h4>Suits</h4><a href="#">Suits</a><a href="#">Shirts</a><a href="#">Trousers</a><a href="#">Casual</a></div>
+                        <div class="dropdown-col"><h4>Dresses</h4><a href="#">Dresses</a><a href="#">Tops</a><a href="#">Skirts</a><a href="#">Formal</a></div>
+                        <div class="dropdown-col"><h4>Accessories</h4><a href="#">Accessories</a><a href="#">New Arrivals</a><a href="#">Sale</a></div>
+                        <div class="dropdown-banner"><img src="https://placehold.co/400x180/FAF9F6/C8A35A?text=WARDROBE" alt="" loading="lazy" /><div class="banner-text">Elevate Your Style</div></div>
+                    </div>
+                </div>
+                <div class="dropdown" data-category="shoes">
+                    <a href="#" class="dropdown-toggle">TRENDY SHOES <span class="plus-icon">+</span></a>
+                    <div class="dropdown-content">
+                        <div class="dropdown-col"><h4>Oxfords</h4><a href="#">Oxfords</a><a href="#">Loafers</a><a href="#">Sneakers</a><a href="#">Boots</a></div>
+                        <div class="dropdown-col"><h4>Heels & Flats</h4><a href="#">Heels</a><a href="#">Flats</a><a href="#">Sneakers</a><a href="#">Sandals</a></div>
+                        <div class="dropdown-col"><h4>Sport</h4><a href="#">Running</a><a href="#">Sports</a><a href="#">Casual</a><a href="#">New Arrivals</a></div>
+                        <div class="dropdown-banner"><img src="https://placehold.co/400x180/FAF9F6/C8A35A?text=SHOES" alt="" loading="lazy" /><div class="banner-text">Step in Luxury</div></div>
+                    </div>
+                </div>
+                <a href="/account.html" style="color:var(--color-gold);">MY ACCOUNT</a>
+                <a href="/cart.html">CART</a>
+                <a href="/contact.html">CONTACT US</a>
+                <a href="/about.html">ABOUT US</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- MAIN: ACCOUNT DASHBOARD -->
+    <main class="acc-page" id="accPage">
+
+        <!-- Loading -->
+        <div class="acc-loading" id="accLoading">
+            <div class="acc-loading-spinner"><i class="fas fa-spinner fa-spin"></i></div>
+            <p>Loading your account...</p>
+        </div>
+
+        <!-- Not logged in prompt -->
+        <div class="acc-guest" id="accGuest" style="display:none;">
+            <div class="acc-guest-box">
+                <div class="acc-guest-icon"><i class="far fa-user-circle"></i></div>
+                <h2>Sign In to Your Account</h2>
+                <p>Access your orders, wishlist, addresses, and preferences.</p>
+                <button class="acc-guest-btn" id="accGuestLoginBtn">Log In</button>
+                <button class="acc-guest-btn secondary" id="accGuestRegisterBtn">Create Account</button>
+            </div>
+        </div>
+
+        <!-- Dashboard Content -->
+        <div class="acc-content" id="accContent" style="display:none;">
+
+            <!-- Mobile Toggle -->
+            <button class="acc-sidebar-toggle" id="accSidebarToggle"><i class="fas fa-bars"></i> Menu</button>
+
+            <div class="acc-layout">
+                <!-- Sidebar Navigation -->
+                <aside class="acc-sidebar" id="accSidebar">
+                    <div class="acc-sidebar-header">
+                        <div class="acc-avatar" id="accAvatar">T</div>
+                        <div class="acc-user-info">
+                            <div class="acc-user-name" id="accUserName">User</div>
+                            <div class="acc-user-email" id="accUserEmail">user@email.com</div>
+                        </div>
+                    </div>
+                    <nav class="acc-nav">
+                        <button class="acc-nav-item active" data-section="dashboard"><i class="fas fa-th-large"></i> Dashboard</button>
+                        <button class="acc-nav-item" data-section="profile"><i class="fas fa-user"></i> My Profile</button>
+                        <button class="acc-nav-item" data-section="addresses"><i class="fas fa-map-marker-alt"></i> Address Book</button>
+                        <button class="acc-nav-item" data-section="orders"><i class="fas fa-box"></i> My Orders</button>
+                        <button class="acc-nav-item" data-section="cart"><i class="fas fa-shopping-bag"></i> Shopping Cart</button>
+                        <button class="acc-nav-item" data-section="wishlist"><i class="far fa-heart"></i> Wishlist</button>
+                        <button class="acc-nav-item" data-section="tickets"><i class="fas fa-ticket-alt"></i> My Tickets</button>
+                        <button class="acc-nav-item" data-section="reviews"><i class="fas fa-star"></i> Reviews</button>
+                        <button class="acc-nav-item" data-section="notifications"><i class="fas fa-bell"></i> Notifications <span class="acc-nav-badge" id="accNotifBadge" style="display:none;">0</span></button>
+                        <button class="acc-nav-item" data-section="payment"><i class="fas fa-credit-card"></i> Payment Methods</button>
+                        <button class="acc-nav-item" data-section="loyalty"><i class="fas fa-crown"></i> Loyalty & Rewards</button>
+                        <button class="acc-nav-item" data-section="coupons"><i class="fas fa-ticket-alt"></i> Coupons & Vouchers</button>
+                        <button class="acc-nav-item" data-section="settings"><i class="fas fa-cog"></i> Settings</button>
+                        <hr class="acc-nav-divider" />
+                        <button class="acc-nav-item acc-nav-logout" id="accLogoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                    </nav>
+                </aside>
+
+                <!-- Main Content Area -->
+                <div class="acc-main" id="accMain">
+
+                    <!-- ===== DASHBOARD ===== -->
+                    <section class="acc-section active" id="section-dashboard">
+                        <div class="acc-section-header">
+                            <h2>Dashboard</h2>
+                            <div class="acc-welcome" id="accWelcome">Welcome back!</div>
+                        </div>
+                        <div class="acc-stats-grid" id="accStatsGrid">
+                            <div class="acc-stat-card"><div class="acc-stat-value" id="asOrderCount">0</div><div class="acc-stat-label">Total Orders</div></div>
+                            <div class="acc-stat-card"><div class="acc-stat-value" id="asPendingOrders">0</div><div class="acc-stat-label">Pending Orders</div></div>
+                            <div class="acc-stat-card"><div class="acc-stat-value" id="asDeliveredOrders">0</div><div class="acc-stat-label">Delivered Orders</div></div>
+                            <div class="acc-stat-card"><div class="acc-stat-value" id="asTotalSpent">Ksh 0</div><div class="acc-stat-label">Total Spent</div></div>
+                            <div class="acc-stat-card"><div class="acc-stat-value" id="asWishlistCount">0</div><div class="acc-stat-label">Wishlist Items</div></div>
+                            <div class="acc-stat-card"><div class="acc-stat-value" id="asReviewCount">0</div><div class="acc-stat-label">Reviews</div></div>
+                            <div class="acc-stat-card"><div class="acc-stat-value" id="asRewardPoints">0</div><div class="acc-stat-label">Reward Points</div></div>
+                            <div class="acc-stat-card"><div class="acc-stat-value" id="asActiveCoupons">0</div><div class="acc-stat-label">Active Coupons</div></div>
+                            <div class="acc-stat-card"><div class="acc-stat-value" id="asCartItems">0</div><div class="acc-stat-label">Cart Items</div></div>
+                            <div class="acc-stat-card"><div class="acc-stat-value" id="asAccountStatus">Active</div><div class="acc-stat-label">Account Status</div></div>
+                        </div>
+                        <div class="acc-dash-row">
+                            <div class="acc-dash-card">
+                                <h3>Recent Orders</h3>
+                                <div id="accRecentOrders"><p class="acc-text-muted">No orders yet.</p></div>
+                            </div>
+                            <div class="acc-dash-card">
+                                <h3>Recently Viewed</h3>
+                                <div id="accRecentlyViewed"><p class="acc-text-muted">No recently viewed items.</p></div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ===== PROFILE ===== -->
+                    <section class="acc-section" id="section-profile">
+                        <div class="acc-section-header"><h2>My Profile</h2></div>
+                        <form class="acc-form" id="accProfileForm">
+                            <div class="acc-profile-photo-wrap">
+                                <img id="accProfilePhoto" src="https://placehold.co/80x80/FAF9F6/C8A35A?text=U" alt="Profile" />
+                                <div class="acc-photo-actions">
+                                    <button type="button" id="accPhotoUploadBtn"><i class="fas fa-camera"></i> Change</button>
+                                    <input type="file" id="accPhotoInput" accept="image/*" style="display:none;" />
+                                </div>
+                            </div>
+                            <div class="acc-form-grid">
+                                <div class="acc-form-group"><label>Full Name</label><input type="text" id="apName" required /></div>
+                                <div class="acc-form-group"><label>Email</label><input type="email" id="apEmail" required /></div>
+                                <div class="acc-form-group"><label>Phone</label><input type="tel" id="apPhone" /></div>
+                                <div class="acc-form-group"><label>Date of Birth</label><input type="date" id="apDob" /></div>
+                                <div class="acc-form-group"><label>Gender</label><select id="apGender"><option value="">Prefer not to say</option><option value="male">Male</option><option value="female">Female</option><option value="other">Other</option></select></div>
+                            </div>
+                            <div class="acc-form-actions">
+                                <button type="submit" class="acc-btn-primary" id="apSaveBtn"><i class="fas fa-save"></i> Save Changes</button>
+                                <button type="button" class="acc-btn-secondary" id="apCancelBtn">Cancel</button>
+                            </div>
+                            <div class="acc-form-msg" id="apMsg" style="display:none;"></div>
+                        </form>
+                    </section>
+
+                    <!-- ===== ADDRESSES ===== -->
+                    <section class="acc-section" id="section-addresses">
+                        <div class="acc-section-header">
+                            <h2>Address Book</h2>
+                            <button class="acc-btn-primary" id="aaAddBtn"><i class="fas fa-plus"></i> Add Address</button>
+                        </div>
+                        <div id="aaList" class="acc-address-grid"></div>
+                        <!-- Address Form Modal -->
+                        <div class="acc-overlay" id="aaOverlay" style="display:none;">
+                            <div class="acc-modal">
+                                <button class="acc-modal-close" id="aaClose"><i class="fas fa-times"></i></button>
+                                <h3 id="aaFormTitle">Add Address</h3>
+                                <form id="aaForm">
+                                    <input type="hidden" id="aaId" />
+                                    <div class="acc-form-grid">
+                                        <div class="acc-form-group"><label>Label</label><select id="aaLabel"><option value="Home">Home</option><option value="Work">Work</option><option value="Other">Other</option></select></div>
+                                        <div class="acc-form-group"><label>Full Name *</label><input type="text" id="aaFullName" required /></div>
+                                        <div class="acc-form-group"><label>Phone</label><input type="tel" id="aaPhone" /></div>
+                                        <div class="acc-form-group"><label>County/Region</label><input type="text" id="aaCounty" /></div>
+                                        <div class="acc-form-group"><label>City *</label><input type="text" id="aaCity" required /></div>
+                                        <div class="acc-form-group"><label>Street</label><input type="text" id="aaStreet" /></div>
+                                        <div class="acc-form-group"><label>Building/Apartment</label><input type="text" id="aaApartment" /></div>
+                                        <div class="acc-form-group"><label>Postal Code</label><input type="text" id="aaPostalCode" /></div>
+                                    </div>
+                                    <div class="acc-form-group"><label>Delivery Instructions</label><textarea id="aaInstructions" rows="2"></textarea></div>
+                                    <label class="acc-checkbox"><input type="checkbox" id="aaDefault" /> Set as default address</label>
+                                    <div class="acc-form-actions">
+                                        <button type="submit" class="acc-btn-primary"><i class="fas fa-save"></i> Save</button>
+                                        <button type="button" class="acc-btn-secondary" id="aaCancel">Cancel</button>
+                                    </div>
+                                    <div class="acc-form-msg" id="aaMsg" style="display:none;"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ===== ORDERS ===== -->
+                    <section class="acc-section" id="section-orders">
+                        <div class="acc-section-header"><h2>My Orders</h2></div>
+                        <div id="aoList"></div>
+                    </section>
+
+                    <!-- ===== MY TICKETS ===== -->
+                    <section class="acc-section" id="section-tickets">
+                        <div class="acc-section-header">
+                            <h2>My Support Tickets</h2>
+                            <a href="/contact.html" class="acc-btn-primary" style="font-size:0.85rem;"><i class="fas fa-plus"></i> New Ticket</a>
+                        </div>
+                        <div id="atList" class="acc-tickets-list">
+                            <div class="acc-loading" style="text-align:center;padding:40px;">
+                                <div class="acc-loading-spinner"><i class="fas fa-spinner fa-spin"></i></div>
+                                <p>Loading your tickets...</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ===== WISHLIST ===== -->
+                    <section class="acc-section" id="section-wishlist">
+                        <div class="acc-section-header"><h2>Wishlist</h2><a href="/wishlist.html" class="acc-btn-secondary">View Full Wishlist <i class="fas fa-arrow-right"></i></a></div>
+                        <div id="awList"></div>
+                    </section>
+
+                    <!-- ===== REVIEWS ===== -->
+                    <section class="acc-section" id="section-reviews">
+                        <div class="acc-section-header"><h2>My Reviews</h2></div>
+                        <div id="arList"></div>
+                    </section>
+
+                    <!-- ===== NOTIFICATIONS ===== -->
+                    <section class="acc-section" id="section-notifications">
+                        <div class="acc-section-header">
+                            <h2>Notifications</h2>
+                            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                                <button class="acc-btn-secondary" id="anMarkAllBtn"><i class="fas fa-check-double"></i> Mark All Read</button>
+                            </div>
+                        </div>
+                        <div id="anList"></div>
+                        <div class="acc-section-sub" style="margin-top:24px;">
+                            <h3>Notification Preferences</h3>
+                            <div id="anPrefs" class="acc-prefs-grid"></div>
+                        </div>
+                    </section>
+
+                    <!-- ===== SECURITY ===== -->
+                    <section class="acc-section" id="section-security">
+                        <div class="acc-section-header"><h2>Security</h2></div>
+                        <div class="acc-security-card">
+                            <h3>Change Password</h3>
+                            <form class="acc-form" id="asPasswordForm">
+                                <div class="acc-form-grid" style="grid-template-columns:1fr;">
+                                    <div class="acc-form-group"><label>Current Password</label><input type="password" id="asCurrentPwd" required /></div>
+                                    <div class="acc-form-group"><label>New Password</label><input type="password" id="asNewPwd" required minlength="6" /></div>
+                                    <div class="acc-form-group"><label>Confirm New Password</label><input type="password" id="asConfirmPwd" required /></div>
+                                </div>
+                                <div class="acc-password-strength" id="asPwdStrength" style="display:none;">
+                                    <div class="acc-password-bar"><div class="acc-password-fill" id="asPwdFill" style="width:0%;"></div></div>
+                                    <span id="asPwdLabel"></span>
+                                </div>
+                                <div class="acc-form-actions">
+                                    <button type="submit" class="acc-btn-primary"><i class="fas fa-lock"></i> Change Password</button>
+                                </div>
+                                <div class="acc-form-msg" id="asPwdMsg" style="display:none;"></div>
+                            </form>
+                        </div>
+                        <div class="acc-security-card" style="margin-top:20px;">
+                            <h3>Two-Factor Authentication (2FA)</h3>
+                            <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:12px;">Add an extra layer of security to your account.</p>
+                            <div class="acc-2fa-status" id="acc2faStatus" style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+                                <div class="acc-2fa-toggle" style="display:flex;align-items:center;gap:8px;">
+                                    <input type="checkbox" id="acc2faEnabled" style="width:20px;height:20px;accent-color:var(--color-gold);" disabled />
+                                    <span style="font-weight:500;">2FA Enabled</span>
+                                </div>
+                                <span class="acc-text-muted" id="acc2faMethod">—</span>
+                            </div>
+                            <button class="acc-btn-primary" id="accSetup2faBtn"><i class="fas fa-shield-alt"></i> Set Up 2FA</button>
+                            <button class="acc-btn-secondary" id="accDisable2faBtn" style="display:none;margin-left:8px;"><i class="fas fa-times-circle"></i> Disable 2FA</button>
+                        </div>
+                        <div class="acc-security-card" style="margin-top:20px;">
+                            <h3>Login History</h3>
+                            <div id="accLoginHistory" class="acc-login-history">
+                                <p class="acc-text-muted">Loading login history...</p>
+                            </div>
+                        </div>
+                        <div class="acc-security-card" style="margin-top:20px;">
+                            <h3>Active Devices</h3>
+                            <div id="accActiveDevices" class="acc-active-devices">
+                                <p class="acc-text-muted">Loading active devices...</p>
+                            </div>
+                        </div>
+                        <div class="acc-security-card acc-danger-card" style="margin-top:20px;">
+                            <h3 style="color:#DC2626;">Delete Account</h3>
+                            <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:12px;">Permanently delete your account and all associated data. This action cannot be undone.</p>
+                            <button class="acc-btn-danger" id="asDeleteBtn"><i class="fas fa-exclamation-triangle"></i> Delete My Account</button>
+                            <div class="acc-form-msg" id="asDelMsg" style="display:none;"></div>
+                        </div>
+                    </section>
+
+                    <!-- ===== SHOPPING CART ===== -->
+                    <section class="acc-section" id="section-cart">
+                        <div class="acc-section-header"><h2>Shopping Cart</h2></div>
+                        <div id="acList" class="acc-cart-list">
+                            <div class="acc-loading" style="text-align:center;padding:40px;">
+                                <div class="acc-loading-spinner"><i class="fas fa-spinner fa-spin"></i></div>
+                                <p>Loading your cart...</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ===== PAYMENT METHODS ===== -->
+                    <section class="acc-section" id="section-payment">
+                        <div class="acc-section-header">
+                            <h2>Payment Methods</h2>
+                            <button class="acc-btn-primary" id="apmAddBtn"><i class="fas fa-plus"></i> Add Payment Method</button>
+                        </div>
+                        <div id="apmList" class="acc-payment-grid">
+                            <p class="acc-text-muted">No payment methods saved yet.</p>
+                        </div>
+                        <!-- Payment Method Modal -->
+                        <div class="acc-overlay" id="apmOverlay" style="display:none;">
+                            <div class="acc-modal" style="max-width:500px;">
+                                <button class="acc-modal-close" id="apmClose"><i class="fas fa-times"></i></button>
+                                <h3 id="apmFormTitle">Add Payment Method</h3>
+                                <form id="apmForm">
+                                    <input type="hidden" id="apmId" />
+                                    <div class="acc-form-group"><label>Type</label>
+                                        <select id="apmType" required>
+                                            <option value="">Select type</option>
+                                            <option value="mpesa">M-Pesa</option>
+                                            <option value="visa">Visa</option>
+                                            <option value="mastercard">Mastercard</option>
+                                            <option value="paypal">PayPal</option>
+                                            <option value="bank_transfer">Bank Transfer</option>
+                                        </select>
+                                    </div>
+                                    <div class="acc-form-group"><label>Nickname</label><input type="text" id="apmNickname" placeholder="e.g., Main M-Pesa, Work Visa" /></div>
+                                    <div class="acc-form-group"><label>Details (masked)</label><input type="text" id="apmDetails" placeholder="e.g., 2547XXXXXXXX, **** **** **** 1234" /></div>
+                                    <label class="acc-checkbox"><input type="checkbox" id="apmDefault" /> Set as default</label>
+                                    <div class="acc-form-actions">
+                                        <button type="submit" class="acc-btn-primary"><i class="fas fa-save"></i> Save</button>
+                                        <button type="button" class="acc-btn-secondary" id="apmCancel">Cancel</button>
+                                    </div>
+                                    <div class="acc-form-msg" id="apmMsg" style="display:none;"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ===== LOYALTY & REWARDS ===== -->
+                    <section class="acc-section" id="section-loyalty">
+                        <div class="acc-section-header"><h2>Loyalty & Rewards</h2></div>
+                        <div class="acc-loyalty-header">
+                            <div class="acc-loyalty-tier">
+                                <div class="acc-tier-icon" id="accTierIcon"><i class="fas fa-crown"></i></div>
+                                <div>
+                                    <div class="acc-tier-name" id="accTierName">Bronze</div>
+                                    <div class="acc-tier-points" id="accTierPoints">0 / 1,000 points to Silver</div>
+                                </div>
+                            </div>
+                            <div class="acc-loyalty-points">
+                                <div class="acc-points-value" id="accTotalPoints">0</div>
+                                <div class="acc-points-label">Total Reward Points</div>
+                            </div>
+                        </div>
+                        <div class="acc-progress-bar" style="margin:20px 0;height:8px;background:var(--border-light);border-radius:4px;overflow:hidden;">
+                            <div class="acc-progress-fill" id="accProgressFill" style="height:100%;width:0%;background:linear-gradient(90deg,var(--color-gold),#F0D87A);transition:width 0.5s;"></div>
+                        </div>
+                        <div class="acc-loyalty-stats" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px;margin:20px 0;">
+                            <div class="acc-stat-card"><div class="acc-stat-value" id="asLifetimePoints">0</div><div class="acc-stat-label">Lifetime Points</div></div>
+                            <div class="acc-stat-card"><div class="acc-stat-value" id="asRedeemedPoints">0</div><div class="acc-stat-label">Redeemed</div></div>
+                            <div class="acc-stat-card"><div class="acc-stat-value" id="asReferralRewards">0</div><div class="acc-stat-label">Referral Rewards</div></div>
+                            <div class="acc-stat-card"><div class="acc-stat-value" id="asCouponsEarned">0</div><div class="acc-stat-label">Coupons Earned</div></div>
+                        </div>
+                        <div class="acc-loyalty-history">
+                            <h3>Points History</h3>
+                            <div id="accPointsHistory" class="acc-points-history">
+                                <p class="acc-text-muted">No points activity yet.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ===== COUPONS & VOUCHERS ===== -->
+                    <section class="acc-section" id="section-coupons">
+                        <div class="acc-section-header"><h2>Coupons & Vouchers</h2></div>
+                        <div class="acc-coupon-tabs" style="display:flex;gap:8px;margin-bottom:16px;border-bottom:1px solid var(--border-light);padding-bottom:8px;">
+                            <button class="acc-coupon-tab active" data-coupon-tab="available">Available</button>
+                            <button class="acc-coupon-tab" data-coupon-tab="used">Used</button>
+                            <button class="acc-coupon-tab" data-coupon-tab="expired">Expired</button>
+                        </div>
+                        <div id="acList" class="acc-coupon-list">
+                            <div class="acc-loading" style="text-align:center;padding:40px;"><div class="acc-loading-spinner"><i class="fas fa-spinner fa-spin"></i></div><p>Loading coupons...</p></div>
+                        </div>
+                    </section>
+
+                    <!-- ===== SETTINGS ===== -->
+                    <section class="acc-section" id="section-settings">
+                        <div class="acc-section-header"><h2>Settings</h2></div>
+                        <div class="acc-settings-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;">
+                            <div class="acc-settings-card">
+                                <h3><i class="fas fa-bell"></i> Notification Preferences</h3>
+                                <div id="anPrefs" class="acc-prefs-grid"></div>
+                            </div>
+                            <div class="acc-settings-card">
+                                <h3><i class="fas fa-palette"></i> Display Preferences</h3>
+                                <div class="acc-form-group">
+                                    <label>Theme</label>
+                                    <select id="settingTheme">
+                                        <option value="system">System Default</option>
+                                        <option value="light">Light</option>
+                                        <option value="dark">Dark</option>
+                                    </select>
+                                </div>
+                                <div class="acc-form-group">
+                                    <label>Currency</label>
+                                    <select id="settingCurrency">
+                                        <option value="KES">KES - Kenyan Shilling</option>
+                                        <option value="USD">USD - US Dollar</option>
+                                        <option value="EUR">EUR - Euro</option>
+                                        <option value="GBP">GBP - British Pound</option>
+                                    </select>
+                                </div>
+                                <div class="acc-form-group">
+                                    <label>Language</label>
+                                    <select id="settingLanguage">
+                                        <option value="en">English</option>
+                                        <option value="sw">Kiswahili</option>
+                                    </select>
+                                </div>
+                                <button class="acc-btn-primary" id="saveDisplayPrefs"><i class="fas fa-save"></i> Save Display Preferences</button>
+                            </div>
+                            <div class="acc-settings-card">
+                                <h3><i class="fas fa-user-shield"></i> Privacy & Data</h3>
+                                <div class="acc-privacy-options" style="display:flex;flex-direction:column;gap:12px;">
+                                    <label class="acc-checkbox"><input type="checkbox" id="privacyAnalytics" /> Allow analytics cookies</label>
+                                    <label class="acc-checkbox"><input type="checkbox" id="privacyMarketing" /> Receive marketing emails</label>
+                                    <label class="acc-checkbox"><input type="checkbox" id="privacyPersonalization" /> Personalize recommendations</label>
+                                    <button class="acc-btn-secondary" id="downloadDataBtn"><i class="fas fa-download"></i> Download My Data</button>
+                                    <button class="acc-btn-danger" id="deleteAllDataBtn"><i class="fas fa-trash-alt"></i> Delete All My Data</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- DELETE CONFIRM MODAL -->
+    <div class="acc-overlay" id="asDelOverlay" style="display:none;">
+        <div class="acc-modal" style="max-width:400px;">
+            <button class="acc-modal-close" id="asDelClose"><i class="fas fa-times"></i></button>
+            <h3 style="color:#DC2626;display:flex;align-items:center;gap:8px;"><i class="fas fa-exclamation-triangle"></i> Delete Account</h3>
+            <p style="font-size:0.85rem;color:var(--text-secondary);margin:12px 0;">Enter your password to confirm account deletion. This cannot be undone.</p>
+            <form id="asDelForm">
+                <div class="acc-form-group"><label>Password</label><input type="password" id="asDelPassword" required /></div>
+                <div class="acc-form-actions">
+                    <button type="submit" class="acc-btn-danger"><i class="fas fa-trash-alt"></i> Delete My Account</button>
+                    <button type="button" class="acc-btn-secondary" id="asDelCancel">Cancel</button>
+                </div>
+                <div class="acc-form-msg" id="asDelFormMsg" style="display:none;"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container" style="padding:0 20px;">
+            <div class="footer-grid">
+                <div>
+                    <h4>Trendy_Wardrobe</h4>
+                    <p>Redefining executive fashion with luxury, comfort, and confidence. Est. 2026.</p>
+                    <a href="https://wa.me/254728985417" target="_blank" class="whatsapp-link"><i class="fab fa-whatsapp"></i> WhatsApp: +254 728 985 417</a>
+                </div>
+                <div>
+                    <h4>Shop</h4>
+                    <ul><li><a href="/">Home</a></li><li><a href="/account.html">My Account</a></li><li><a href="/wishlist.html">Wishlist</a></li><li><a href="/cart.html">Cart</a></li></ul>
+                </div>
+                <div>
+                    <h4>Customer Care</h4>
+                    <ul><li><a href="/contact.html">Contact Us</a></li><li><a href="/about.html">About Us</a></li><li><a href="/terms.html">Terms of Service</a></li><li><a href="/privacy.html">Privacy Policy</a></li></ul>
+                </div>
+                <div>
+                    <h4>Connect</h4>
+                    <div class="social-icons" id="footerSocialLinks"></div>
+                    <p class="footer-contact-line"><i class="fas fa-envelope"></i> markelpalace@gmail.com</p>
+                    <p class="footer-contact-line"><i class="fas fa-phone"></i> 0728 985 417</p>
+                    <a href="https://wa.me/254728985417" target="_blank" class="whatsapp-link"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+                </div>
+            </div>
+            <div class="footer-bottom">&copy; 2026 Trendy Wardrobe. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/254728985417" target="_blank" class="floating-whatsapp hidden-wa" id="floatingWhatsApp"><i class="fab fa-whatsapp"></i></a>
+    <button class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></button>
+    <div class="toast" id="toast"><span id="toastMessage">Saved!</span><span class="toast-close" id="toastClose">&times;</span></div>
+
+    <script src="/js/account.js"></script>
+</body>
+</html>

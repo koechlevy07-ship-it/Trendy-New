@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" /> 
+    <title>Trendy_Wardrobe — Luxury Fashion | Premium Trench Coats, Wardrobe & Shoes</title>
+    <meta name="description" content="Trendy Wardrobe — Nairobi's premier luxury fashion store. Shop executive trench coats, wardrobe essentials, and designer shoes. Quality fashion for every generation. Free delivery in Nairobi." />
+    <meta name="keywords" content="Trendy Wardrobe, luxury fashion Kenya, trench coats Nairobi, executive fashion, premium clothing, designer shoes, wardrobe essentials" />
+    <meta name="author" content="Trendy Wardrobe" />
+    <meta name="robots" content="index, follow" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()" />
+    <meta property="og:title" content="Trendy Wardrobe — Luxury Fashion | Premium Trench Coats, Wardrobe & Shoes" />
+    <meta property="og:description" content="Nairobi's premier luxury fashion store. Shop executive trench coats, wardrobe essentials, and designer shoes." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://trendy-frontend-ashen.vercel.app/" />
+    <meta property="og:site_name" content="Trendy Wardrobe" />
+    <meta property="og:image" content="https://trendy-frontend-ashen.vercel.app/assets/images/logo-icon.svg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Trendy Wardrobe — Luxury Fashion" />
+    <meta name="twitter:description" content="Nairobi's premier luxury fashion store. Shop executive trench coats, wardrobe essentials, and designer shoes." />
+    <meta name="twitter:image" content="https://trendy-frontend-ashen.vercel.app/assets/images/logo-icon.svg" />
+    <link rel="canonical" href="https://trendy-frontend-ashen.vercel.app/" />
+    <link rel="icon" type="image/svg+xml" href="/assets/images/logo-icon.svg" />
+    <link rel="icon" type="image/svg+xml" sizes="any" href="/assets/images/logo-icon.svg" />
+    <link rel="apple-touch-icon" href="/assets/images/logo-icon.svg" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#C8A35A" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Trendy Wardrobe" />
+    <!-- Cloudinary Configuration -->
+    <script>
+        window.CLOUDINARY_CONFIG = {
+            cloudName: 'vbnlibtl',
+            uploadPreset: 'trendy-wardrobe', // Create this unsigned upload preset in Cloudinary dashboard
+            baseUrl: 'https://res.cloudinary.com/vbnlibtl/image/upload',
+            // Auto-optimization transformations
+            heroTransform: 'f_auto,q_auto,w_1920,c_limit',
+            productTransform: 'f_auto,q_auto,w_800,c_limit',
+            thumbnailTransform: 'f_auto,q_auto,w_400,h_400,c_fill,g_auto'
+        };
+    </script>
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX', {
+            send_page_view: false,
+            cookie_flags: 'SameSite=None;Secure'
+        });
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Trendy Wardrobe",
+        "url": "https://trendy-frontend-ashen.vercel.app",
+        "description": "Nairobi's premier luxury fashion store. Shop executive trench coats, wardrobe essentials, and designer shoes.",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Westlands",
+            "addressRegion": "Nairobi",
+            "addressCountry": "KE"
+        },
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+254728985417",
+            "contactType": "customer service",
+            "availableLanguage": ["English", "Swahili"]
+        },
+        "sameAs": []
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Trendy Wardrobe",
+        "url": "https://trendy-frontend-ashen.vercel.app",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://trendy-frontend-ashen.vercel.app/?search={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://trendy-frontend-ashen.vercel.app/"
+        }]
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Great+Vibes&family=Oswald:wght@400;700&family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" media="print" onload="this.media='all'" />
+    <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+
+    <!-- ============================================================
+    STICKY HEADER
+    ============================================================ -->
+    <header class="sticky-header" id="stickyHeader">
+        <div class="header-inner">
+            <!-- Mobile Top Header (≤768px) -->
+            <div class="header-mobile" role="banner">
+                <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+
+                <a href="/" class="logo-link-mobile" aria-label="Trendy Wardrobe — Home">
+                    <svg class="logo-svg-mobile" viewBox="0 0 320 100" aria-hidden="true" role="img">
+                        <defs>
+                            <linearGradient id="goldGradientMobile" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#D4AF37"/>
+                                <stop offset="50%" stop-color="#F0D87A"/>
+                                <stop offset="100%" stop-color="#D4AF37"/>
+                            </linearGradient>
+                        </defs>
+                        <g class="icon-part" transform="translate(0, 0)">
+                            <polygon points="28,0 56,28 28,56 0,28" fill="none" stroke="url(#goldGradientMobile)" stroke-width="1.5"/>
+                            <text x="28" y="36" text-anchor="middle" font-family="Georgia, serif" font-size="24" font-weight="400" fill="url(#goldGradientMobile)" letter-spacing="1">T<tspan baseline-shift="-6" font-size="20">W</tspan></text>
+                        </g>
+                        <text x="66" y="28" font-family="Georgia, serif" font-size="16" font-weight="300" fill="#1A1A1A" letter-spacing="3" class="logo-wordmark-mobile">TRENDY</text>
+                        <text x="66" y="48" font-family="Georgia, serif" font-size="11" font-weight="300" fill="#888" letter-spacing="5" class="logo-sub-mobile">WARDROBE</text>
+                    </svg>
+                </a>
+
+                <div class="header-actions">
+                    <!-- Search icon (expands to search bar on mobile) -->
+                    <button class="search-btn" id="searchBtnMobile" aria-label="Search" aria-expanded="false" aria-controls="mobileSearchBar">
+                        <i class="fas fa-search" aria-hidden="true"></i>
+                    </button>
+
+                    <!-- Mobile Search Bar - expands from icon -->
+                    <div class="mobile-search-bar" id="mobileSearchBar" role="search" aria-hidden="true">
+                        <div class="search-input-wrap">
+                            <i class="fas fa-search search-input-icon" aria-hidden="true"></i>
+                            <input type="text" id="mobileSearchInput" placeholder="Search products..." autocomplete="off" aria-label="Search products" />
+                            <button type="submit" class="search-submit" aria-label="Search"><i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Wishlist with badge -->
+                    <button class="icon-btn wishlist-btn" id="wishlistBtn" aria-label="Wishlist (0 items)">
+                        <i class="far fa-heart" aria-hidden="true"></i>
+                        <span class="badge wishlist-badge" id="wishlistBadge" aria-live="polite" aria-atomic="true">0</span>
+                    </button>
+
+                    <!-- Cart with badge -->
+                    <button class="icon-btn cart-btn" id="cartBtn" aria-label="Cart (0 items)">
+                        <i class="fas fa-shopping-bag" aria-hidden="true"></i>
+                        <span class="badge cart-badge" id="cartBadge" aria-live="polite" aria-atomic="true">0</span>
+                    </button>
+
+                    <!-- Profile / Account -->
+                    <div class="profile-btn-wrapper" id="profileBtnWrapper">
+                        <button class="icon-btn profile-btn" id="profileBtn" aria-label="Account" aria-expanded="false" aria-haspopup="true">
+                            <i class="far fa-user" aria-hidden="true"></i>
+                        </button>
+                        <div class="profile-dropdown" id="profileDropdown" role="menu" aria-hidden="true">
+                            <div class="dropdown-header" id="dropdownHeader"></div>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item" role="menuitem" id="ddProfile"><i class="far fa-user"></i>Profile</a>
+                            <a href="#" class="dropdown-item" role="menuitem" id="ddOrders"><i class="fas fa-box"></i>Orders</a>
+                            <a href="#" class="dropdown-item" role="menuitem" id="ddWishlist"><i class="far fa-heart"></i>Wishlist</a>
+                            <a href="#" class="dropdown-item" role="menuitem" id="ddAddresses"><i class="fas fa-map-marker-alt"></i>Addresses</a>
+                            <a href="#" class="dropdown-item" role="menuitem" id="ddSettings"><i class="fas fa-cog"></i>Settings</a>
+                            <div class="dropdown-divider"></div>
+                            <button class="dropdown-item logout-btn" role="menuitem" id="ddLogout"><i class="fas fa-sign-out-alt"></i>Logout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Desktop Header (≥769px) - existing structure preserved -->
+            <div class="header-desktop">
+                <div class="header-top">
+                    <div class="logo-group">
+                        <a href="/" class="logo-link" aria-label="Trendy Wardrobe — Home">
+                            <svg class="logo-svg" viewBox="0 0 320 100" width="280" height="56" alt="Trendy Wardrobe Luxury Fashion Logo" aria-hidden="true" role="img">
+                                <defs>
+                                    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#D4AF37"/>
+                                        <stop offset="50%" stop-color="#F0D87A"/>
+                                        <stop offset="100%" stop-color="#D4AF37"/>
+                                    </linearGradient>
+                                </defs>
+                                <g class="icon-part" transform="translate(0, 0)">
+                                    <polygon points="28,0 56,28 28,56 0,28" fill="none" stroke="url(#goldGradient)" stroke-width="1.5"/>
+                                    <text x="28" y="36" text-anchor="middle" font-family="Georgia, serif" font-size="24" font-weight="400" fill="url(#goldGradient)" letter-spacing="1">T<tspan baseline-shift="-6" font-size="20">W</tspan></text>
+                                </g>
+                                <text x="66" y="28" font-family="Georgia, serif" font-size="18" font-weight="300" fill="#1A1A1A" letter-spacing="3" class="logo-wordmark">TRENDY</text>
+                                <text x="66" y="50" font-family="Georgia, serif" font-size="13" font-weight="300" fill="#888" letter-spacing="6" class="logo-sub">WARDROBE</text>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="search-wrapper">
+                        <input type="text" id="searchInput" placeholder="Search products..." aria-label="Search" />
+                        <span class="search-icon" id="searchBtn"><i class="fas fa-search"></i></span>
+                    </div>
+                    <button class="search-icon-mobile" id="searchIconMobile" aria-label="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <div class="header-icons">
+                        <button class="icon-btn" aria-label="Account" id="userBtn"><i class="far fa-user" id="userIcon"></i></button>
+                        <button class="icon-btn" aria-label="Wishlist" id="wishlistBtnDesktop"><i class="far fa-heart heart-icon" id="wishlistIconDesktop"></i><span class="badge" id="wishlistBadgeDesktop" style="background:#D81B60;display:none;"></span></button>
+                        <button class="icon-btn" aria-label="Cart" id="cartBtnDesktop"><i class="fas fa-shopping-bag"></i><span class="badge" id="cartBadgeDesktop">0</span></button>
+                        <button class="hamburger" id="hamburgerBtnDesktop" aria-label="Menu"><i class="fas fa-bars"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================================================
+    MOBILE SEARCH OVERLAY
+    ============================================================ -->
+    <div class="search-overlay" id="searchOverlay">
+        <button class="search-close" id="searchClose"><i class="fas fa-times"></i></button>
+        <div class="search-panel">
+            <div class="search-input-wrap">
+                <i class="fas fa-search search-input-icon"></i>
+                <input type="text" id="searchOverlayInput" placeholder="Search trench coats, shoes, wardrobe..." autocomplete="off" />
+                <button class="search-submit" id="searchOverlaySubmit"><i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+        <div class="search-results-area" id="searchResultsArea">
+            <div class="search-suggestions" id="searchSuggestions">
+                <div class="search-section">
+                    <h4>Popular Searches</h4>
+                    <div class="search-tags" id="popularSearchTags">
+                    </div>
+                </div>
+                <div class="search-section" id="recentSearchSection" style="display:none;">
+                    <h4>Recent Searches</h4>
+                    <div id="recentSearches"></div>
+                </div>
+            </div>
+            <div class="search-live-results" id="searchLiveResults"></div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    MOBILE DRAWER NAVIGATION
+    ============================================================ -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <div class="drawer" id="drawer">
+        <div class="drawer-header">
+            <a href="/" class="logo-link" aria-label="Trendy Wardrobe — Home">
+                <svg class="logo-svg" viewBox="0 0 320 100" width="240" height="48" alt="Trendy Wardrobe Luxury Fashion Logo" aria-hidden="true" role="img">
+                    <defs>
+                        <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#D4AF37"/>
+                            <stop offset="50%" stop-color="#F0D87A"/>
+                            <stop offset="100%" stop-color="#D4AF37"/>
+                        </linearGradient>
+                    </defs>
+                    <g class="icon-part" transform="translate(0, 0)">
+                        <polygon points="28,0 56,28 28,56 0,28" fill="none" stroke="url(#goldGradient)" stroke-width="1.5"/>
+                        <text x="28" y="36" text-anchor="middle" font-family="Georgia, serif" font-size="24" font-weight="400" fill="url(#goldGradient)" letter-spacing="1">T<tspan baseline-shift="-6" font-size="20">W</tspan></text>
+                    </g>
+                    <text x="66" y="28" font-family="Georgia, serif" font-size="18" font-weight="300" fill="#1A1A1A" letter-spacing="3">TRENDY</text>
+                    <text x="66" y="50" font-family="Georgia, serif" font-size="13" font-weight="300" fill="#888" letter-spacing="6">WARDROBE</text>
+                </svg>
+            </a>
+            <button class="close-drawer" id="closeDrawer" aria-label="Close menu"><i class="fas fa-times"></i></button>
+        </div>
+        <nav class="drawer-nav">
+            <a href="#" class="active" data-page="home" id="drawerHome">Home</a>
+            <div class="drawer-dropdown">
+                <span class="drawer-toggle" data-target="drawerTrench">Trendy Trench Coats <span class="arrow"><i class="fas fa-chevron-down"></i></span></span>
+                <div class="drawer-sub" id="drawerTrench">
+                    <a href="#">Classic Trench</a><a href="#">Belted Trench</a><a href="#">Double‑Breasted</a><a href="#">Short Trench</a><a href="#">New Arrivals</a>
+                </div>
+            </div>
+            <div class="drawer-dropdown">
+                <span class="drawer-toggle" data-target="drawerWardrobe">Trendy Wardrobe <span class="arrow"><i class="fas fa-chevron-down"></i></span></span>
+                <div class="drawer-sub" id="drawerWardrobe">
+                    <a href="#">Accessories</a><a href="#">Sportswear</a><a href="#">Formal Wear</a><a href="#">Casual Wear</a><a href="#">New Arrivals</a><a href="#">Best Sellers</a><a href="#">Sale</a>
+                </div>
+            </div>
+            <div class="drawer-dropdown">
+                <span class="drawer-toggle" data-target="drawerShoes">Trendy Shoes <span class="arrow"><i class="fas fa-chevron-down"></i></span></span>
+                <div class="drawer-sub" id="drawerShoes">
+                    <a href="#">Sneakers</a><a href="#">Boots</a><a href="#">Sandals</a><a href="#">Running Shoes</a><a href="#">Formal Shoes</a><a href="#">Sports Shoes</a><a href="#">New Arrivals</a>
+                </div>
+            </div>
+            <a href="#" data-page="wishlist" id="drawerWishlist"><i class="far fa-heart" style="margin-right:10px;"></i>Wishlist</a>
+            <a href="#" data-page="orders" id="drawerOrders"><i class="fas fa-box" style="margin-right:10px;"></i>My Orders</a>
+            <a href="/contact.html" id="drawerContact">Contact Us</a>
+            <a href="/about.html">About Us</a>
+            <a href="#" data-page="settings" id="drawerSettings"><i class="fas fa-cog" style="margin-right:10px;"></i>Settings</a>
+            <a href="#" id="drawerLogout"><i class="fas fa-sign-out-alt" style="margin-right:10px;color:#D81B60;"></i>Log Out</a>
+        </nav>
+        <div class="drawer-footer">
+            <div class="social-icons" id="drawerSocialLinks"></div>
+            <p>&copy; 2026 Trendy_Wardrobe</p>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    DESKTOP NAVIGATION (unchanged)
+    ============================================================ -->
+    <div class="nav-container">
+        <div class="container" style="padding:0 20px;">
+            <nav class="nav-bar" id="mainNav">
+                <a href="#" class="active" data-page="home" id="homeNav">HOME</a>
+                <div class="dropdown" data-category="trench-coat">
+                    <a href="#" class="dropdown-toggle">TRENDY TRENCH COATS <span class="plus-icon">+</span></a>
+                    <div class="dropdown-content">
+                        <div class="dropdown-col"><h4>Styles</h4><a href="#">Classic</a><a href="#">Belted</a><a href="#">Double‑Breasted</a><a href="#">Short</a></div>
+                        <div class="dropdown-col"><h4>Collections</h4><a href="#">New Arrivals</a><a href="#">Best Sellers</a><a href="#">Sale</a></div>
+                        <div class="dropdown-banner"><img src="https://placehold.co/400x180/FAF9F6/C8A35A?text=TRENCH" alt="Trench" loading="lazy" /><div class="banner-text">Iconic Trench</div><div class="banner-sub">Timeless elegance</div></div>
+                    </div>
+                </div>
+                <div class="dropdown" data-category="wardrobe">
+                    <a href="#" class="dropdown-toggle">TRENDY WARDROBE <span class="plus-icon">+</span></a>
+                    <div class="dropdown-content">
+                        <div class="dropdown-col"><h4>Suits</h4><a href="#">Suits</a><a href="#">Shirts</a><a href="#">Trousers</a><a href="#">Casual</a></div>
+                        <div class="dropdown-col"><h4>Dresses</h4><a href="#">Dresses</a><a href="#">Tops</a><a href="#">Skirts</a><a href="#">Formal</a></div>
+                        <div class="dropdown-col"><h4>Accessories</h4><a href="#">Accessories</a><a href="#">New Arrivals</a><a href="#">Sale</a></div>
+                        <div class="dropdown-banner"><img src="https://placehold.co/400x180/FAF9F6/C8A35A?text=WARDROBE" alt="Wardrobe" loading="lazy" /><div class="banner-text">Elevate Your Style</div><div class="banner-sub">Every occasion</div></div>
+                    </div>
+                </div>
+                <div class="dropdown" data-category="shoes">
+                    <a href="#" class="dropdown-toggle">TRENDY SHOES <span class="plus-icon">+</span></a>
+                    <div class="dropdown-content">
+                        <div class="dropdown-col"><h4>Oxfords</h4><a href="#">Oxfords</a><a href="#">Loafers</a><a href="#">Sneakers</a><a href="#">Boots</a></div>
+                        <div class="dropdown-col"><h4>Heels & Flats</h4><a href="#">Heels</a><a href="#">Flats</a><a href="#">Sneakers</a><a href="#">Sandals</a></div>
+                        <div class="dropdown-col"><h4>Sport</h4><a href="#">Running</a><a href="#">Sports</a><a href="#">Casual</a><a href="#">New Arrivals</a></div>
+                        <div class="dropdown-banner"><img src="https://placehold.co/400x180/FAF9F6/C8A35A?text=SHOES" alt="Shoes" loading="lazy" /><div class="banner-text">Step in Luxury</div><div class="banner-sub">Premium footwear</div></div>
+                    </div>
+                </div>
+                <a href="#" id="contactNav">CONTACT US</a>
+                <a href="/about">ABOUT US</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    CONTACT US DROPDOWN PANEL
+    ============================================================ -->
+    <div class="contact-panel-overlay" id="contactPanelOverlay"></div>
+    <div class="contact-panel" id="contactPanel">
+        <div class="contact-panel-header">
+            <div>
+                <h2>Get In Touch</h2>
+                <span class="panel-subtitle">We'd love to hear from you</span>
+            </div>
+            <button class="contact-panel-close" id="contactPanelClose"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="contact-panel-body">
+            <!-- Column 1: Contact Details -->
+            <div class="cp-col">
+                <h3>Contact Details</h3>
+                <div class="cp-info-item">
+                    <div class="cp-icon"><i class="fas fa-store"></i></div>
+                    <div class="cp-text">
+                        <strong>Visit Us</strong>
+                        <span>Westlands, Nairobi, Kenya</span>
+                    </div>
+                </div>
+                <div class="cp-info-item">
+                    <div class="cp-icon"><i class="fas fa-phone"></i></div>
+                    <div class="cp-text">
+                        <strong>Call Us</strong>
+                        <span>+254 728 985 417</span>
+                    </div>
+                </div>
+                <div class="cp-info-item">
+                    <div class="cp-icon"><i class="fas fa-envelope"></i></div>
+                    <div class="cp-text">
+                        <strong>Email Us</strong>
+                        <span>markelpalace@gmail.com</span>
+                    </div>
+                </div>
+                <div class="cp-info-item">
+                    <div class="cp-icon"><i class="fas fa-clock"></i></div>
+                    <div class="cp-text">
+                        <strong>Working Hours</strong>
+                        <div class="cp-hours-grid">
+                            <span class="day">Mon – Fri</span><span class="time">8:00 AM – 8:00 PM</span>
+                            <span class="day">Saturday</span><span class="time">9:00 AM – 6:00 PM</span>
+                            <span class="day">Sunday</span><span class="time">10:00 AM – 4:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+                <a href="https://wa.me/254728985417" target="_blank" class="cp-whatsapp-btn">
+                    <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+                </a>
+            </div>
+
+            <!-- Column 2: Quick Contact Form -->
+            <div class="cp-col">
+                <h3>Quick Message</h3>
+                <form class="cp-form-mini" id="cpContactForm">
+                    <input type="text" id="cpName" placeholder="Your Name" required />
+                    <input type="email" id="cpEmail" placeholder="Your Email" required />
+                    <input type="tel" id="cpPhone" placeholder="Phone Number (optional)" />
+                    <textarea id="cpMessage" placeholder="Your Message" required></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+                <div class="cp-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15955.421182723455!2d36.8009946!3d-1.2676171!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f1746625d9ddb%3A0xcf8d1ba64ec65fbc!2sWestlands%2C%20Nairobi!5e0!3m2!1sen!2ske!4v1710000000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+
+            <!-- Column 3: Quick Links + Social -->
+            <div class="cp-col">
+                <h3>Quick Links</h3>
+                <ul class="cp-quick-links">
+                    <li><a href="/"><i class="fas fa-chevron-right"></i> Home</a></li>
+                    <li><a href="/about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                    <li><a href="/terms.html"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+                    <li><a href="/privacy.html"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                    <li><a href="/contact.html"><i class="fas fa-chevron-right"></i> Full Contact Page</a></li>
+                </ul>
+
+                <h3 style="margin-top:28px;">Follow Us</h3>
+                <div class="cp-social-row" id="cpSocialLinks"></div>
+
+                <div style="margin-top:28px; padding:20px; background:var(--bg-primary); border-radius:12px; border:1px solid var(--border-light);">
+                    <strong style="font-size:0.8rem; display:block; margin-bottom:6px;">Need Help?</strong>
+                    <p style="font-size:0.75rem; color:var(--text-secondary); line-height:1.6; margin:0;">
+                        Our customer care team is available 24/7 via WhatsApp for instant support with orders, sizing, or any questions.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- ============================================================
+           HERO SECTION — Luxury Fashion Hero
+           ============================================================ -->
+<main id="mainContent">
+         <section class="hero" id="heroSection" aria-label="Trendy Wardrobe Hero">
+             <!-- Video background (from API hero slides) -->
+             <video class="hero-video hidden-video" id="heroVideo" autoplay muted loop playsinline aria-hidden="true"></video>
+
+             <!-- Parallax background layer (GPU accelerated) -->
+             <div class="hero-bg" id="heroBg" aria-hidden="true"></div>
+
+             <!-- Hero Content -->
+             <div class="hero-content" id="heroContent">
+                <span class="gold-line" aria-hidden="true"></span>
+                <h1 id="heroHeading">
+                    Luxury Fashion
+                    <span class="highlight">Designed For Every Generation</span>
+                </h1>
+                <p class="hero-sub" id="heroSubheading">Discover timeless elegance crafted for modern style</p>
+                <button class="btn-shop" id="shopNowBtn" aria-label="Shop our latest collection">Shop Now</button>
+            </div>
+</section>
+
+    <!-- TRUST BADGES -->
+    <section class="trust-badges" style="background:var(--bg-primary);padding:20px 0;border-bottom:1px solid var(--border-light);">
+        <div class="container" style="display:flex;justify-content:center;gap:32px;flex-wrap:wrap;padding:0 20px;">
+            <div style="display:flex;align-items:center;gap:10px;font-size:0.8rem;color:var(--text-secondary);">
+                <i class="fas fa-truck" style="color:var(--color-gold);font-size:1.1rem;"></i>
+                <span><strong>Free Delivery</strong><br/>On orders over Ksh 15,000</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:0.8rem;color:var(--text-secondary);">
+                <i class="fas fa-shield-alt" style="color:var(--color-gold);font-size:1.1rem;"></i>
+                <span><strong>Secure Payment</strong><br/>100% secure checkout</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:0.8rem;color:var(--text-secondary);">
+                <i class="fas fa-undo" style="color:var(--color-gold);font-size:1.1rem;"></i>
+                <span><strong>Easy Returns</strong><br/>7-day return policy</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:0.8rem;color:var(--text-secondary);">
+                <i class="fas fa-headset" style="color:var(--color-gold);font-size:1.1rem;"></i>
+                <span><strong>24/7 Support</strong><br/>WhatsApp: +254 728 985 417</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW ARRIVALS SECTION -->
+    <section class="products-section" id="newArrivalsSection" style="display:none;">
+        <div class="container">
+            <div class="section-head">
+                <h2>New <span>Arrivals</span></h2>
+                <p>The latest additions to our collection</p>
+            </div>
+            <div class="products-grid" id="newArrivalsGrid"></div>
+        </div>
+    </section>
+
+    <!-- BEST SELLERS SECTION -->
+    <section class="products-section" id="bestSellersSection" style="display:none;">
+        <div class="container">
+            <div class="section-head">
+                <h2>Best <span>Sellers</span></h2>
+                <p>Our most popular picks</p>
+            </div>
+            <div class="products-grid" id="bestSellersGrid"></div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    PRODUCTS
+    ============================================================ -->
+    <section class="products-section" id="productsSection">
+        <div class="container">
+            <nav class="breadcrumb" aria-label="Breadcrumb" id="mainBreadcrumb" style="font-size:0.7rem;color:var(--text-secondary);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px;">
+                <a href="/" style="color:var(--text-secondary);text-decoration:none;">Home</a>
+                <span aria-hidden="true" style="margin:0 6px;color:var(--color-gold);">/</span>
+                <span id="breadcrumbCurrent" style="color:var(--text-primary);">All Products</span>
+            </nav>
+            <div class="section-head">
+                <h2>Featured <span>Collections</span></h2>
+                <p>Curated for the modern connoisseur</p>
+            </div>
+            <div class="gender-bar" id="genderBar" style="display:flex;justify-content:center;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+                <button class="gender-btn active" data-gender="all" style="padding:8px 24px;border:2px solid var(--color-gold);background:var(--color-gold);color:#fff;border-radius:30px;font-size:0.75rem;font-weight:600;letter-spacing:1px;cursor:pointer;transition:0.3s;text-transform:uppercase;">All</button>
+                <button class="gender-btn" data-gender="men" style="padding:8px 24px;border:2px solid var(--border-light);background:transparent;color:var(--text-secondary);border-radius:30px;font-size:0.75rem;font-weight:600;letter-spacing:1px;cursor:pointer;transition:0.3s;text-transform:uppercase;">Men</button>
+                <button class="gender-btn" data-gender="women" style="padding:8px 24px;border:2px solid var(--border-light);background:transparent;color:var(--text-secondary);border-radius:30px;font-size:0.75rem;font-weight:600;letter-spacing:1px;cursor:pointer;transition:0.3s;text-transform:uppercase;">Women</button>
+                <button class="gender-btn" data-gender="kids" style="padding:8px 24px;border:2px solid var(--border-light);background:transparent;color:var(--text-secondary);border-radius:30px;font-size:0.75rem;font-weight:600;letter-spacing:1px;cursor:pointer;transition:0.3s;text-transform:uppercase;">Kids</button>
+            </div>
+            <div class="filter-bar" id="filterBar">
+                <div class="filter-group">
+                    <span class="filter-label">Filter:</span>
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="trench-coats">TRENDY TRENCH COATS</button>
+                    <button class="filter-btn" data-filter="wardrobe-essentials">TRENDY WARDROBE</button>
+                    <button class="filter-btn" data-filter="designer-shoes">TRENDY SHOES</button>
+                    <button class="filter-btn" data-filter="formal-wear">Formal Wear</button>
+                    <button class="filter-btn" data-filter="casual-wear">Casual Wear</button>
+                    <button class="filter-btn" data-filter="accessories">Accessories</button>
+                </div>
+                <div class="filter-group">
+                    <span class="filter-label">Sort:</span>
+                    <select class="sort-select" id="sortSelect">
+                        <option value="newest">Newest</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="popular">Best Selling</option>
+                        <option value="name-az">Name: A-Z</option>
+                    </select>
+                    <span class="product-count" id="productCount"></span>
+                </div>
+            </div>
+            <div class="products-grid" id="productsGrid"></div>
+            <div id="loadMoreWrap" style="text-align:center;padding:24px 0;display:none;">
+                <button id="loadMoreBtn" class="filter-btn active" style="padding:10px 32px;font-size:0.8rem;">Load More</button>
+                <div id="loadMoreSpinner" style="display:none;margin-top:12px;color:var(--text-secondary);font-size:0.8rem;"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RECENTLY VIEWED -->
+    <section class="products-section" id="recentlyViewedSection" style="display:none;" aria-label="Recently Viewed Products">
+        <div class="container">
+            <div class="section-head">
+                <h2>Recently <span>Viewed</span></h2>
+                <p>Pick up where you left off</p>
+            </div>
+            <div class="products-grid" id="recentlyViewedGrid"></div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="products-section" id="testimonialsSection" style="display:none;" aria-label="Customer Testimonials">
+        <div class="container">
+            <div class="section-head">
+                <h2>What Our <span>Customers Say</span></h2>
+                <p>Trusted by thousands across Kenya</p>
+            </div>
+            <div id="testimonialsGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;"></div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    AUTH / DASHBOARD MODAL
+    ============================================================ -->
+    <div class="modal-overlay" id="authOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;justify-content:center;align-items:center;backdrop-filter:blur(4px);">
+        <div class="modal-content" style="background:#FFFFFF;max-width:750px;width:90%;max-height:85vh;overflow-y:auto;padding:30px;border-radius:8px;position:relative;border-top:4px solid var(--color-gold);">
+            <button class="close-btn" id="authCloseBtn" style="position:absolute;top:16px;right:20px;font-size:1.8rem;cursor:pointer;background:none;border:none;color:var(--text-secondary);">&times;</button>
+            <h2 id="authModalTitle">Account</h2>
+
+            <!-- Login/Register Forms -->
+            <div id="authForms">
+                <div class="auth-tabs" style="display:flex;gap:0;border-bottom:1px solid var(--border-light);margin-bottom:25px;">
+                    <button class="active" data-tab="login" style="flex:1;padding:12px 0;background:none;border:none;border-bottom:3px solid transparent;font-weight:600;font-size:0.9rem;text-transform:uppercase;color:var(--text-secondary);cursor:pointer;transition:0.3s;">Login</button>
+                    <button data-tab="register" style="flex:1;padding:12px 0;background:none;border:none;border-bottom:3px solid transparent;font-weight:600;font-size:0.9rem;text-transform:uppercase;color:var(--text-secondary);cursor:pointer;transition:0.3s;">Register</button>
+                </div>
+                <form class="auth-form" id="loginForm" style="display:flex;flex-direction:column;gap:16px;">
+                    <input type="email" id="loginEmail" placeholder="Email Address" required style="padding:14px 16px;border:1px solid var(--border-light);border-radius:4px;font-size:0.9rem;width:100%;" />
+                    <input type="password" id="loginPassword" placeholder="Password" required style="padding:14px 16px;border:1px solid var(--border-light);border-radius:4px;font-size:0.9rem;width:100%;" />
+                    <div class="auth-error" id="loginError" style="color:#D81B60;font-size:0.8rem;display:none;"></div>
+                    <button type="submit" class="btn-submit" style="background:var(--text-primary);color:#fff;padding:14px;border:none;border-radius:4px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;font-size:0.8rem;cursor:pointer;transition:0.3s;">Login</button>
+                </form>
+                <form class="auth-form" id="registerForm" style="display:none;flex-direction:column;gap:16px;">
+                    <input type="text" id="registerName" placeholder="Full Name" required style="padding:14px 16px;border:1px solid var(--border-light);border-radius:4px;font-size:0.9rem;width:100%;" />
+                    <input type="email" id="registerEmail" placeholder="Email Address" required style="padding:14px 16px;border:1px solid var(--border-light);border-radius:4px;font-size:0.9rem;width:100%;" />
+                    <input type="password" id="registerPassword" placeholder="Password" required style="padding:14px 16px;border:1px solid var(--border-light);border-radius:4px;font-size:0.9rem;width:100%;" />
+                    <input type="password" id="registerConfirm" placeholder="Confirm Password" required style="padding:14px 16px;border:1px solid var(--border-light);border-radius:4px;font-size:0.9rem;width:100%;" />
+                    <div class="auth-error" id="registerError" style="color:#D81B60;font-size:0.8rem;display:none;"></div>
+                    <button type="submit" class="btn-submit" style="background:var(--text-primary);color:#fff;padding:14px;border:none;border-radius:4px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;font-size:0.8rem;cursor:pointer;transition:0.3s;">Create Account</button>
+                </form>
+            </div>
+
+            <!-- Dashboard (logged in) -->
+            <div id="authLoggedIn" style="display:none;">
+                <div class="dashboard-tabs">
+                    <button class="active" data-tab="dashboard">Dashboard</button>
+                    <button data-tab="orders">My Orders</button>
+                    <button data-tab="wishlist">Wishlist</button>
+                    <button data-tab="addresses">Addresses</button>
+                    <button data-tab="profile">Profile</button>
+                    <button id="logoutBtn" style="color:#D81B60;">Logout</button>
+                </div>
+                <div class="dashboard-content">
+                    <!-- Dashboard Tab -->
+                    <div class="tab-pane active" id="tab-dashboard">
+                        <div class="auth-logged-in" style="text-align:center;padding:10px 0;">
+                            <div class="user-avatar" style="width:64px;height:64px;background:var(--color-gold);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;font-weight:700;margin:0 auto 12px;" id="userAvatar">U</div>
+                            <div class="user-name" style="font-weight:600;font-size:1.1rem;" id="userDisplayName">User</div>
+                            <div class="user-email" style="font-size:0.85rem;color:var(--text-secondary);" id="userDisplayEmail">user@email.com</div>
+                            <div style="margin-top:12px;font-size:0.9rem;color:var(--text-secondary);">Welcome back! Manage your orders, wishlist, and profile.</div>
+                        </div>
+                    </div>
+                    <!-- Orders Tab -->
+                    <div class="tab-pane" id="tab-orders">
+                        <div id="ordersListContainer"><p style="color:var(--text-secondary);font-size:0.85rem;padding:12px 0;">Loading your orders...</p></div>
+                    </div>
+                    <!-- Wishlist Tab -->
+                    <div class="tab-pane" id="tab-wishlist">
+                        <div id="wishlistDashboardContainer"><p style="color:var(--text-secondary);font-size:0.85rem;padding:12px 0;">Loading wishlist...</p></div>
+                    </div>
+                    <!-- Addresses Tab -->
+                    <div class="tab-pane" id="tab-addresses">
+                        <div style="padding:12px 0;">
+                            <p style="color:var(--text-secondary);font-size:0.9rem;">Manage your shipping addresses here.</p>
+                            <button class="btn-submit" style="background:var(--text-primary);color:#fff;padding:10px 24px;border:none;border-radius:4px;font-weight:600;margin-top:12px;cursor:pointer;">Add New Address</button>
+                        </div>
+                    </div>
+                    <!-- Profile Tab -->
+                    <div class="tab-pane" id="tab-profile">
+                        <form id="profileUpdateForm" style="display:flex;flex-direction:column;gap:14px;padding:8px 0;">
+                            <input type="text" id="profileName" placeholder="Full Name" required style="padding:14px 16px;border:1px solid var(--border-light);border-radius:4px;font-size:0.9rem;width:100%;" />
+                            <input type="email" id="profileEmail" placeholder="Email Address" required style="padding:14px 16px;border:1px solid var(--border-light);border-radius:4px;font-size:0.9rem;width:100%;" />
+                            <input type="password" id="profilePassword" placeholder="New Password (leave blank to keep current)" style="padding:14px 16px;border:1px solid var(--border-light);border-radius:4px;font-size:0.9rem;width:100%;" />
+                            <input type="password" id="profileConfirm" placeholder="Confirm New Password" style="padding:14px 16px;border:1px solid var(--border-light);border-radius:4px;font-size:0.9rem;width:100%;" />
+                            <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                                <button type="submit" class="btn-submit" style="background:var(--text-primary);color:#fff;padding:12px 24px;border:none;border-radius:4px;font-weight:600;cursor:pointer;">Update Profile</button>
+                            </div>
+                            <div id="profileUpdateMsg" style="font-size:0.85rem;display:none;"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    CHECKOUT MODAL
+    ============================================================ -->
+    <div class="checkout-modal-overlay" id="checkoutOverlay">
+        <div class="checkout-modal">
+            <button class="close-checkout" id="checkoutCloseBtn"><i class="fas fa-times"></i></button>
+            <h2>Checkout</h2>
+            <form id="checkoutForm">
+                <div class="form-group">
+                    <label>Full Name *</label>
+                    <input type="text" id="checkoutName" required style="padding:14px 16px;font-size:1rem;border-radius:8px;" />
+                </div>
+                <div class="form-group">
+                    <label>Phone *</label>
+                    <input type="tel" id="checkoutPhone" required style="padding:14px 16px;font-size:1rem;border-radius:8px;" />
+                </div>
+                <div class="form-group">
+                    <label>Address *</label>
+                    <input type="text" id="checkoutAddress" required style="padding:14px 16px;font-size:1rem;border-radius:8px;" />
+                </div>
+                <div class="form-group">
+                    <label>City *</label>
+                    <input type="text" id="checkoutCity" required style="padding:14px 16px;font-size:1rem;border-radius:8px;" />
+                </div>
+                <div class="form-group">
+                    <label>Postal Code / Zip Code</label>
+                    <input type="text" id="checkoutPostcode" placeholder="e.g. 00100" style="padding:14px 16px;font-size:1rem;border-radius:8px;" />
+                </div>
+                <div class="form-group">
+                    <label>Payment Method</label>
+                    <select id="checkoutPayment" style="padding:14px 16px;font-size:1rem;border-radius:8px;">
+                        <option value="cash">Cash on Delivery</option>
+                        <option value="mpesa">M-Pesa</option>
+                        <option value="card">Card Payment</option>
+                        <option value="bank">Bank Transfer</option>
+                    </select>
+                    <div id="mpesaInstructions" style="display:none;margin-top:8px;padding:12px;background:var(--bg-primary);border-radius:8px;border:1px solid var(--border-light);font-size:0.8rem;color:var(--text-secondary);">
+                        <strong style="color:var(--text-primary);display:block;margin-bottom:4px;">M-Pesa Payment</strong>
+                        <p style="margin:0;line-height:1.5;">Pay via M-Pesa after order confirmation. Our paybill number will be provided in your order confirmation.</p>
+                    </div>
+                    <div id="cardInstructions" style="display:none;margin-top:8px;padding:12px;background:var(--bg-primary);border-radius:8px;border:1px solid var(--border-light);font-size:0.8rem;color:var(--text-secondary);">
+                        <strong style="color:var(--text-primary);display:block;margin-bottom:4px;">Card Payment</strong>
+                        <p style="margin:0;line-height:1.5;">Pay securely via Visa, Mastercard, or Maestro. You will be redirected to our secure payment page.</p>
+                    </div>
+                    <div id="bankInstructions" style="display:none;margin-top:8px;padding:12px;background:var(--bg-primary);border-radius:8px;border:1px solid var(--border-light);font-size:0.8rem;color:var(--text-secondary);">
+                        <strong style="color:var(--text-primary);display:block;margin-bottom:4px;">Bank Transfer</strong>
+                        <p style="margin:0;line-height:1.5;">Transfer to: KCB Bank — Account No: XXXXXXXXX. Reference: Your order number.</p>
+                    </div>
+                </div>
+                <div class="form-group" style="display:flex;gap:8px;align-items:flex-end;">
+                    <div style="flex:1;">
+                        <label>Coupon Code</label>
+                        <input type="text" id="checkoutCoupon" placeholder="Enter coupon code" style="width:100%;padding:14px 16px;border:1px solid var(--border-light);border-radius:4px;font-size:1rem;text-transform:uppercase;" />
+                    </div>
+                    <button type="button" id="applyCouponBtn" style="padding:14px 24px;background:var(--text-primary);color:#fff;border:none;border-radius:4px;font-weight:600;font-size:0.85rem;letter-spacing:1px;cursor:pointer;white-space:nowrap;min-height:48px;">Apply</button>
+                </div>
+                <div id="couponMessage" style="font-size:0.8rem;display:none;margin-bottom:8px;padding:8px 12px;border-radius:4px;"></div>
+                <div class="order-summary" id="checkoutSummary">
+                    <div class="checkout-items" id="checkoutItems" style="margin-bottom:12px;max-height:200px;overflow-y:auto;"></div>
+                    <div class="row"><span>Subtotal</span><span id="checkoutSubtotal">Ksh 0</span></div>
+                    <div class="row" id="discountRow" style="display:none;color:#2e7d32;"><span>Discount</span><span id="checkoutDiscount">- Ksh 0</span></div>
+                    <div class="row"><span>Delivery</span><span id="checkoutDelivery">Ksh 0</span></div>
+                    <div class="row total"><span>Total</span><span id="checkoutTotal">Ksh 0</span></div>
+                </div>
+                <button type="submit" class="btn-place-order" id="placeOrderBtn" style="min-height:52px;padding:16px;font-size:1rem;border-radius:8px;">Place Order</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    ORDER SUCCESS MODAL
+    ============================================================ -->
+    <div class="order-success-overlay" id="orderSuccessOverlay">
+        <div class="order-success-modal">
+            <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+            <h2>Order Placed!</h2>
+            <p>Thank you for your purchase.</p>
+            <div class="order-number" id="orderNumberDisplay">#TW-2026-000001</div>
+            <p style="font-size:0.85rem;color:var(--text-secondary);">You will receive a confirmation email shortly.</p>
+            <button class="btn-dashboard" id="orderSuccessDashboard">Go to Dashboard</button>
+            <button onclick="document.getElementById('orderSuccessOverlay').classList.remove('show');window.scrollTo({top:0,behavior:'smooth'});" style="margin-top:8px;padding:10px 24px;background:transparent;border:1px solid var(--border-light);border-radius:6px;font-size:0.8rem;font-weight:600;cursor:pointer;color:var(--text-secondary);">Continue Shopping</button>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    MINI CART
+    ============================================================ -->
+    <div class="mini-cart-overlay" id="miniCartOverlay">
+        <div class="mini-cart">
+            <div class="cart-header"><h2>Your Cart</h2><button class="close-cart" id="closeCart"><i class="fas fa-times"></i></button></div>
+            <div id="cartItemsContainer"></div>
+            <div id="cartTotalContainer" style="display:none;">
+                <div class="cart-total"><span>Total</span><span class="total-price" id="cartTotalPrice">Ksh 0</span></div>
+                <div class="cart-actions">
+                    <button class="btn-continue" id="continueShoppingBtn">Continue</button>
+                    <button class="btn-checkout" id="checkoutBtn">Checkout</button>
+                </div>
+            </div>
+            <div class="empty-cart" id="emptyCartMsg"><i class="fas fa-shopping-bag"></i>Your cart is empty.</div>
+        </div>
+    </div>
+
+    <!-- ORDER DETAIL MODAL -->
+    <div id="orderDetailModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:10000;justify-content:center;align-items:center;backdrop-filter:blur(4px);overflow-y:auto;padding:20px;">
+        <div style="background:var(--bg-primary);border-radius:16px;max-width:600px;width:100%;max-height:90vh;overflow-y:auto;padding:24px;position:relative;margin:auto;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                <h3 style="font-size:1.1rem;">Order Details</h3>
+                <button onclick="document.getElementById('orderDetailModal').style.display='none'" aria-label="Close order details" style="background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--text-secondary);">&times;</button>
+            </div>
+            <div id="orderDetailContent"></div>
+        </div>
+    </div>
+
+</main>
+
+    <!-- ============================================================
+    FOOTER (updated with WhatsApp)
+    ============================================================ -->
+    <footer>
+        <div class="container" style="padding:0 20px;">
+            <div class="footer-grid">
+                <div>
+                    <h4>Trendy_Wardrobe</h4>
+                    <p>Redefining executive fashion with luxury, comfort, and confidence. Est. 2026.</p>
+                    <a href="https://wa.me/254728985417" target="_blank" class="whatsapp-link"><i class="fab fa-whatsapp"></i> WhatsApp: +254 728 985 417</a>
+                </div>
+                <div>
+                    <h4>Shop</h4>
+                    <ul>
+                        <li><a href="#" data-page="home" class="footer-link">Home</a></li>
+                        <li><a href="#" data-category="trench-coat" class="footer-link">Trench Coats</a></li>
+                        <li><a href="#" data-category="wardrobe" class="footer-link">Wardrobe</a></li>
+                        <li><a href="#" data-category="shoes" class="footer-link">Shoes</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Customer Care</h4>
+                    <ul>
+                        <li><a href="/contact">Contact Us</a></li>
+                        <li><a href="/about">About Us</a></li>
+                        <li><a href="#" onclick="document.getElementById('sizeGuideModal').style.display='flex';return false;">Size Guide</a></li>
+                        <li><a href="/contact">Shipping</a></li>
+                        <li><a href="/contact">Returns</a></li>
+                        <li><a href="/terms">Terms of Service</a></li>
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Connect</h4>
+                    <div class="social-icons" id="footerSocialLinks"></div>
+                    <p class="footer-contact-line"><i class="fas fa-envelope"></i> markelpalace@gmail.com</p>
+                    <p class="footer-contact-line"><i class="fas fa-phone"></i> 0728 985 417</p>
+                    <a href="https://wa.me/254728985417" target="_blank" class="whatsapp-link"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+                </div>
+            </div>
+            <div class="footer-bottom">&copy; 2026 Trendy Wardrobe. All rights reserved.</div>
+            <div class="newsletter-bar" style="text-align:center;padding:20px 0;border-top:1px solid var(--border-light);margin-top:16px;">
+                <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:10px;">Subscribe for exclusive offers and new arrivals</p>
+                <form id="newsletterForm" style="display:flex;gap:8px;max-width:400px;margin:0 auto;">
+                    <input type="email" id="newsletterEmail" placeholder="Your email address" required style="flex:1;padding:10px 16px;border:1px solid var(--border-light);border-radius:4px;font-size:0.85rem;background:var(--bg-secondary);color:var(--text-primary);" />
+                    <button type="submit" id="newsletterBtn" style="padding:10px 24px;background:var(--color-gold);color:#fff;border:none;border-radius:4px;font-weight:600;font-size:0.75rem;letter-spacing:1px;cursor:pointer;">Subscribe</button>
+                </form>
+                <p id="newsletterMsg" style="font-size:0.75rem;color:var(--text-secondary);margin-top:6px;display:none;"></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================================
+    FLOATING WHATSAPP BUTTON
+    ============================================================ -->
+    <a href="https://wa.me/254728985417" target="_blank" class="floating-whatsapp hidden-wa" id="floatingWhatsApp" aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+    <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- SIZE GUIDE MODAL -->
+    <div id="sizeGuideModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:10000;justify-content:center;align-items:center;backdrop-filter:blur(4px);" onclick="if(event.target===this)this.style.display='none'">
+        <div style="background:var(--bg-secondary);border-radius:16px;padding:32px;max-width:700px;width:90%;max-height:85vh;overflow-y:auto;position:relative;">
+            <button onclick="document.getElementById('sizeGuideModal').style.display='none'" style="position:absolute;top:12px;right:16px;background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--text-primary);">&times;</button>
+            <h2 style="font-size:1.2rem;margin-bottom:20px;text-align:center;">Size Guide</h2>
+            <div style="display:flex;gap:8px;justify-content:center;margin-bottom:20px;">
+                <button onclick="showSizeTab('men')" class="size-tab active" style="padding:6px 20px;border:1px solid var(--color-gold);background:var(--color-gold);color:#fff;border-radius:20px;font-size:0.75rem;cursor:pointer;">Men</button>
+                <button onclick="showSizeTab('women')" class="size-tab" style="padding:6px 20px;border:1px solid var(--border-light);background:transparent;color:var(--text-secondary);border-radius:20px;font-size:0.75rem;cursor:pointer;">Women</button>
+                <button onclick="showSizeTab('kids')" class="size-tab" style="padding:6px 20px;border:1px solid var(--border-light);background:transparent;color:var(--text-secondary);border-radius:20px;font-size:0.75rem;cursor:pointer;">Kids</button>
+            </div>
+            <div id="sizeTabMen">
+                <h4 style="font-size:0.85rem;margin-bottom:8px;">Clothing (Upper)</h4>
+                <table style="width:100%;border-collapse:collapse;font-size:0.75rem;margin-bottom:16px;">
+                    <thead><tr style="background:var(--bg-primary);"><th style="padding:8px;border:1px solid var(--border-light);text-align:left;">Size</th><th style="padding:8px;border:1px solid var(--border-light);">Chest (cm)</th><th style="padding:8px;border:1px solid var(--border-light);">Waist (cm)</th><th style="padding:8px;border:1px solid var(--border-light);">UK Size</th></tr></thead>
+                    <tbody><tr><td style="padding:8px;border:1px solid var(--border-light);">S</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">88-93</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">73-78</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">36</td></tr><tr><td style="padding:8px;border:1px solid var(--border-light);">M</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">93-98</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">78-83</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">38</td></tr><tr><td style="padding:8px;border:1px solid var(--border-light);">L</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">98-103</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">83-88</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">40</td></tr><tr><td style="padding:8px;border:1px solid var(--border-light);">XL</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">103-108</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">88-93</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">42</td></tr><tr><td style="padding:8px;border:1px solid var(--border-light);">XXL</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">108-113</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">93-98</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">44</td></tr></tbody>
+                </table>
+                <h4 style="font-size:0.85rem;margin-bottom:8px;">Shoes</h4>
+                <table style="width:100%;border-collapse:collapse;font-size:0.75rem;">
+                    <thead><tr style="background:var(--bg-primary);"><th style="padding:8px;border:1px solid var(--border-light);text-align:left;">EU</th><th style="padding:8px;border:1px solid var(--border-light);">UK</th><th style="padding:8px;border:1px solid var(--border-light);">US</th><th style="padding:8px;border:1px solid var(--border-light);">CM</th></tr></thead>
+                    <tbody><tr><td style="padding:8px;border:1px solid var(--border-light);">40</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">6.5</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">7</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">25</td></tr><tr><td style="padding:8px;border:1px solid var(--border-light);">41</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">7.5</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">8</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">26</td></tr><tr><td style="padding:8px;border:1px solid var(--border-light);">42</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">8</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">9</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">27</td></tr><tr><td style="padding:8px;border:1px solid var(--border-light);">43</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">9</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">10</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">28</td></tr><tr><td style="padding:8px;border:1px solid var(--border-light);">44</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">9.5</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">10.5</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">28.5</td></tr><tr><td style="padding:8px;border:1px solid var(--border-light);">45</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">10.5</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">11</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">29.5</td></tr></tbody>
+                </table>
+            </div>
+            <div id="sizeTabWomen" style="display:none;">
+                <h4 style="font-size:0.85rem;margin-bottom:8px;">Clothing</h4>
+                <table style="width:100%;border-collapse:collapse;font-size:0.75rem;margin-bottom:16px;">
+                    <thead><tr style="background:var(--bg-primary);"><th style="padding:8px;border:1px solid var(--border-light);text-align:left;">Size</th><th style="padding:8px;border:1px solid var(--border-light);">Bust (cm)</th><th style="padding:8px;border:1px solid var(--border-light);">Waist (cm)</th><th style="padding:8px;border:1px solid var(--border-light);">Hips (cm)</th></tr></thead>
+                    <tbody><tr><td style="padding:8px;border:1px solid var(--border-light);">XS</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">78-82</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">60-64</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">84-88</td></tr><tr><td style="padding:8px;border:1px solid var(--border-light);">S</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">82-86</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">64-68</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">88-92</td></tr><tr><td style="padding:8px;border:1px solid var(--border-light);">M</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">86-90</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">68-72</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">92-96</td></tr><tr><td style="padding:8px;border:1px solid var(--border-light);">L</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">90-94</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">72-76</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">96-100</td></tr><tr><td style="padding:8px;border:1px solid var(--border-light);">XL</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">94-98</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">76-80</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">100-104</td></tr></tbody>
+                </table>
+                <h4 style="font-size:0.85rem;margin-bottom:8px;">Shoes</h4>
+                <table style="width:100%;border-collapse:collapse;font-size:0.75rem;">
+                    <thead><tr style="background:var(--bg-primary);"><th style="padding:8px;border:1px solid var(--border-light);text-align:left;">EU</th><th style="padding:8px;border:1px solid var(--border-light);">UK</th><th style="padding:8px;border:1px solid var(--border-light);">US</th><th style="padding:8px;border:1px solid var(--border-light);">CM</th></tr></thead>
+                    <tbody><tr><td style="padding:8px;border:1px solid var(--border-light);">36</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">3.5</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">5.5</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">23</td></tr><tr><td style="padding:8px;border:1px solid var(--border-light);">37</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">4.5</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">6.5</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">23.5</td></tr><tr><td style="padding:8px;border:1px solid var(--border-light);">38</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">5</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">7.5</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">24.5</td></tr><tr><td style="padding:8px;border:1px solid var(--border-light);">39</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">6</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">8.5</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">25.5</td></tr><tr><td style="padding:8px;border:1px solid var(--border-light);">40</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">6.5</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">9</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">26</td></tr><tr><td style="padding:8px;border:1px solid var(--border-light);">41</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">7.5</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">10</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">27</td></tr></tbody>
+                </table>
+            </div>
+            <div id="sizeTabKids" style="display:none;">
+                <h4 style="font-size:0.85rem;margin-bottom:8px;">Kids Clothing</h4>
+                <table style="width:100%;border-collapse:collapse;font-size:0.75rem;">
+                    <thead><tr style="background:var(--bg-primary);"><th style="padding:8px;border:1px solid var(--border-light);text-align:left;">Age</th><th style="padding:8px;border:1px solid var(--border-light);">Chest (cm)</th><th style="padding:8px;border:1px solid var(--border-light);">Height (cm)</th><th style="padding:8px;border:1px solid var(--border-light);">Weight (kg)</th></tr></thead>
+                    <tbody><tr><td style="padding:8px;border:1px solid var(--border-light);">5-6Y</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">58-62</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">110-116</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">18-20</td></tr><tr><td style="padding:8px;border:1px solid var(--border-light);">7-8Y</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">62-66</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">122-128</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">22-25</td></tr><tr><td style="padding:8px;border:1px solid var(--border-light);">9-10Y</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">66-70</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">134-140</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">28-32</td></tr><tr><td style="padding:8px;border:1px solid var(--border-light);">11-12Y</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">70-74</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">146-152</td><td style="padding:8px;border:1px solid var(--border-light);text-align:center;">36-40</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    TOAST
+    ============================================================ -->
+    <div class="toast" id="toast"><span id="toastMessage">Item added!</span><span class="toast-close" id="toastClose">&times;</span></div>
+
+    <!-- ============================================================
+    QUICK VIEW MODAL (must be before script for getElementById)
+    ============================================================ -->
+    <div class="quick-view-overlay" id="quickViewOverlay">
+        <div class="quick-view-modal">
+            <button class="close-qv" id="closeQV" aria-label="Close quick view">&times;</button>
+            <div class="qv-content" id="qvContent"></div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    MOBILE BOTTOM NAV (must be before script for getElementById)
+    ============================================================ -->
+    <nav class="mobile-bottom-nav" id="mobileBottomNav" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--border-light);z-index:9999;padding:6px 0 env(safe-area-inset-bottom, 6px);box-shadow:0 -2px 8px rgba(0,0,0,0.08);" aria-label="Mobile navigation">
+        <div style="display:flex;justify-content:space-around;align-items:center;">
+            <button onclick="closeAllOverlays();document.getElementById('heroSection')?.scrollIntoView({behavior:'smooth'})" aria-label="Home" style="position:relative;background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:8px 12px;color:var(--text-secondary);font-size:0.6rem;min-width:44px;min-height:44px;">
+                <i class="fas fa-home" style="font-size:1.15rem;"></i>
+                <span>Home</span>
+            </button>
+            <button onclick="closeAllOverlays();document.querySelector('.products-section')?.scrollIntoView({behavior:'smooth'})" aria-label="Shop" style="position:relative;background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:8px 12px;color:var(--text-secondary);font-size:0.6rem;min-width:44px;min-height:44px;">
+                <i class="fas fa-th-large" style="font-size:1.15rem;"></i>
+                <span>Shop</span>
+            </button>
+            <button onclick="toggleAuthRequiredAction('wishlist')" aria-label="Wishlist" style="position:relative;background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:8px 12px;color:var(--text-secondary);font-size:0.6rem;min-width:44px;min-height:44px;">
+                <i class="fas fa-heart" style="font-size:1.15rem;"></i>
+                <span id="mobileWishlistBadge" style="position:absolute;top:4px;right:8px;background:#D81B60;color:#fff;font-size:0.55rem;min-width:14px;height:14px;border-radius:50%;display:none;align-items:center;justify-content:center;font-weight:700;"></span>
+                <span>Wishlist</span>
+            </button>
+            <button onclick="openCartModal()" aria-label="Cart" style="position:relative;background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:8px 12px;color:var(--text-secondary);font-size:0.6rem;min-width:44px;min-height:44px;">
+                <i class="fas fa-shopping-bag" style="font-size:1.15rem;"></i>
+                <span class="badge" id="mobileCartBadge" style="position:absolute;top:4px;right:8px;display:none;"></span>
+                <span>Cart</span>
+            </button>
+            <button onclick="toggleAuthRequiredAction('profile')" aria-label="Account" style="position:relative;background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:8px 12px;color:var(--text-secondary);font-size:0.6rem;min-width:44px;min-height:44px;">
+                <i class="fas fa-user" style="font-size:1.15rem;"></i>
+                <span>Account</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ============================================================
+    JAVASCRIPT – COMPLETE FIXED & EXTENDED
+    ============================================================ -->
+    <script src="/js/app.js"></script>
+    <script defer src="https://cdn.vercel-insights.com/beacon.js"></script>
+
+</body>
+</html>

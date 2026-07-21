@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <title>404 - Page Not Found | Trendy Wardrobe</title>
+    <meta name="description" content="Page not found - Trendy Wardrobe luxury fashion store. Browse our collection of premium trench coats, wardrobe essentials, and shoes." />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta http-equiv="refresh" content="15;url=/" />
+    <meta property="og:title" content="404 - Page Not Found | Trendy Wardrobe" />
+    <meta property="og:description" content="The page you're looking for doesn't exist." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://trendy-frontend-ashen.vercel.app/404.html" />
+    <meta property="og:site_name" content="Trendy Wardrobe" />
+    <meta property="og:image" content="https://trendy-frontend-ashen.vercel.app/favicon.svg" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="404 — Page Not Found | Trendy Wardrobe" />
+    <meta name="twitter:description" content="The page you're looking for doesn't exist." />
+    <meta name="twitter:image" content="https://trendy-frontend-ashen.vercel.app/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#C8A35A" />
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX',{cookie_flags:'SameSite=None;Secure'});</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Great+Vibes&family=Oswald:wght@400;700&family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        :root {
+            --bg-primary: #FAF9F6;
+            --bg-secondary: #FFFFFF;
+            --color-gold: #C8A35A;
+            --text-primary: #1A1A1A;
+            --text-secondary: #5F6B7A;
+            --border-light: #E5E7EB;
+            --shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            --transition: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --radius-card: 16px;
+            --whatsapp-green: #25D366;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #FFFFFF;
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1680px; margin: 0 auto; padding: 0 40px; }
+
+        /* HEADER */
+        .sticky-header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background: #FFFFFF; border-bottom: 1px solid var(--border-light); padding: 18px 0 12px; transition: padding 0.3s ease, box-shadow 0.3s ease; }
+        .sticky-header.shrink { padding: 8px 0 6px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+        .header-top { display: flex; align-items: center; justify-content: space-between; }
+        .logo-group { display: flex; align-items: center; gap: 12px; }
+        .signature { font-family: 'Great Vibes', cursive; font-size: 1.8rem; color: var(--text-primary); }
+        .monogram-circle { width: 38px; height: 38px; border-radius: 50%; background: var(--color-gold); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; }
+        .est { font-size: 0.6rem; letter-spacing: 3px; color: var(--text-secondary); font-weight: 500; }
+        .header-icons { display: flex; align-items: center; gap: 12px; }
+        .icon-btn { background: none; border: none; font-size: 1.1rem; color: var(--text-primary); cursor: pointer; padding: 8px; border-radius: 50%; transition: 0.3s; position: relative; display: flex; align-items: center; justify-content: center; }
+        .icon-btn:hover { background: var(--bg-primary); color: var(--color-gold); }
+
+        /* NAV */
+        .nav-container { background: var(--text-primary); padding: 14px 0; position: sticky; top: 70px; z-index: 999; }
+        .nav-bar { display: flex; align-items: center; justify-content: center; gap: 36px; }
+        .nav-bar > a { color: #FFFFFF; font-size: 0.75rem; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; transition: 0.3s; padding: 6px 0; border-bottom: 2px solid transparent; }
+        .nav-bar > a:hover { color: var(--color-gold); border-bottom-color: var(--color-gold); }
+
+        /* 404 CONTENT */
+        .error-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 180px 20px 80px;
+            background: var(--bg-primary);
+            min-height: 60vh;
+        }
+        .error-content {
+            max-width: 600px;
+        }
+        .error-code {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 180px;
+            font-weight: 400;
+            color: var(--color-gold);
+            line-height: 1;
+            letter-spacing: 8px;
+            margin-bottom: 10px;
+            user-select: none;
+        }
+        .error-divider {
+            width: 80px;
+            height: 3px;
+            background: var(--color-gold);
+            margin: 0 auto 30px;
+            border-radius: 2px;
+        }
+        .error-title {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+        .error-subtitle {
+            font-size: 15px;
+            color: var(--text-secondary);
+            font-weight: 400;
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+        .btn-home {
+            display: inline-block;
+            background: var(--text-primary);
+            color: #FFFFFF;
+            padding: 16px 48px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .btn-home:hover {
+            background: var(--color-gold);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(200, 163, 90, 0.3);
+        }
+
+        /* FOOTER */
+        footer { background: #111111; padding: 50px 0 20px; color: #9CA3AF; }
+        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.5fr; gap: 40px; }
+        .footer-grid h4 { color: #FFFFFF; font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; }
+        .footer-grid p { font-weight: 300; color: #D1D5DB; font-size: 0.8rem; line-height: 1.8; }
+        .footer-grid ul li { margin-bottom: 8px; }
+        .footer-grid ul li a { font-weight: 300; color: #D1D5DB; font-size: 0.8rem; transition: 0.3s; }
+        .footer-grid ul li a:hover { color: var(--color-gold); }
+        .footer-grid .social-icons a { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; border: 1px solid #333; color: #D1D5DB; font-size: 0.85rem; margin-right: 6px; transition: 0.3s; }
+        .footer-grid .social-icons a:hover { background: var(--color-gold); color: #111111; border-color: var(--color-gold); transform: translateY(-2px); }
+        .footer-contact-line { color: #D1D5DB; font-size: 0.8rem; margin-top: 4px; }
+        .footer-contact-line i { margin-right: 8px; color: var(--color-gold); width: 20px; text-align: center; }
+        .footer-grid .whatsapp-link { display: inline-flex; align-items: center; gap: 8px; color: var(--whatsapp-green); font-weight: 600; font-size: 0.85rem; transition: 0.3s; margin-top: 6px; }
+        .footer-grid .whatsapp-link:hover { color: #fff; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 20px; text-align: center; font-weight: 300; font-size: 0.7rem; color: #9CA3AF; letter-spacing: 1px; margin-top: 30px; }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .container { padding: 0 20px; }
+            .nav-container { display: none; }
+            .error-code { font-size: 120px; }
+            .error-title { font-size: 22px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+        }
+        @media (max-width: 500px) {
+            .error-code { font-size: 90px; letter-spacing: 4px; }
+            .error-title { font-size: 18px; }
+            .error-section { padding: 150px 16px 60px; }
+            .btn-home { padding: 14px 36px; font-size: 0.75rem; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .signature { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="sticky-header" id="stickyHeader">
+        <div class="container" style="padding:0 20px;">
+            <div class="header-top">
+                <div class="logo-group">
+                    <a href="/"><span class="signature">Trendy_Wardrobe</span></a>
+                    <span class="monogram-circle">TW</span>
+                    <span class="est">EST. 2026</span>
+                </div>
+                <div class="header-icons">
+                    <a href="/" class="icon-btn" aria-label="Home"><i class="fas fa-home"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="nav-container">
+        <div class="container" style="padding:0 20px;">
+            <nav class="nav-bar">
+                <a href="/">HOME</a>
+                <a href="/">TRENDY TRENCH COATS</a>
+                <a href="/">TRENDY WARDROBE</a>
+                <a href="/">TRENDY SHOES</a>
+                <a href="/contact.html">CONTACT US</a>
+            </nav>
+        </div>
+    </div>
+
+    <section class="error-section">
+        <div class="error-content">
+            <div class="error-code">404</div>
+            <div class="error-divider"></div>
+            <h1 class="error-title">Page Not Found</h1>
+            <p class="error-subtitle">The page you're looking for doesn't exist or has been moved.</p>
+            <div id="redirectCountdown" style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:20px;">Redirecting to home in <strong id="countdownSeconds">15</strong>s...</div>
+            <a href="/" class="btn-home">Back to Home</a>
+        </div>
+    </section>
+
+    <script>
+        (function() {
+            var seconds = 15;
+            var el = document.getElementById('countdownSeconds');
+            if (!el) return;
+            var timer = setInterval(function() {
+                seconds--;
+                if (seconds <= 0) { clearInterval(timer); return; }
+                el.textContent = seconds;
+            }, 1000);
+        })();
+    </script>
+
+    <footer>
+        <div class="container" style="padding:0 20px;">
+            <div class="footer-grid">
+                <div>
+                    <h4>Trendy_Wardrobe</h4>
+                    <p>Redefining executive fashion with luxury, comfort, and confidence. Est. 2026.</p>
+                    <a href="https://wa.me/254728985417" target="_blank" class="whatsapp-link"><i class="fab fa-whatsapp"></i> WhatsApp: +254 728 985 417</a>
+                </div>
+                <div>
+                    <h4>Shop</h4>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/">Trench Coats</a></li>
+                        <li><a href="/">Wardrobe</a></li>
+                        <li><a href="/">Shoes</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Customer Care</h4>
+                    <ul>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Returns</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Connect</h4>
+                    <div class="social-icons"></div>
+                    <p class="footer-contact-line"><i class="fas fa-envelope"></i> markelpalace@gmail.com</p>
+                    <p class="footer-contact-line"><i class="fas fa-phone"></i> 0728 985 417</p>
+                </div>
+            </div>
+            <div class="footer-bottom">&copy; 2026 Trendy_Wardrobe. Designed by Koech.</div>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            var h = document.getElementById('stickyHeader');
+            if (h) {
+                if (window.scrollY > 60) h.classList.add('shrink');
+                else h.classList.remove('shrink');
+            }
+        });
+    </script>
+</body>
+</html>

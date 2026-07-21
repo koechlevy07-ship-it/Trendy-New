@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <title>Checkout — Trendy Wardrobe | Luxury Fashion</title>
+    <meta name="description" content="Complete your purchase at Trendy Wardrobe. Secure checkout with multiple payment options." />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="canonical" href="https://trendy-frontend-ashen.vercel.app/checkout.html" />
+    <link rel="icon" type="image/svg+xml" href="/assets/images/logo-icon.svg" />
+    <link rel="apple-touch-icon" href="/assets/images/logo-icon.svg" />
+    <meta name="theme-color" content="#C8A35A" />
+    <script>
+        window.CLOUDINARY_CONFIG = {
+            cloudName: 'vbnlibtl',
+            uploadPreset: 'trendy-wardrobe',
+            baseUrl: 'https://res.cloudinary.com/vbnlibtl/image/upload',
+            productTransform: 'f_auto,q_auto,w_800,c_limit',
+            thumbnailTransform: 'f_auto,q_auto,w_400,h_400,c_fill,g_auto'
+        };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Great+Vibes&family=Oswald:wght@400;700&family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" media="print" onload="this.media='all'" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/checkout.css" />
+</head>
+<body>
+    <!-- STICKY HEADER -->
+    <header class="sticky-header" id="stickyHeader">
+        <div class="header-inner">
+            <div class="header-mobile" role="banner">
+                <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
+                    <span class="hamburger-line"></span><span class="hamburger-line"></span><span class="hamburger-line"></span>
+                </button>
+                <a href="/" class="logo-link-mobile" aria-label="Trendy Wardrobe — Home">
+                    <svg class="logo-svg-mobile" viewBox="0 0 320 100" aria-hidden="true" role="img">
+                        <defs><linearGradient id="goldGradientMobile" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#D4AF37"/><stop offset="50%" stop-color="#F0D87A"/><stop offset="100%" stop-color="#D4AF37"/></linearGradient></defs>
+                        <g class="icon-part"><polygon points="28,0 56,28 28,56 0,28" fill="none" stroke="url(#goldGradientMobile)" stroke-width="1.5"/><text x="28" y="36" text-anchor="middle" font-family="Georgia, serif" font-size="24" font-weight="400" fill="url(#goldGradientMobile)" letter-spacing="1">T<tspan baseline-shift="-6" font-size="20">W</tspan></text></g>
+                        <text x="66" y="28" font-family="Georgia, serif" font-size="16" font-weight="300" fill="#1A1A1A" letter-spacing="3" class="logo-wordmark-mobile">TRENDY</text>
+                        <text x="66" y="48" font-family="Georgia, serif" font-size="11" font-weight="300" fill="#888" letter-spacing="5" class="logo-sub-mobile">WARDROBE</text>
+                    </svg>
+                </a>
+                <div class="header-actions">
+                    <button class="search-btn" id="searchBtnMobile" aria-label="Search" aria-expanded="false"><i class="fas fa-search"></i></button>
+                    <div class="mobile-search-bar" id="mobileSearchBar" role="search" aria-hidden="true">
+                        <div class="search-input-wrap">
+                            <i class="fas fa-search search-input-icon"></i>
+                            <input type="text" id="mobileSearchInput" placeholder="Search products..." autocomplete="off" />
+                            <button type="submit" class="search-submit"><i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                    <button class="icon-btn wishlist-btn" id="wishlistBtn" aria-label="Wishlist (0 items)"><i class="far fa-heart"></i><span class="badge wishlist-badge" id="wishlistBadge">0</span></button>
+                    <button class="icon-btn cart-btn" id="cartBtn" aria-label="Cart (0 items)"><i class="fas fa-shopping-bag"></i><span class="badge cart-badge" id="cartBadge">0</span></button>
+                    <div class="profile-btn-wrapper" id="profileBtnWrapper">
+                        <button class="icon-btn profile-btn" id="profileBtn" aria-label="Account" aria-expanded="false"><i class="far fa-user"></i></button>
+                        <div class="profile-dropdown" id="profileDropdown" role="menu">
+                            <div class="dropdown-header" id="dropdownHeader"></div>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item" id="ddProfile"><i class="far fa-user"></i>Profile</a>
+                            <a href="#" class="dropdown-item" id="ddOrders"><i class="fas fa-box"></i>Orders</a>
+                            <a href="#" class="dropdown-item" id="ddWishlist"><i class="far fa-heart"></i>Wishlist</a>
+                            <a href="#" class="dropdown-item" id="ddAddresses"><i class="fas fa-map-marker-alt"></i>Addresses</a>
+                            <div class="dropdown-divider"></div>
+                            <button class="dropdown-item logout-btn" id="ddLogout"><i class="fas fa-sign-out-alt"></i>Logout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="header-desktop">
+                <div class="header-top">
+                    <div class="logo-group">
+                        <a href="/" class="logo-link" aria-label="Trendy Wardrobe — Home">
+                            <svg class="logo-svg" viewBox="0 0 320 100" width="280" height="56" aria-hidden="true" role="img">
+                                <defs><linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#D4AF37"/><stop offset="50%" stop-color="#F0D87A"/><stop offset="100%" stop-color="#D4AF37"/></linearGradient></defs>
+                                <g class="icon-part"><polygon points="28,0 56,28 28,56 0,28" fill="none" stroke="url(#goldGradient)" stroke-width="1.5"/><text x="28" y="36" text-anchor="middle" font-family="Georgia, serif" font-size="24" font-weight="400" fill="url(#goldGradient)" letter-spacing="1">T<tspan baseline-shift="-6" font-size="20">W</tspan></text></g>
+                                <text x="66" y="28" font-family="Georgia, serif" font-size="18" font-weight="300" fill="#1A1A1A" letter-spacing="3" class="logo-wordmark">TRENDY</text>
+                                <text x="66" y="50" font-family="Georgia, serif" font-size="13" font-weight="300" fill="#888" letter-spacing="6" class="logo-sub">WARDROBE</text>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="search-wrapper">
+                        <input type="text" id="searchInput" placeholder="Search products..." />
+                        <span class="search-icon" id="searchBtn"><i class="fas fa-search"></i></span>
+                    </div>
+                    <button class="search-icon-mobile" id="searchIconMobile"><i class="fas fa-search"></i></button>
+                    <div class="header-icons">
+                        <button class="icon-btn" aria-label="Account" id="userBtn"><i class="far fa-user" id="userIcon"></i></button>
+                        <button class="icon-btn" aria-label="Wishlist" id="wishlistBtnDesktop"><i class="far fa-heart heart-icon" id="wishlistIconDesktop"></i><span class="badge" id="wishlistBadgeDesktop" style="background:#D81B60;display:none;"></span></button>
+                        <button class="icon-btn" aria-label="Cart" id="cartBtnDesktop"><i class="fas fa-shopping-bag"></i><span class="badge" id="cartBadgeDesktop">0</span></button>
+                        <button class="hamburger" id="hamburgerBtnDesktop" aria-label="Menu"><i class="fas fa-bars"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- SEARCH OVERLAY -->
+    <div class="search-overlay" id="searchOverlay">
+        <button class="search-close" id="searchClose"><i class="fas fa-times"></i></button>
+        <div class="search-panel">
+            <div class="search-input-wrap"><i class="fas fa-search search-input-icon"></i><input type="text" id="searchOverlayInput" placeholder="Search products..." autocomplete="off" /><button class="search-submit" id="searchOverlaySubmit"><i class="fas fa-arrow-right"></i></button></div>
+        </div>
+        <div class="search-results-area" id="searchResultsArea">
+            <div class="search-suggestions" id="searchSuggestions">
+                <div class="search-section"><h4>Popular Searches</h4><div class="search-tags" id="popularSearchTags"></div></div>
+                <div class="search-section" id="recentSearchSection" style="display:none;"><h4>Recent Searches</h4><div id="recentSearches"></div></div>
+            </div>
+            <div class="search-live-results" id="searchLiveResults"></div>
+        </div>
+    </div>
+
+    <!-- DRAWER -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <div class="drawer" id="drawer">
+        <div class="drawer-header">
+            <a href="/" class="logo-link">
+                <svg class="logo-svg" viewBox="0 0 320 100" width="240" height="48" aria-hidden="true">
+                    <defs><linearGradient id="goldGradientDrawer" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#D4AF37"/><stop offset="50%" stop-color="#F0D87A"/><stop offset="100%" stop-color="#D4AF37"/></linearGradient></defs>
+                    <g class="icon-part"><polygon points="28,0 56,28 28,56 0,28" fill="none" stroke="url(#goldGradientDrawer)" stroke-width="1.5"/><text x="28" y="36" text-anchor="middle" font-family="Georgia, serif" font-size="24" font-weight="400" fill="url(#goldGradientDrawer)" letter-spacing="1">T<tspan baseline-shift="-6" font-size="20">W</tspan></text></g>
+                    <text x="66" y="28" font-family="Georgia, serif" font-size="18" font-weight="300" fill="#1A1A1A" letter-spacing="3">TRENDY</text>
+                    <text x="66" y="50" font-family="Georgia, serif" font-size="13" font-weight="300" fill="#888" letter-spacing="6">WARDROBE</text>
+                </svg>
+            </a>
+            <button class="close-drawer" id="closeDrawer"><i class="fas fa-times"></i></button>
+        </div>
+        <nav class="drawer-nav">
+            <a href="/">Home</a>
+            <a href="/cart.html">Cart</a>
+            <a href="/checkout.html" class="active">Checkout</a>
+            <a href="/product-details.html">Product Details</a>
+            <a href="/about.html">About Us</a>
+            <a href="/contact.html">Contact Us</a>
+            <a href="/terms.html">Terms of Service</a>
+            <a href="/privacy.html">Privacy Policy</a>
+            <a href="#" id="drawerLogout"><i class="fas fa-sign-out-alt" style="margin-right:10px;color:#D81B60;"></i>Log Out</a>
+        </nav>
+        <div class="drawer-footer">
+            <div class="social-icons" id="drawerSocialLinks"></div>
+            <p>&copy; 2026 Trendy_Wardrobe</p>
+        </div>
+    </div>
+
+    <!-- MAIN CHECKOUT -->
+    <main class="checkout-page" id="checkoutPage">
+
+        <!-- Loading -->
+        <div class="checkout-loading" id="checkoutLoading" style="display:flex;">
+            <div class="checkout-loading-spinner"><i class="fas fa-spinner fa-spin"></i></div>
+            <p>Preparing checkout...</p>
+        </div>
+
+        <!-- Login Prompt -->
+        <div class="checkout-login-prompt" id="checkoutLoginPrompt" style="display:none;">
+            <div class="checkout-login-box">
+                <i class="fas fa-lock"></i>
+                <h2>Sign in to Checkout</h2>
+                <p>Please sign in to your account to proceed with your order.</p>
+                <button class="checkout-login-btn" id="checkoutLoginBtn">Sign In</button>
+                <a href="/cart.html" class="checkout-back-link"><i class="fas fa-arrow-left"></i> Back to Cart</a>
+            </div>
+        </div>
+
+        <!-- Checkout Content -->
+        <div class="checkout-content" id="checkoutContent" style="display:none;">
+
+            <!-- Breadcrumb -->
+            <div class="checkout-breadcrumb">
+                <a href="/cart.html">Cart</a>
+                <i class="fas fa-chevron-right"></i>
+                <span class="current">Checkout</span>
+            </div>
+
+            <!-- Progress Steps -->
+            <div class="checkout-progress" id="checkoutProgress">
+                <div class="progress-step active" data-step="1">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Shipping</div>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="2">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Delivery</div>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="3">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Payment</div>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" data-step="4">
+                    <div class="step-number">4</div>
+                    <div class="step-label">Review</div>
+                </div>
+            </div>
+
+            <!-- Two-column layout -->
+            <div class="checkout-grid">
+
+                <!-- LEFT COLUMN: Steps -->
+                <div class="checkout-main" id="checkoutMain">
+
+                    <!-- STEP 1: SHIPPING INFORMATION -->
+                    <div class="checkout-step active" id="step1">
+                        <div class="step-header">
+                            <h2>Shipping Information</h2>
+                            <p>Enter your delivery details</p>
+                        </div>
+
+                        <!-- Saved Addresses -->
+                        <div class="saved-addresses" id="savedAddresses" style="display:none;">
+                            <h3>Saved Addresses</h3>
+                            <div class="saved-addresses-grid" id="savedAddressesGrid"></div>
+                            <button class="checkout-link-btn" id="showNewAddressBtn"><i class="fas fa-plus"></i> Add New Address</button>
+                        </div>
+
+                        <form id="shippingForm" novalidate>
+                            <div class="checkout-form-row">
+                                <div class="checkout-form-group full">
+                                    <label for="shipFullName">Full Name *</label>
+                                    <input type="text" id="shipFullName" required placeholder="John Doe" autocomplete="name" />
+                                    <span class="field-error" id="shipFullNameError"></span>
+                                </div>
+                            </div>
+                            <div class="checkout-form-row">
+                                <div class="checkout-form-group">
+                                    <label for="shipPhone">Phone Number *</label>
+                                    <input type="tel" id="shipPhone" required placeholder="+254 712 345 678" autocomplete="tel" />
+                                    <span class="field-error" id="shipPhoneError"></span>
+                                </div>
+                                <div class="checkout-form-group">
+                                    <label for="shipEmail">Email Address</label>
+                                    <input type="email" id="shipEmail" placeholder="john@example.com" autocomplete="email" />
+                                </div>
+                            </div>
+                            <div class="checkout-form-row">
+                                <div class="checkout-form-group">
+                                    <label for="shipCounty">County/Region *</label>
+                                    <select id="shipCounty" required>
+                                        <option value="">Select County</option>
+                                        <option value="Nairobi">Nairobi</option>
+                                        <option value="Mombasa">Mombasa</option>
+                                        <option value="Kisumu">Kisumu</option>
+                                        <option value="Nakuru">Nakuru</option>
+                                        <option value="Machakos">Machakos</option>
+                                        <option value="Kiambu">Kiambu</option>
+                                        <option value="Uasin Gishu">Uasin Gishu</option>
+                                        <option value="Meru">Meru</option>
+                                        <option value="Nyeri">Nyeri</option>
+                                        <option value="Kilifi">Kilifi</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    <span class="field-error" id="shipCountyError"></span>
+                                </div>
+                                <div class="checkout-form-group">
+                                    <label for="shipCity">City/Town *</label>
+                                    <input type="text" id="shipCity" required placeholder="Nairobi" autocomplete="address-level2" />
+                                    <span class="field-error" id="shipCityError"></span>
+                                </div>
+                            </div>
+                            <div class="checkout-form-row">
+                                <div class="checkout-form-group">
+                                    <label for="shipStreet">Street Address *</label>
+                                    <input type="text" id="shipStreet" required placeholder="123 Moi Avenue" autocomplete="street-address" />
+                                    <span class="field-error" id="shipStreetError"></span>
+                                </div>
+                                <div class="checkout-form-group">
+                                    <label for="shipApartment">Apartment/Building</label>
+                                    <input type="text" id="shipApartment" placeholder="Suite 4B" />
+                                </div>
+                            </div>
+                            <div class="checkout-form-row">
+                                <div class="checkout-form-group">
+                                    <label for="shipPostalCode">Postal Code</label>
+                                    <input type="text" id="shipPostalCode" placeholder="00100" />
+                                </div>
+                                <div class="checkout-form-group"></div>
+                            </div>
+                            <div class="checkout-form-row">
+                                <div class="checkout-form-group full">
+                                    <label for="shipInstructions">Delivery Instructions (Optional)</label>
+                                    <textarea id="shipInstructions" placeholder="e.g., Leave at reception, call before delivery..." rows="2"></textarea>
+                                </div>
+                            </div>
+                            <div class="checkout-form-row">
+                                <div class="checkout-form-group full checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="saveAddress" checked />
+                                        <span>Save this address to my profile</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="checkout-step-actions">
+                                <button type="button" class="checkout-btn secondary" onclick="window.location.href='/cart.html'"><i class="fas fa-arrow-left"></i> Back to Cart</button>
+                                <button type="submit" class="checkout-btn primary" id="shippingNextBtn">Continue to Delivery <i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- STEP 2: DELIVERY METHOD -->
+                    <div class="checkout-step" id="step2">
+                        <div class="step-header">
+                            <h2>Delivery Method</h2>
+                            <p>Choose your preferred delivery option</p>
+                        </div>
+                        <div class="delivery-options" id="deliveryOptions">
+                            <div class="checkout-loading-inline"><i class="fas fa-spinner fa-spin"></i> Loading delivery options...</div>
+                        </div>
+                        <div class="checkout-step-actions">
+                            <button type="button" class="checkout-btn secondary" id="deliveryBackBtn"><i class="fas fa-arrow-left"></i> Back to Shipping</button>
+                            <button type="button" class="checkout-btn primary" id="deliveryNextBtn">Continue to Payment <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3: PAYMENT METHOD -->
+                    <div class="checkout-step" id="step3">
+                        <div class="step-header">
+                            <h2>Payment Method</h2>
+                            <p>Select how you'd like to pay</p>
+                        </div>
+                        <div class="payment-methods" id="paymentMethods">
+                            <div class="checkout-loading-inline"><i class="fas fa-spinner fa-spin"></i> Loading payment methods...</div>
+                        </div>
+                        <div class="checkout-coupon-section">
+                            <h3>Have a Coupon?</h3>
+                            <div class="coupon-input-group">
+                                <input type="text" id="checkoutCouponInput" placeholder="Enter coupon code" autocomplete="off" />
+                                <button id="checkoutCouponApplyBtn">Apply</button>
+                            </div>
+                            <div id="checkoutCouponMsg" class="coupon-msg"></div>
+                            <div id="checkoutCouponApplied" class="coupon-applied" style="display:none;">
+                                <span><i class="fas fa-check-circle"></i> <span id="couponAppliedCode"></span> — <span id="couponAppliedDiscount"></span></span>
+                                <button id="checkoutCouponRemoveBtn"><i class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="checkout-step-actions">
+                            <button type="button" class="checkout-btn secondary" id="paymentBackBtn"><i class="fas fa-arrow-left"></i> Back to Delivery</button>
+                            <button type="button" class="checkout-btn primary" id="paymentNextBtn">Review Order <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 4: ORDER REVIEW -->
+                    <div class="checkout-step" id="step4">
+                        <div class="step-header">
+                            <h2>Order Review</h2>
+                            <p>Please review your order before placing it</p>
+                        </div>
+                        <div class="review-section">
+                            <div class="review-section-header">
+                                <h3>Shipping Address</h3>
+                                <button class="review-edit-btn" data-step="1"><i class="fas fa-pen"></i> Edit</button>
+                            </div>
+                            <div class="review-content" id="reviewAddress"></div>
+                        </div>
+                        <div class="review-section">
+                            <div class="review-section-header">
+                                <h3>Delivery Method</h3>
+                                <button class="review-edit-btn" data-step="2"><i class="fas fa-pen"></i> Edit</button>
+                            </div>
+                            <div class="review-content" id="reviewDelivery"></div>
+                        </div>
+                        <div class="review-section">
+                            <div class="review-section-header">
+                                <h3>Payment Method</h3>
+                                <button class="review-edit-btn" data-step="3"><i class="fas fa-pen"></i> Edit</button>
+                            </div>
+                            <div class="review-content" id="reviewPayment"></div>
+                        </div>
+                        <div class="review-section">
+                            <div class="review-section-header">
+                                <h3>Items</h3>
+                                <button class="review-edit-btn" onclick="window.location.href='/cart.html'"><i class="fas fa-pen"></i> Edit</button>
+                            </div>
+                            <div class="review-content" id="reviewItems"></div>
+                        </div>
+                        <div class="checkout-step-actions">
+                            <button type="button" class="checkout-btn secondary" id="reviewBackBtn"><i class="fas fa-arrow-left"></i> Back to Payment</button>
+                            <button type="button" class="checkout-btn primary" id="placeOrderBtn">Place Order <i class="fas fa-lock"></i></button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- RIGHT COLUMN: Order Summary (sticky) -->
+                <aside class="checkout-sidebar" id="checkoutSidebar">
+                    <div class="checkout-summary-card" id="checkoutSummaryCard">
+                        <h3>Order Summary</h3>
+                        <div id="checkoutSummaryItems"></div>
+                        <div class="checkout-summary-divider"></div>
+                        <div class="checkout-summary-row">
+                            <span>Subtotal</span>
+                            <span id="summarySubtotal">Ksh 0</span>
+                        </div>
+                        <div class="checkout-summary-row" id="summaryDiscountRow" style="display:none;">
+                            <span>Discount</span>
+                            <span id="summaryDiscount" style="color:#2e7d32;">- Ksh 0</span>
+                        </div>
+                        <div class="checkout-summary-row">
+                            <span>Delivery</span>
+                            <span id="summaryDelivery">Ksh 0</span>
+                        </div>
+                        <div class="checkout-summary-divider"></div>
+                        <div class="checkout-summary-row total">
+                            <span>Total</span>
+                            <span id="summaryTotal">Ksh 0</span>
+                        </div>
+                        <div class="checkout-summary-divider"></div>
+                        <div class="checkout-summary-edit-link">
+                            <a href="/cart.html"><i class="fas fa-arrow-left"></i> Edit items in cart</a>
+                        </div>
+                    </div>
+                </aside>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- AUTH MODAL -->
+    <div class="modal-overlay" id="authOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9999;justify-content:center;align-items:center;backdrop-filter:blur(4px);">
+        <div class="modal-content" style="background:#FFFFFF;max-width:750px;width:90%;max-height:85vh;overflow-y:auto;padding:30px;border-radius:8px;position:relative;border-top:4px solid var(--color-gold);">
+            <button class="close-btn" id="authCloseBtn" style="position:absolute;top:16px;right:20px;font-size:1.8rem;cursor:pointer;background:none;border:none;color:var(--text-secondary);">&times;</button>
+            <h2 id="authModalTitle">Account</h2>
+            <div id="authForms">
+                <div class="auth-tabs" style="display:flex;gap:0;border-bottom:1px solid var(--border-light);margin-bottom:25px;">
+                    <button class="active" data-tab="login" style="flex:1;padding:12px 0;background:none;border:none;border-bottom:3px solid transparent;font-weight:600;font-size:0.9rem;text-transform:uppercase;color:var(--text-secondary);cursor:pointer;">Login</button>
+                    <button data-tab="register" style="flex:1;padding:12px 0;background:none;border:none;border-bottom:3px solid transparent;font-weight:600;font-size:0.9rem;text-transform:uppercase;color:var(--text-secondary);cursor:pointer;">Register</button>
+                </div>
+                <form class="auth-form" id="loginForm" style="display:flex;flex-direction:column;gap:16px;">
+                    <input type="email" id="loginEmail" placeholder="Email Address" required style="padding:14px 16px;border:1px solid var(--border-light);border-radius:4px;font-size:0.9rem;width:100%;" />
+                    <input type="password" id="loginPassword" placeholder="Password" required style="padding:14px 16px;border:1px solid var(--border-light);border-radius:4px;font-size:0.9rem;width:100%;" />
+                    <button type="submit" class="btn-submit" style="background:var(--text-primary);color:#fff;padding:14px;border:none;border-radius:4px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;font-size:0.8rem;cursor:pointer;">Login</button>
+                    <div id="loginError" style="color:#D81B60;font-size:0.8rem;display:none;"></div>
+                </form>
+                <form class="auth-form" id="registerForm" style="display:none;flex-direction:column;gap:16px;">
+                    <input type="text" id="registerName" placeholder="Full Name" required style="padding:14px 16px;border:1px solid var(--border-light);border-radius:4px;font-size:0.9rem;width:100%;" />
+                    <input type="email" id="registerEmail" placeholder="Email Address" required style="padding:14px 16px;border:1px solid var(--border-light);border-radius:4px;font-size:0.9rem;width:100%;" />
+                    <input type="password" id="registerPassword" placeholder="Password" required style="padding:14px 16px;border:1px solid var(--border-light);border-radius:4px;font-size:0.9rem;width:100%;" />
+                    <input type="password" id="registerConfirm" placeholder="Confirm Password" required style="padding:14px 16px;border:1px solid var(--border-light);border-radius:4px;font-size:0.9rem;width:100%;" />
+                    <button type="submit" class="btn-submit" style="background:var(--text-primary);color:#fff;padding:14px;border:none;border-radius:4px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;font-size:0.8rem;cursor:pointer;">Create Account</button>
+                    <div id="registerError" style="color:#D81B60;font-size:0.8rem;display:none;"></div>
+                </form>
+            </div>
+            <div id="authLoggedIn" style="display:none;">
+                <div class="dashboard-tabs">
+                    <button class="active" data-tab="dashboard">Dashboard</button>
+                    <button data-tab="orders">My Orders</button>
+                    <button data-tab="wishlist">Wishlist</button>
+                    <button data-tab="addresses">Addresses</button>
+                    <button data-tab="profile">Profile</button>
+                    <button id="logoutBtn" style="color:#D81B60;">Logout</button>
+                </div>
+                <div class="dashboard-content">
+                    <div class="tab-pane active" id="tab-dashboard">
+                        <div class="auth-logged-in" style="text-align:center;padding:10px 0;">
+                            <div class="user-avatar" id="userAvatar" style="width:64px;height:64px;background:var(--color-gold);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;font-weight:700;margin:0 auto 12px;">U</div>
+                            <div class="user-name" style="font-weight:600;font-size:1.1rem;" id="userDisplayName">User</div>
+                            <div class="user-email" style="font-size:0.85rem;color:var(--text-secondary);" id="userDisplayEmail">user@email.com</div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab-orders"><div id="ordersListContainer"><p style="color:var(--text-secondary);font-size:0.85rem;padding:12px 0;">Loading your orders...</p></div></div>
+                    <div class="tab-pane" id="tab-wishlist"><div id="wishlistDashboardContainer"><p style="color:var(--text-secondary);font-size:0.85rem;padding:12px 0;">Loading wishlist...</p></div></div>
+                    <div class="tab-pane" id="tab-addresses"><div id="addressesContainer"><p style="color:var(--text-secondary);font-size:0.85rem;padding:12px 0;">Loading addresses...</p></div></div>
+                    <div class="tab-pane" id="tab-profile">
+                        <form id="profileUpdateForm" style="display:flex;flex-direction:column;gap:14px;padding:8px 0;">
+                            <input type="text" id="profileName" placeholder="Full Name" style="padding:14px 16px;border:1px solid var(--border-light);border-radius:4px;font-size:0.9rem;width:100%;" />
+                            <input type="email" id="profileEmail" placeholder="Email Address" style="padding:14px 16px;border:1px solid var(--border-light);border-radius:4px;font-size:0.9rem;width:100%;" />
+                            <input type="password" id="profilePassword" placeholder="New Password" style="padding:14px 16px;border:1px solid var(--border-light);border-radius:4px;font-size:0.9rem;width:100%;" />
+                            <input type="password" id="profileConfirm" placeholder="Confirm Password" style="padding:14px 16px;border:1px solid var(--border-light);border-radius:4px;font-size:0.9rem;width:100%;" />
+                            <button type="submit" class="btn-submit" style="background:var(--text-primary);color:#fff;padding:12px 24px;border:none;border-radius:4px;font-weight:600;cursor:pointer;">Update Profile</button>
+                            <div id="profileUpdateMsg" style="font-size:0.85rem;display:none;"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container" style="padding:0 20px;">
+            <div class="footer-grid">
+                <div>
+                    <h4>Trendy_Wardrobe</h4>
+                    <p>Redefining executive fashion with luxury, comfort, and confidence. Est. 2026.</p>
+                    <a href="https://wa.me/254728985417" target="_blank" class="whatsapp-link"><i class="fab fa-whatsapp"></i> WhatsApp: +254 728 985 417</a>
+                </div>
+                <div>
+                    <h4>Shop</h4>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/cart.html">Cart</a></li>
+                        <li><a href="/product-details.html">Product Details</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Customer Care</h4>
+                    <ul>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                        <li><a href="/about.html">About Us</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Connect</h4>
+                    <div class="social-icons" id="footerSocialLinks"></div>
+                    <p class="footer-contact-line"><i class="fas fa-envelope"></i> markelpalace@gmail.com</p>
+                    <p class="footer-contact-line"><i class="fas fa-phone"></i> 0728 985 417</p>
+                    <a href="https://wa.me/254728985417" target="_blank" class="whatsapp-link"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+                </div>
+            </div>
+            <div class="footer-bottom">&copy; 2026 Trendy Wardrobe. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <!-- WHATSAPP & BACK TO TOP -->
+    <a href="https://wa.me/254728985417" target="_blank" class="floating-whatsapp hidden-wa" id="floatingWhatsApp" aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+    <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"><span id="toastMessage"></span><span class="toast-close" id="toastClose">&times;</span></div>
+
+    <script src="/js/checkout.js"></script>
+</body>
+</html>

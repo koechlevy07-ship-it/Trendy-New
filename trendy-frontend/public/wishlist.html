@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <title>My Wishlist — Trendy Wardrobe | Luxury Fashion</title>
+    <meta name="description" content="Your saved wishlist at Trendy Wardrobe. Save your favorite luxury fashion items for later." />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="My Wishlist — Trendy Wardrobe" />
+    <meta property="og:description" content="Save your favorite luxury fashion items." />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Trendy Wardrobe" />
+    <link rel="canonical" href="https://trendy-frontend-ashen.vercel.app/wishlist.html" />
+    <link rel="icon" type="image/svg+xml" href="/assets/images/logo-icon.svg" />
+    <link rel="apple-touch-icon" href="/assets/images/logo-icon.svg" />
+    <meta name="theme-color" content="#C8A35A" />
+    <script>
+        window.CLOUDINARY_CONFIG = {
+            cloudName: 'vbnlibtl',
+            uploadPreset: 'trendy-wardrobe',
+            baseUrl: 'https://res.cloudinary.com/vbnlibtl/image/upload',
+            productTransform: 'f_auto,q_auto,w_800,c_limit',
+            thumbnailTransform: 'f_auto,q_auto,w_400,h_400,c_fill,g_auto'
+        };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Great+Vibes&family=Oswald:wght@400;700&family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" media="print" onload="this.media='all'" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/wishlist.css" />
+</head>
+<body>
+
+    <!-- STICKY HEADER -->
+    <header class="sticky-header" id="stickyHeader">
+        <div class="header-inner">
+            <div class="header-mobile" role="banner">
+                <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
+                    <span class="hamburger-line"></span><span class="hamburger-line"></span><span class="hamburger-line"></span>
+                </button>
+                <a href="/" class="logo-link-mobile" aria-label="Trendy Wardrobe — Home">
+                    <svg class="logo-svg-mobile" viewBox="0 0 320 100" aria-hidden="true" role="img">
+                        <defs><linearGradient id="goldGradientMobile" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#D4AF37"/><stop offset="50%" stop-color="#F0D87A"/><stop offset="100%" stop-color="#D4AF37"/></linearGradient></defs>
+                        <g class="icon-part" transform="translate(0, 0)"><polygon points="28,0 56,28 28,56 0,28" fill="none" stroke="url(#goldGradientMobile)" stroke-width="1.5"/><text x="28" y="36" text-anchor="middle" font-family="Georgia, serif" font-size="24" font-weight="400" fill="url(#goldGradientMobile)" letter-spacing="1">T<tspan baseline-shift="-6" font-size="20">W</tspan></text></g>
+                        <text x="66" y="28" font-family="Georgia, serif" font-size="16" font-weight="300" fill="#1A1A1A" letter-spacing="3" class="logo-wordmark-mobile">TRENDY</text>
+                        <text x="66" y="48" font-family="Georgia, serif" font-size="11" font-weight="300" fill="#888" letter-spacing="5" class="logo-sub-mobile">WARDROBE</text>
+                    </svg>
+                </a>
+                <div class="header-actions">
+                    <button class="search-btn" id="searchBtnMobile" aria-label="Search" aria-expanded="false"><i class="fas fa-search" aria-hidden="true"></i></button>
+                    <div class="mobile-search-bar" id="mobileSearchBar" role="search" aria-hidden="true">
+                        <div class="search-input-wrap">
+                            <i class="fas fa-search search-input-icon" aria-hidden="true"></i>
+                            <input type="text" id="mobileSearchInput" placeholder="Search products..." autocomplete="off" aria-label="Search products" />
+                            <button type="submit" class="search-submit" aria-label="Search"><i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                    <button class="icon-btn wishlist-btn" id="wishlistBtn" aria-label="Wishlist (0 items)"><i class="far fa-heart" aria-hidden="true"></i><span class="badge wishlist-badge" id="wishlistBadge" aria-live="polite">0</span></button>
+                    <button class="icon-btn cart-btn" id="cartBtn" aria-label="Cart (0 items)"><i class="fas fa-shopping-bag" aria-hidden="true"></i><span class="badge cart-badge" id="cartBadge" aria-live="polite">0</span></button>
+                    <div class="profile-btn-wrapper" id="profileBtnWrapper">
+                        <button class="icon-btn profile-btn" id="profileBtn" aria-label="Account" aria-expanded="false"><i class="far fa-user" aria-hidden="true"></i></button>
+                        <div class="profile-dropdown" id="profileDropdown" role="menu" aria-hidden="true">
+                            <div class="dropdown-header" id="dropdownHeader"></div>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item" role="menuitem" id="ddProfile"><i class="far fa-user"></i>Profile</a>
+                            <a href="#" class="dropdown-item" role="menuitem" id="ddOrders"><i class="fas fa-box"></i>Orders</a>
+                            <a href="#" class="dropdown-item" role="menuitem" id="ddWishlist"><i class="far fa-heart"></i>Wishlist</a>
+                            <a href="#" class="dropdown-item" role="menuitem" id="ddAddresses"><i class="fas fa-map-marker-alt"></i>Addresses</a>
+                            <a href="#" class="dropdown-item" role="menuitem" id="ddSettings"><i class="fas fa-cog"></i>Settings</a>
+                            <div class="dropdown-divider"></div>
+                            <button class="dropdown-item logout-btn" role="menuitem" id="ddLogout"><i class="fas fa-sign-out-alt"></i>Logout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="header-desktop">
+                <div class="header-top">
+                    <div class="logo-group">
+                        <a href="/" class="logo-link" aria-label="Trendy Wardrobe — Home">
+                            <svg class="logo-svg" viewBox="0 0 320 100" width="280" height="56" aria-hidden="true" role="img">
+                                <defs><linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#D4AF37"/><stop offset="50%" stop-color="#F0D87A"/><stop offset="100%" stop-color="#D4AF37"/></linearGradient></defs>
+                                <g class="icon-part" transform="translate(0, 0)"><polygon points="28,0 56,28 28,56 0,28" fill="none" stroke="url(#goldGradient)" stroke-width="1.5"/><text x="28" y="36" text-anchor="middle" font-family="Georgia, serif" font-size="24" font-weight="400" fill="url(#goldGradient)" letter-spacing="1">T<tspan baseline-shift="-6" font-size="20">W</tspan></text></g>
+                                <text x="66" y="28" font-family="Georgia, serif" font-size="18" font-weight="300" fill="#1A1A1A" letter-spacing="3" class="logo-wordmark">TRENDY</text>
+                                <text x="66" y="50" font-family="Georgia, serif" font-size="13" font-weight="300" fill="#888" letter-spacing="6" class="logo-sub">WARDROBE</text>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="search-wrapper">
+                        <input type="text" id="searchInput" placeholder="Search products..." aria-label="Search" />
+                        <span class="search-icon" id="searchBtn"><i class="fas fa-search"></i></span>
+                    </div>
+                    <button class="search-icon-mobile" id="searchIconMobile" aria-label="Search"><i class="fas fa-search"></i></button>
+                    <div class="header-icons">
+                        <button class="icon-btn" aria-label="Account" id="userBtn"><i class="far fa-user" id="userIcon"></i></button>
+                        <button class="icon-btn" aria-label="Wishlist" id="wishlistBtnDesktop"><i class="far fa-heart heart-icon" id="wishlistIconDesktop"></i><span class="badge" id="wishlistBadgeDesktop" style="background:#D81B60;display:none;"></span></button>
+                        <button class="icon-btn" aria-label="Cart" id="cartBtnDesktop"><i class="fas fa-shopping-bag"></i><span class="badge" id="cartBadgeDesktop">0</span></button>
+                        <button class="hamburger" id="hamburgerBtnDesktop" aria-label="Menu"><i class="fas fa-bars"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MOBILE SEARCH OVERLAY -->
+    <div class="search-overlay" id="searchOverlay">
+        <button class="search-close" id="searchClose"><i class="fas fa-times"></i></button>
+        <div class="search-panel">
+            <div class="search-input-wrap"><i class="fas fa-search search-input-icon"></i><input type="text" id="searchOverlayInput" placeholder="Search products..." autocomplete="off" /><button class="search-submit" id="searchOverlaySubmit"><i class="fas fa-arrow-right"></i></button></div>
+        </div>
+        <div class="search-results-area" id="searchResultsArea">
+            <div class="search-suggestions" id="searchSuggestions">
+                <div class="search-section"><h4>Popular Searches</h4><div class="search-tags" id="popularSearchTags"></div></div>
+                <div class="search-section" id="recentSearchSection" style="display:none;"><h4>Recent Searches</h4><div id="recentSearches"></div></div>
+            </div>
+            <div class="search-live-results" id="searchLiveResults"></div>
+        </div>
+    </div>
+
+    <!-- MOBILE DRAWER -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <div class="drawer" id="drawer">
+        <div class="drawer-header">
+            <a href="/" class="logo-link" aria-label="Trendy Wardrobe — Home">
+                <svg class="logo-svg" viewBox="0 0 320 100" width="240" height="48" aria-hidden="true" role="img">
+                    <defs><linearGradient id="goldGradientDrawer" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#D4AF37"/><stop offset="50%" stop-color="#F0D87A"/><stop offset="100%" stop-color="#D4AF37"/></linearGradient></defs>
+                    <g class="icon-part" transform="translate(0, 0)"><polygon points="28,0 56,28 28,56 0,28" fill="none" stroke="url(#goldGradientDrawer)" stroke-width="1.5"/><text x="28" y="36" text-anchor="middle" font-family="Georgia, serif" font-size="24" font-weight="400" fill="url(#goldGradientDrawer)" letter-spacing="1">T<tspan baseline-shift="-6" font-size="20">W</tspan></text></g>
+                    <text x="66" y="28" font-family="Georgia, serif" font-size="18" font-weight="300" fill="#1A1A1A" letter-spacing="3">TRENDY</text>
+                    <text x="66" y="50" font-family="Georgia, serif" font-size="13" font-weight="300" fill="#888" letter-spacing="6">WARDROBE</text>
+                </svg>
+            </a>
+            <button class="close-drawer" id="closeDrawer" aria-label="Close menu"><i class="fas fa-times"></i></button>
+        </div>
+        <nav class="drawer-nav">
+            <a href="/" data-page="home">Home</a>
+            <a href="/wishlist.html" class="active">My Wishlist</a>
+            <a href="/cart.html">Shopping Cart</a>
+            <a href="/product-details.html">Product Details</a>
+            <a href="/about.html">About Us</a>
+            <a href="/contact.html">Contact Us</a>
+            <a href="/terms.html">Terms of Service</a>
+            <a href="/privacy.html">Privacy Policy</a>
+            <a href="#" id="drawerLogout"><i class="fas fa-sign-out-alt" style="margin-right:10px;color:#D81B60;"></i>Log Out</a>
+        </nav>
+        <div class="drawer-footer">
+            <div class="social-icons" id="drawerSocialLinks"></div>
+            <p>&copy; 2026 Trendy_Wardrobe</p>
+        </div>
+    </div>
+
+    <!-- DESKTOP NAV -->
+    <div class="nav-container">
+        <div class="container" style="padding:0 20px;">
+            <nav class="nav-bar" id="mainNav">
+                <a href="/">HOME</a>
+                <div class="dropdown" data-category="trench-coat">
+                    <a href="#" class="dropdown-toggle">TRENDY TRENCH COATS <span class="plus-icon">+</span></a>
+                    <div class="dropdown-content">
+                        <div class="dropdown-col"><h4>Styles</h4><a href="#">Classic</a><a href="#">Belted</a><a href="#">Double‑Breasted</a><a href="#">Short</a></div>
+                        <div class="dropdown-col"><h4>Collections</h4><a href="#">New Arrivals</a><a href="#">Best Sellers</a><a href="#">Sale</a></div>
+                        <div class="dropdown-banner"><img src="https://placehold.co/400x180/FAF9F6/C8A35A?text=TRENCH" alt="Trench" loading="lazy" /><div class="banner-text">Iconic Trench</div><div class="banner-sub">Timeless elegance</div></div>
+                    </div>
+                </div>
+                <div class="dropdown" data-category="wardrobe">
+                    <a href="#" class="dropdown-toggle">TRENDY WARDROBE <span class="plus-icon">+</span></a>
+                    <div class="dropdown-content">
+                        <div class="dropdown-col"><h4>Suits</h4><a href="#">Suits</a><a href="#">Shirts</a><a href="#">Trousers</a><a href="#">Casual</a></div>
+                        <div class="dropdown-col"><h4>Dresses</h4><a href="#">Dresses</a><a href="#">Tops</a><a href="#">Skirts</a><a href="#">Formal</a></div>
+                        <div class="dropdown-col"><h4>Accessories</h4><a href="#">Accessories</a><a href="#">New Arrivals</a><a href="#">Sale</a></div>
+                        <div class="dropdown-banner"><img src="https://placehold.co/400x180/FAF9F6/C8A35A?text=WARDROBE" alt="Wardrobe" loading="lazy" /><div class="banner-text">Elevate Your Style</div><div class="banner-sub">Every occasion</div></div>
+                    </div>
+                </div>
+                <div class="dropdown" data-category="shoes">
+                    <a href="#" class="dropdown-toggle">TRENDY SHOES <span class="plus-icon">+</span></a>
+                    <div class="dropdown-content">
+                        <div class="dropdown-col"><h4>Oxfords</h4><a href="#">Oxfords</a><a href="#">Loafers</a><a href="#">Sneakers</a><a href="#">Boots</a></div>
+                        <div class="dropdown-col"><h4>Heels & Flats</h4><a href="#">Heels</a><a href="#">Flats</a><a href="#">Sneakers</a><a href="#">Sandals</a></div>
+                        <div class="dropdown-col"><h4>Sport</h4><a href="#">Running</a><a href="#">Sports</a><a href="#">Casual</a><a href="#">New Arrivals</a></div>
+                        <div class="dropdown-banner"><img src="https://placehold.co/400x180/FAF9F6/C8A35A?text=SHOES" alt="Shoes" loading="lazy" /><div class="banner-text">Step in Luxury</div><div class="banner-sub">Premium footwear</div></div>
+                    </div>
+                </div>
+                <a href="/wishlist.html" style="color:var(--color-gold);">WISHLIST</a>
+                <a href="/cart.html">CART</a>
+                <a href="/contact.html">CONTACT US</a>
+                <a href="/about.html">ABOUT US</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="wishlist-page" id="wishlistPage">
+
+        <!-- Loading -->
+        <div class="wishlist-loading" id="wishlistLoading">
+            <div class="wishlist-loading-spinner"><i class="fas fa-spinner fa-spin"></i></div>
+            <p>Loading your wishlist...</p>
+        </div>
+
+        <!-- Content -->
+        <div class="wishlist-content" id="wishlistContent" style="display:none;">
+
+            <!-- Guest Prompt -->
+            <div class="wishlist-guest-overlay" id="wishlistGuestPrompt" style="display:none;">
+                <div class="container">
+                    <div class="wishlist-guest-prompt">
+                        <div class="wishlist-guest-icon"><i class="far fa-heart"></i></div>
+                        <h2>Sign In to View Your Wishlist</h2>
+                        <p>Save your favorite items and never lose track of what you love. Your wishlist syncs across all your devices.</p>
+                        <div class="wishlist-guest-btns">
+                            <button class="wishlist-guest-btn login" id="wishlistGuestLoginBtn">Log In</button>
+                            <button class="wishlist-guest-btn register" id="wishlistGuestRegisterBtn">Create Account</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wishlist Content -->
+            <div class="container" id="wishlistMain">
+
+                <!-- Breadcrumb -->
+                <div class="wishlist-breadcrumb">
+                    <a href="/">Home</a>
+                    <span class="sep"><i class="fas fa-chevron-right"></i></span>
+                    <span class="current">My Wishlist</span>
+                </div>
+
+                <!-- Title Row -->
+                <div class="wishlist-title-row">
+                    <h1>My Wishlist <span class="wishlist-count" id="wishlistItemCount">(0 items)</span></h1>
+                    <div class="wishlist-actions-top">
+                        <button class="wishlist-share-btn" id="wishlistShareBtn" style="display:none;"><i class="fas fa-share-alt"></i> Share</button>
+                        <button class="wishlist-move-all-btn" id="wishlistMoveAllBtn" style="display:none;"><i class="fas fa-cart-plus"></i> Move All to Cart</button>
+                        <button class="wishlist-clear-btn" id="wishlistClearBtn" style="display:none;"><i class="far fa-trash-alt"></i> Clear All</button>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="wishlist-stats" id="wishlistStats" style="display:none;">
+                    <div class="wishlist-stat-card">
+                        <div class="wishlist-stat-value" id="wlStatTotal">0</div>
+                        <div class="wishlist-stat-label">Total Items</div>
+                    </div>
+                    <div class="wishlist-stat-card">
+                        <div class="wishlist-stat-value" id="wlStatInStock">0</div>
+                        <div class="wishlist-stat-label">In Stock</div>
+                    </div>
+                    <div class="wishlist-stat-card">
+                        <div class="wishlist-stat-value" id="wlStatOutOfStock">0</div>
+                        <div class="wishlist-stat-label">Out of Stock</div>
+                    </div>
+                    <div class="wishlist-stat-card">
+                        <div class="wishlist-stat-value" id="wlStatValue">Ksh 0</div>
+                        <div class="wishlist-stat-label">Estimated Value</div>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="wishlist-filters" id="wishlistFilters" style="display:none;">
+                    <div class="wishlist-filter-search">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="wishlistSearchInput" placeholder="Search by name, brand..." />
+                    </div>
+                    <select id="wishlistSortSelect">
+                        <option value="newest">Newest</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="name">Name: A-Z</option>
+                        <option value="discount">Biggest Discount</option>
+                    </select>
+                    <select id="wishlistCategoryFilter">
+                        <option value="all">All Categories</option>
+                    </select>
+                    <select id="wishlistAvailabilityFilter">
+                        <option value="all">All Items</option>
+                        <option value="in-stock">In Stock</option>
+                        <option value="out-of-stock">Out of Stock</option>
+                    </select>
+                </div>
+
+                <!-- Items Grid -->
+                <div id="wishlistItemsContainer"></div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- SHARE MODAL -->
+    <div class="wishlist-share-overlay" id="wishlistShareOverlay">
+        <div class="wishlist-share-modal">
+            <button class="wishlist-share-close" id="wishlistShareClose"><i class="fas fa-times"></i></button>
+            <h3><i class="fas fa-share-alt" style="color:var(--color-gold);margin-right:8px;"></i>Share Your Wishlist</h3>
+            <p style="color:var(--text-secondary);font-size:0.85rem;margin-bottom:16px;">Let friends and family see what you love.</p>
+            <div class="wishlist-share-link-wrap">
+                <input type="text" id="wishlistShareLink" readonly />
+                <button id="wishlistShareCopyBtn"><i class="fas fa-copy"></i> Copy</button>
+            </div>
+            <div class="wishlist-share-native" id="wishlistShareNative" style="display:none;">
+                <button class="wishlist-share-native-btn"><i class="fas fa-share-alt"></i> Share via</button>
+            </div>
+            <button id="wishlistShareDisable" style="margin-top:12px;background:none;border:none;color:var(--text-secondary);font-size:0.8rem;cursor:pointer;text-decoration:underline;">Disable sharing</button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container" style="padding:0 20px;">
+            <div class="footer-grid">
+                <div>
+                    <h4>Trendy_Wardrobe</h4>
+                    <p>Redefining executive fashion with luxury, comfort, and confidence. Est. 2026.</p>
+                    <a href="https://wa.me/254728985417" target="_blank" class="whatsapp-link"><i class="fab fa-whatsapp"></i> WhatsApp: +254 728 985 417</a>
+                </div>
+                <div>
+                    <h4>Shop</h4>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/wishlist.html">Wishlist</a></li>
+                        <li><a href="/cart.html">Cart</a></li>
+                        <li><a href="/product-details.html">Product Details</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Customer Care</h4>
+                    <ul>
+                        <li><a href="/contact.html">Contact Us</a></li>
+                        <li><a href="/about.html">About Us</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Connect</h4>
+                    <div class="social-icons" id="footerSocialLinks"></div>
+                    <p class="footer-contact-line"><i class="fas fa-envelope"></i> markelpalace@gmail.com</p>
+                    <p class="footer-contact-line"><i class="fas fa-phone"></i> 0728 985 417</p>
+                    <a href="https://wa.me/254728985417" target="_blank" class="whatsapp-link"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+                </div>
+            </div>
+            <div class="footer-bottom">&copy; 2026 Trendy Wardrobe. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <!-- FLOATING WHATSAPP -->
+    <a href="https://wa.me/254728985417" target="_blank" class="floating-whatsapp hidden-wa" id="floatingWhatsApp" aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+    <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"><span id="toastMessage">Item added!</span><span class="toast-close" id="toastClose">&times;</span></div>
+
+    <!-- MOBILE BOTTOM NAV -->
+    <nav class="mobile-bottom-nav" id="mobileBottomNav" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--border-light);z-index:9999;padding:6px 0 env(safe-area-inset-bottom, 6px);box-shadow:0 -2px 8px rgba(0,0,0,0.08);" aria-label="Mobile navigation">
+        <div style="display:flex;justify-content:space-around;align-items:center;">
+            <button onclick="window.location.href='/'" aria-label="Home" style="background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:8px 12px;color:var(--text-secondary);font-size:0.6rem;min-width:44px;min-height:44px;"><i class="fas fa-home" style="font-size:1.15rem;"></i><span>Home</span></button>
+            <button onclick="window.location.href='/wishlist.html'" aria-label="Wishlist" style="background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:8px 12px;color:var(--color-gold);font-size:0.6rem;min-width:44px;min-height:44px;"><i class="fas fa-heart" style="font-size:1.15rem;"></i><span class="badge" id="mobileWishlistBadge" style="position:absolute;top:4px;right:8px;display:none;"></span><span>Wishlist</span></button>
+            <button onclick="window.location.href='/cart.html'" aria-label="Cart" style="position:relative;background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:8px 12px;color:var(--text-secondary);font-size:0.6rem;min-width:44px;min-height:44px;"><i class="fas fa-shopping-bag" style="font-size:1.15rem;"></i><span class="badge" id="mobileCartBadge" style="position:absolute;top:4px;right:8px;display:none;"></span><span>Cart</span></button>
+            <button onclick="openAuthModal()" aria-label="Account" style="background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:8px 12px;color:var(--text-secondary);font-size:0.6rem;min-width:44px;min-height:44px;"><i class="fas fa-user" style="font-size:1.15rem;"></i><span>Account</span></button>
+        </div>
+    </nav>
+
+    <script src="/js/wishlist.js"></script>
+</body>
+</html>

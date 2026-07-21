@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 100" width="320" height="100">
+  <defs>
+    <!-- Gold gradient for accent -->
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4AF37"/>
+      <stop offset="50%" stop-color="#F0D87A"/>
+      <stop offset="100%" stop-color="#D4AF37"/>
+    </linearGradient>
+    <!-- Gold glow filter -->
+    <filter id="goldGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feFlood flood-color="#D4AF37" flood-opacity="0.6" result="glow"/>
+      <feComposite in="glow" in2="blur" operator="in" result="glowBlur"/>
+      <feMerge>
+        <feMergeNode in="glowBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Full Logo: Icon + Wordmark + Tagline -->
+  <g id="fullLogo">
+    <!-- Icon: Elegant TW Monogram in Diamond -->
+    <g id="logoIcon" transform="translate(10, 10)">
+      <!-- Diamond background -->
+      <polygon points="40,0 80,40 40,80 0,40" fill="none" stroke="url(#goldGradient)" stroke-width="1.5"/>
+      <!-- TW Monogram -->
+      <text x="40" y="52" text-anchor="middle" font-family="Georgia, serif" font-size="36" font-weight="400" fill="url(#goldGradient)" letter-spacing="2">
+        T
+        <tspan baseline-shift="-8" font-size="30">W</tspan>
+      </text>
+    </g>
+
+    <!-- Wordmark -->
+    <text x="100" y="45" font-family="Georgia, serif" font-size="28" font-weight="300" fill="#1A1A1A" letter-spacing="4" text-anchor="start">
+      TRENDY
+      <tspan x="100" y="78" font-size="22" letter-spacing="6">WARDROBE</tspan>
+    </text>
+
+    <!-- Tagline -->
+    <text x="100" y="95" font-family="Georgia, serif" font-size="10" font-weight="300" fill="#888" letter-spacing="8" text-anchor="start">
+      MODERN LUXURY FASHION
+    </text>
+  </g>
+
+  <!-- Horizontal Logo: Icon + Wordmark (for nav) -->
+  <g id="horizontalLogo" transform="translate(0, 10)" display="none">
+    <g id="logoIconSmall" transform="translate(0, 0)">
+      <polygon points="25,0 50,25 25,50 0,25" fill="none" stroke="url(#goldGradient)" stroke-width="1.2"/>
+      <text x="25" y="33" text-anchor="middle" font-family="Georgia, serif" font-size="22" font-weight="400" fill="url(#goldGradient)" letter-spacing="1">
+        T<tspan baseline-shift="-5" font-size="18">W</tspan>
+      </text>
+    </g>
+    <text x="65" y="35" font-family="Georgia, serif" font-size="20" font-weight="300" fill="#1A1A1A" letter-spacing="3">
+      TRENDY WARDROBE
+    </text>
+  </g>
+
+  <!-- Icon Only (for favicon, app icon) -->
+  <g id="iconOnly" transform="translate(110, 10)" display="none">
+    <polygon points="40,0 80,40 40,80 0,40" fill="none" stroke="url(#goldGradient)" stroke-width="2"/>
+    <text x="40" y="52" text-anchor="middle" font-family="Georgia, serif" font-size="36" font-weight="400" fill="url(#goldGradient)" letter-spacing="2">
+      T<tspan baseline-shift="-8" font-size="30">W</tspan>
+    </text>
+  </g>
+</svg>
