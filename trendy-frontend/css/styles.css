@@ -2422,9 +2422,8 @@
             box-shadow: 0 1px 4px rgba(0,0,0,0.06);
         }
         .product-card .product-image {
-            aspect-ratio: 1 / 1;
+            aspect-ratio: 3 / 4;
             height: auto;
-            max-height: 180px;
             overflow: hidden;
             background: #fafafa;
         }

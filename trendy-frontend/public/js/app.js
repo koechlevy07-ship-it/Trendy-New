@@ -32,14 +32,14 @@
                 const parts = url.split('/upload/');
                 if (parts.length === 2) {
                     const w = width || 800;
-                    url = parts[0] + '/upload/f_webp,q_auto,w_' + w + '/' + parts[1];
+                    url = parts[0] + '/upload/f_auto,q_80,w_' + w + '/' + parts[1];
                 }
             }
             return url;
         }
 
         function getOptimizedImage(url, size) {
-            const sizes = { thumb: 200, card: 400, hero: 1200, full: 1600 };
+            const sizes = { thumb: 240, card: 600, hero: 1400, full: 1800 };
             return getImageUrl(url, sizes[size] || 800);
         }
 
