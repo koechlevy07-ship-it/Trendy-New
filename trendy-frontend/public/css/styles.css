@@ -2438,12 +2438,6 @@
 
         .mini-cart { width: 100%; max-width: 100%; padding: 20px 16px; }
         .quick-view-modal { padding: 16px; max-width: 100%; margin: 10px; }
-        .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
-        .footer-grid > div:first-child { grid-column: 1 / -1; }
-        .drawer { width: 280px; padding: 20px 16px; }
-        .contact-grid { grid-template-columns: 1fr; }
-        .checkout-modal { padding: 16px; }
-        .dashboard-tabs button { font-size: 0.7rem; padding: 8px 12px; }
     }
     @media (max-width: 320px) {
         .products-section .container { padding: 0 8px; }
@@ -2485,12 +2479,6 @@
         .products-grid { gap: 8px; }
         .mini-cart { width: 100%; max-width: 100%; padding: 20px 16px; }
         .quick-view-modal { padding: 16px; max-width: 100%; margin: 10px; }
-        .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
-        .footer-grid > div:first-child { grid-column: 1 / -1; }
-        .drawer { width: 280px; padding: 20px 16px; }
-        .contact-grid { grid-template-columns: 1fr; }
-        .checkout-modal { padding: 16px; }
-        .dashboard-tabs button { font-size: 0.7rem; padding: 8px 12px; }
     }
     @media (max-width: 390px) {
         .header-mobile { padding: 8px 10px; min-height: 48px; }
@@ -2678,21 +2666,11 @@
            MOBILE ENHANCEMENTS – Premium Luxury UX
         ============================================================ */
 
-        /* Hero: full image, no cropping on mobile */
-        @media (max-width: 768px) {
-            .hero {
-                background-size: contain;
-                background-color: #111;
-                background-position: center center;
-                min-height: min(50vh, 500px);
-                height: auto;
-                max-height: 80vh;
-            }
-        }
+        /* Hero mobile landscape override */
         @media (max-width: 768px) and (orientation: landscape) {
             .hero {
-                min-height: min(40vh, 350px);
-                max-height: 60vh;
+                min-height: min(50vh, 400px);
+                max-height: 70vh;
             }
         }
 
