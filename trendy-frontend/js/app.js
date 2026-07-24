@@ -3550,7 +3550,6 @@
             const nav = document.getElementById('mobileBottomNav');
             function applyMobileNav(e) {
                 if (nav) nav.style.display = e.matches ? 'flex' : 'none';
-                document.body.style.paddingBottom = e.matches ? '70px' : '';
             }
             mql.addEventListener('change', applyMobileNav);
             applyMobileNav(mql);
