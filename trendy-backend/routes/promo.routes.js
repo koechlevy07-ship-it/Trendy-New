@@ -194,6 +194,37 @@ router.get('/banners', authenticateToken, requireAdmin, async (req, res) => {
     } catch (err) { res.status(500).json({ success: false, message: 'Server error' }); }
 });
 
+// GET /api/promo/banners/public – get visible banners for storefront (MUST be before /banners/:id)
+router.get('/banners/public', async (req, res) => {
+    try {
+        const { location } = req.query;
+        const now = new Date();
+        const filter = { status: 'active' };
+        if (location) filter.location = location;
+        const banners = await PromoBanner.find(filter).sort({ displayOrder: 1 }).lean();
+        const visible = banners.filter(b => {
+            if (!b.scheduling?.enabled) return true;
+            if (b.scheduling.startDate && b.scheduling.startDate > now) return false;
+            if (b.scheduling.endDate && b.scheduling.endDate < now) return false;
+            return true;
+        });
+        res.json({ success: true, data: visible });
+    } catch (err) { res.status(500).json({ success: false, message: 'Server error' }); }
+});
+
+// POST /api/promo/banners/:id/track – track banner view/click (MUST be before /banners/:id)
+router.post('/banners/:id/track', async (req, res) => {
+    try {
+        const { event } = req.body;
+        const update = {};
+        if (event === 'view') update['tracking.views'] = 1;
+        else if (event === 'click') { update['tracking.clicks'] = 1; update['tracking.conversionRate'] = 1; }
+        else if (event === 'conversion') update['tracking.conversions'] = 1;
+        await PromoBanner.findByIdAndUpdate(req.params.id, { $inc: update });
+        res.json({ success: true });
+    } catch (err) { res.status(500).json({ success: false, message: 'Server error' }); }
+});
+
 router.get('/banners/:id', authenticateToken, requireAdmin, async (req, res) => {
     try {
         const banner = await PromoBanner.findById(req.params.id);
@@ -345,8 +376,6 @@ router.get('/analytics/export', authenticateToken, requireAdmin, async (req, res
 // PUBLIC CUSTOMER ENDPOINTS
 // ============================================================
 
-const { authenticateToken } = require('../middleware/auth');
-
 // GET /api/promo/flash-sales/active – active flash sales for storefront
 router.get('/flash-sales/active/public', async (req, res) => {
     try {
@@ -375,37 +404,6 @@ router.post('/gift-cards/validate', authenticateToken, async (req, res) => {
         }
         const applyAmount = Math.min(amount || card.currentBalance, card.currentBalance);
         res.json({ success: true, data: { code: card.code, balance: card.currentBalance, applyAmount } });
-    } catch (err) { res.status(500).json({ success: false, message: 'Server error' }); }
-});
-
-// GET /api/promo/banners/public – get visible banners for storefront
-router.get('/banners/public', async (req, res) => {
-    try {
-        const { location } = req.query;
-        const now = new Date();
-        const filter = { status: 'active' };
-        if (location) filter.location = location;
-        const banners = await PromoBanner.find(filter).sort({ displayOrder: 1 }).lean();
-        const visible = banners.filter(b => {
-            if (!b.scheduling?.enabled) return true;
-            if (b.scheduling.startDate && b.scheduling.startDate > now) return false;
-            if (b.scheduling.endDate && b.scheduling.endDate < now) return false;
-            return true;
-        });
-        res.json({ success: true, data: visible });
-    } catch (err) { res.status(500).json({ success: false, message: 'Server error' }); }
-});
-
-// POST /api/promo/banners/:id/track – track banner view/click
-router.post('/banners/:id/track', async (req, res) => {
-    try {
-        const { event } = req.body;
-        const update = {};
-        if (event === 'view') update['tracking.views'] = 1;
-        else if (event === 'click') { update['tracking.clicks'] = 1; update['tracking.conversionRate'] = 1; }
-        else if (event === 'conversion') update['tracking.conversions'] = 1;
-        await PromoBanner.findByIdAndUpdate(req.params.id, { $inc: update });
-        res.json({ success: true });
     } catch (err) { res.status(500).json({ success: false, message: 'Server error' }); }
 });
 

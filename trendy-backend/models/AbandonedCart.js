@@ -338,7 +338,7 @@ abandonedCartSchema.statics.getStats = async function(days = 30) {
             { $sort: { count: -1 } },
             { $limit: 10 }
         ])
-    ];
+    ]);
     
     return {
         total: totalStats[0] || { total: 0, value: 0, items: 0 },
