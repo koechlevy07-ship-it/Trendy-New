@@ -83,6 +83,8 @@ let checkoutData = null; // { items, subtotal, ... }
 let selectedDelivery = null;
 let selectedPayment = null;
 let appliedCoupon = null;
+let appliedGiftCard = null;
+let appliedLoyalty = null;
 let cartItems = [];
 
 // ---- Badge Sync ----
@@ -165,6 +167,9 @@ async function initCheckout() {
 
         // Load payment methods
         loadPaymentMethods();
+
+        // Load loyalty points
+        loadCheckoutLoyalty();
 
         // Update badges
         updateCartBadge();
@@ -260,15 +265,18 @@ function updateSummaryTotals() {
     }
 
     const discount = appliedCoupon?.discount || 0;
-    const total = subtotal + delivery - discount;
+    const giftCardAmount = appliedGiftCard?.applyAmount || 0;
+    const loyaltyAmount = appliedLoyalty?.amount || 0;
+    const total = subtotal + delivery - discount - giftCardAmount - loyaltyAmount;
 
     $('summarySubtotal').textContent = `Ksh ${subtotal.toLocaleString()}`;
     $('summaryDelivery').textContent = deliveryLabel;
 
     const discountRow = $('summaryDiscountRow');
-    if (discount > 0) {
+    const totalDiscount = discount + giftCardAmount + loyaltyAmount;
+    if (totalDiscount > 0) {
         discountRow.style.display = 'flex';
-        $('summaryDiscount').textContent = `- Ksh ${discount.toLocaleString()}`;
+        $('summaryDiscount').textContent = `- Ksh ${totalDiscount.toLocaleString()}`;
     } else {
         discountRow.style.display = 'none';
     }
@@ -608,7 +616,12 @@ $('checkoutCouponApplyBtn')?.addEventListener('click', async function() {
 
     try {
         const subtotal = checkoutData?.subtotal || 0;
-        const res = await fetch(`${API_URL}/coupons/validate?code=${encodeURIComponent(code)}&subtotal=${subtotal}`);
+        const user = getUser();
+        const res = await fetch(`${API_URL}/coupons/validate`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getToken()}` },
+            body: JSON.stringify({ code, subtotal, customerId: user?._id })
+        });
         const data = await res.json();
         if (!res.ok) throw new Error(data.message || 'Invalid coupon');
 
@@ -643,6 +656,135 @@ $('checkoutCouponRemoveBtn')?.addEventListener('click', function() {
     $('checkoutCouponMsg').className = 'coupon-msg';
     $('checkoutCouponMsg').textContent = '';
     $('checkoutCouponApplied').style.display = 'none';
+    updateSummaryTotals();
+});
+
+// ============================================================
+// GIFT CARD
+// ============================================================
+
+$('checkoutGiftCardApplyBtn')?.addEventListener('click', async function() {
+    const input = $('checkoutGiftCardInput');
+    const msg = $('checkoutGiftCardMsg');
+    const code = input.value.trim();
+    if (!code) { msg.textContent = 'Please enter a gift card code'; msg.className = 'coupon-msg error'; return; }
+
+    this.disabled = true;
+    this.textContent = '...';
+
+    try {
+        const subtotal = checkoutData?.subtotal || 0;
+        const res = await authFetch(`${API_URL}/promo/gift-cards/validate`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code, amount: subtotal })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || 'Invalid gift card');
+
+        const gc = data.data;
+        appliedGiftCard = { code: gc.code, applyAmount: gc.applyAmount, balance: gc.balance };
+        msg.textContent = `Gift card applied! Deduction: Ksh ${gc.applyAmount.toLocaleString()}`;
+        msg.className = 'coupon-msg success';
+
+        $('checkoutGiftCardApplied').style.display = 'flex';
+        $('giftCardAppliedAmount').textContent = `-Ksh ${gc.applyAmount.toLocaleString()}`;
+        input.disabled = true;
+        this.textContent = 'Applied';
+
+        updateSummaryTotals();
+    } catch (err) {
+        msg.textContent = err.message;
+        msg.className = 'coupon-msg error';
+        appliedGiftCard = null;
+    } finally {
+        this.disabled = false;
+        if (this.textContent === '...') this.textContent = 'Apply';
+    }
+});
+
+$('checkoutGiftCardRemoveBtn')?.addEventListener('click', function() {
+    appliedGiftCard = null;
+    $('checkoutGiftCardInput').value = '';
+    $('checkoutGiftCardInput').disabled = false;
+    $('checkoutGiftCardApplyBtn').textContent = 'Apply';
+    $('checkoutGiftCardApplyBtn').disabled = false;
+    $('checkoutGiftCardMsg').className = 'coupon-msg';
+    $('checkoutGiftCardMsg').textContent = '';
+    $('checkoutGiftCardApplied').style.display = 'none';
+    updateSummaryTotals();
+});
+
+// ============================================================
+// LOYALTY POINTS
+// ============================================================
+
+async function loadCheckoutLoyalty() {
+    if (!isLoggedIn()) return;
+    try {
+        const res = await authFetch(`${API_URL}/loyalty/profile`);
+        if (!res.ok) return;
+        const data = await res.json();
+        const loyalty = data.data || data;
+        const pts = loyalty.currentPoints || 0;
+        const pointsPerKsh = 10;
+        const value = Math.floor(pts / pointsPerKsh);
+        if (pts > 0) {
+            $('checkoutLoyaltySection').style.display = 'block';
+            $('checkoutLoyaltyPoints').textContent = pts.toLocaleString();
+            $('checkoutLoyaltyValue').textContent = value.toLocaleString();
+            $('checkoutLoyaltyInput').max = pts;
+            $('checkoutLoyaltyInput').placeholder = `Max ${pts} pts`;
+        }
+    } catch(e) { /* silently fail */ }
+}
+
+$('checkoutLoyaltyApplyBtn')?.addEventListener('click', async function() {
+    const input = $('checkoutLoyaltyInput');
+    const msg = $('checkoutLoyaltyMsg');
+    const pts = parseInt(input.value);
+    if (!pts || pts <= 0) { msg.textContent = 'Enter points to redeem'; msg.className = 'coupon-msg error'; return; }
+
+    const maxPts = parseInt(input.max) || 0;
+    if (pts > maxPts) { msg.textContent = `Maximum ${maxPts} points available`; msg.className = 'coupon-msg error'; return; }
+
+    this.disabled = true;
+    this.textContent = '...';
+
+    try {
+        const pointsPerKsh = 10;
+        const amount = Math.floor(pts / pointsPerKsh);
+        appliedLoyalty = { points: pts, amount };
+
+        msg.textContent = `Redeemed ${pts} points for Ksh ${amount.toLocaleString()} off!`;
+        msg.className = 'coupon-msg success';
+
+        $('checkoutLoyaltyApplied').style.display = 'flex';
+        $('loyaltyRedeemedPts').textContent = pts.toLocaleString();
+        $('loyaltyRedeemedAmt').textContent = `-Ksh ${amount.toLocaleString()}`;
+        input.disabled = true;
+        this.textContent = 'Redeemed';
+
+        updateSummaryTotals();
+    } catch (err) {
+        msg.textContent = err.message || 'Failed to redeem';
+        msg.className = 'coupon-msg error';
+        appliedLoyalty = null;
+    } finally {
+        this.disabled = false;
+        if (this.textContent === '...') this.textContent = 'Redeem';
+    }
+});
+
+$('checkoutLoyaltyRemoveBtn')?.addEventListener('click', function() {
+    appliedLoyalty = null;
+    $('checkoutLoyaltyInput').value = '';
+    $('checkoutLoyaltyInput').disabled = false;
+    $('checkoutLoyaltyApplyBtn').textContent = 'Redeem';
+    $('checkoutLoyaltyApplyBtn').disabled = false;
+    $('checkoutLoyaltyMsg').className = 'coupon-msg';
+    $('checkoutLoyaltyMsg').textContent = '';
+    $('checkoutLoyaltyApplied').style.display = 'none';
     updateSummaryTotals();
 });
 
@@ -748,7 +890,10 @@ $('placeOrderBtn')?.addEventListener('click', async function() {
         const deliveryFee = selectedDelivery?.fee || 0;
         const subtotal = checkoutData?.subtotal || 0;
         const discount = appliedCoupon?.discount || 0;
-        const total = Math.max(0, subtotal + deliveryFee - discount);
+        const giftCardAmount = appliedGiftCard?.applyAmount || 0;
+        const loyaltyPoints = appliedLoyalty?.points || 0;
+        const loyaltyAmount = appliedLoyalty?.amount || 0;
+        const total = Math.max(0, subtotal + deliveryFee - discount - giftCardAmount - loyaltyAmount);
 
         const orderData = {
             items,
@@ -773,6 +918,10 @@ $('placeOrderBtn')?.addEventListener('click', async function() {
             paymentMethod: selectedPayment?.id || 'cash-on-delivery',
             couponCode: appliedCoupon?.code || undefined,
             couponDiscount: discount || undefined,
+            giftCardCode: appliedGiftCard?.code || undefined,
+            giftCardDiscount: giftCardAmount || undefined,
+            loyaltyPointsRedeemed: loyaltyPoints || undefined,
+            loyaltyDiscount: loyaltyAmount || undefined,
             subtotal,
             deliveryFee,
             total,

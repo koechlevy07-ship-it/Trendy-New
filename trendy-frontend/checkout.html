@@ -335,6 +335,31 @@
                                 <button id="checkoutCouponRemoveBtn"><i class="fas fa-times"></i></button>
                             </div>
                         </div>
+                        <div class="checkout-giftcard-section" style="margin-top:20px;padding-top:20px;border-top:1px solid var(--border-light);">
+                            <h3><i class="fas fa-gift" style="color:var(--color-gold);"></i> Gift Card</h3>
+                            <div class="coupon-input-group">
+                                <input type="text" id="checkoutGiftCardInput" placeholder="Enter gift card code" autocomplete="off" />
+                                <button id="checkoutGiftCardApplyBtn">Apply</button>
+                            </div>
+                            <div id="checkoutGiftCardMsg" class="coupon-msg"></div>
+                            <div id="checkoutGiftCardApplied" class="coupon-applied" style="display:none;">
+                                <span><i class="fas fa-check-circle"></i> Gift Card — <span id="giftCardAppliedAmount"></span></span>
+                                <button id="checkoutGiftCardRemoveBtn"><i class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+                        <div class="checkout-loyalty-section" id="checkoutLoyaltySection" style="display:none;margin-top:20px;padding-top:20px;border-top:1px solid var(--border-light);">
+                            <h3><i class="fas fa-crown" style="color:var(--color-gold);"></i> Loyalty Points</h3>
+                            <p style="font-size:0.85rem;color:var(--text-secondary);margin:6px 0;">You have <strong id="checkoutLoyaltyPoints">0</strong> points (worth Ksh <strong id="checkoutLoyaltyValue">0</strong>)</p>
+                            <div class="coupon-input-group">
+                                <input type="number" id="checkoutLoyaltyInput" placeholder="Points to redeem" min="0" step="1" style="max-width:180px;" />
+                                <button id="checkoutLoyaltyApplyBtn">Redeem</button>
+                            </div>
+                            <div id="checkoutLoyaltyMsg" class="coupon-msg"></div>
+                            <div id="checkoutLoyaltyApplied" class="coupon-applied" style="display:none;">
+                                <span><i class="fas fa-check-circle"></i> Redeemed <span id="loyaltyRedeemedPts">0</span> pts — <span id="loyaltyRedeemedAmt"></span></span>
+                                <button id="checkoutLoyaltyRemoveBtn"><i class="fas fa-times"></i></button>
+                            </div>
+                        </div>
                         <div class="checkout-step-actions">
                             <button type="button" class="checkout-btn secondary" id="paymentBackBtn"><i class="fas fa-arrow-left"></i> Back to Delivery</button>
                             <button type="button" class="checkout-btn primary" id="paymentNextBtn">Review Order <i class="fas fa-arrow-right"></i></button>

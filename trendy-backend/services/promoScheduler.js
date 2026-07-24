@@ -3,6 +3,33 @@ const Promotion = require('../models/Promotion');
 const FlashSale = require('../models/FlashSale');
 const PromoBanner = require('../models/PromoBanner');
 const GiftCard = require('../models/GiftCard');
+const AbandonedCart = require('../models/AbandonedCart');
+
+async function sendAbandonedCartEmails() {
+    try {
+        const carts = await AbandonedCart.findNeedingRecoveryEmail().limit(50);
+        let sent = 0;
+        for (const cart of carts) {
+            try {
+                const { sendCheckoutAbandoned } = require('./emailService');
+                await sendCheckoutAbandoned(cart);
+                cart.recovery = cart.recovery || {};
+                cart.recovery.emailsSent = (cart.recovery.emailsSent || 0) + 1;
+                cart.recovery.lastEmailSentAt = new Date();
+                if (cart.status === 'active') cart.status = 'recovering';
+                await cart.save();
+                sent++;
+            } catch (e) { /* skip individual */ }
+        }
+        return sent;
+    } catch (e) { return 0; }
+}
+
+async function cleanupExpiredCarts() {
+    try {
+        return await AbandonedCart.cleanupExpired(30);
+    } catch (e) { return null; }
+}
 
 async function runPromoScheduler() {
     const now = new Date();
@@ -71,6 +98,10 @@ async function runPromoScheduler() {
         );
         results.giftCards = gcExpired.modifiedCount || 0;
     } catch (e) { /* ignore */ }
+
+    let abandonedSent = 0;
+    try { abandonedSent = await sendAbandonedCartEmails(); } catch (e) { /* ignore */ }
+    try { await cleanupExpiredCarts(); } catch (e) { /* ignore */ }
 
     return results;
 }

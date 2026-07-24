@@ -684,22 +684,8 @@ $('asDelForm')?.addEventListener('submit', async (e) => {
     } catch(err) { msg.className = 'acc-form-msg error'; msg.textContent = err.message; msg.style.display = 'block'; }
 });
 
-// ---- Recently Viewed from localStorage ----
-function loadRecentlyViewed() {
-    const container = $('accRecentlyViewed');
-    if (!container) return;
-    let viewed = [];
-    try { viewed = JSON.parse(localStorage.getItem('tw_recently')) || []; } catch(e) {}
-    if (!viewed.length) { container.innerHTML = '<p class="acc-text-muted">No recently viewed items.</p>'; return; }
-    const recent = viewed.slice(0, 4);
-    container.innerHTML = `<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">${recent.map(p => {
-        const img = (p.images && p.images[0]) ? p.images[0] : 'https://placehold.co/200x240/FAF9F6/C8A35A?text=P';
-        return `<div style="text-align:center;cursor:pointer;" onclick="window.location.href='/product-details.html?id=${p._id}'">
-            <img src="${img}" alt="" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px;" loading="lazy" />
-            <div style="font-size:0.72rem;font-weight:500;margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escHtml(p.name)}</div>
-            <div style="font-size:0.72rem;color:var(--color-gold);font-weight:600;">Ksh ${(p.price || 0).toLocaleString()}</div>
-        </div>`;
-    }).join('')}</div>`;
+// ---- Setup Forms ----
+function setupForms() {
 }
 
 // ---- Navigation Setup ----

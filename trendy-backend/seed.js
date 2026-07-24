@@ -5,6 +5,11 @@ const Category = require('./models/Category');
 const Product = require('./models/Product');
 const FAQ = require('./models/FAQ');
 const User = require('./models/User');
+const Coupon = require('./models/Coupon');
+const FlashSale = require('./models/FlashSale');
+const GiftCard = require('./models/GiftCard');
+const PromoBanner = require('./models/PromoBanner');
+const Promotion = require('./models/Promotion');
 
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/trendy-wardrobe';
 
@@ -143,11 +148,109 @@ async function seed() {
         });
         console.log('✅ Created customer user: customer@example.com / Customer123!');
 
+        // ---- COUPONS ----
+        const now = new Date();
+        const threeMonths = new Date(now.getTime() + 90 * 24 * 60 * 60 * 1000);
+        const coupons = [
+            { name: 'Welcome Discount', code: 'WELCOME15', description: '15% off your first order', discountType: 'percentage', discountValue: 15, maxDiscount: 5000, minCartValue: 3000, usageLimit: 500, newCustomerOnly: true, status: 'active', startDate: now, endDate: threeMonths },
+            { name: 'Flash Sale 10%', code: 'FLASH10', description: '10% off everything', discountType: 'percentage', discountValue: 10, maxDiscount: 3000, minCartValue: 2000, usageLimit: 1000, status: 'active', startDate: now, endDate: threeMonths },
+            { name: 'Flat Ksh 500 Off', code: 'SAVE500', description: 'Ksh 500 off orders above Ksh 8,000', discountType: 'fixed', discountValue: 500, minCartValue: 8000, usageLimit: 200, status: 'active', startDate: now, endDate: threeMonths },
+            { name: 'Free Shipping', code: 'FREESHIP', description: 'Free delivery on orders over Ksh 5,000', discountType: 'free_shipping', discountValue: 0, minCartValue: 5000, usageLimit: 1000, status: 'active', startDate: now, endDate: threeMonths },
+            { name: 'VIP Exclusive 20%', code: 'VIP20', description: '20% off for loyal customers', discountType: 'percentage', discountValue: 20, maxDiscount: 8000, minCartValue: 5000, usageLimit: 100, status: 'active', startDate: now, endDate: threeMonths }
+        ];
+        for (const c of coupons) {
+            await Coupon.findOneAndUpdate({ code: c.code }, c, { upsert: true, new: true });
+        }
+        console.log(`✅ Created ${coupons.length} coupons`);
+
+        // ---- FLASH SALES ----
+        const oneWeek = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+        const threeDays = new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000);
+        const flashProducts = await Product.find({ status: 'published' }).limit(5).lean();
+        const flashSaleProducts = flashProducts.map(p => ({
+            product: p._id,
+            originalPrice: p.originalPrice || p.price,
+            salePrice: Math.round((p.originalPrice || p.price) * 0.75),
+            discountPercent: 25,
+            quantity: -1,
+            sold: 0
+        }));
+        if (flashSaleProducts.length > 0) {
+            await FlashSale.findOneAndUpdate(
+                { name: 'Weekend Flash Sale' },
+                {
+                    name: 'Weekend Flash Sale', description: 'Up to 25% off selected items — limited time only!',
+                    products: flashSaleProducts, startDate: now, endDate: oneWeek, status: 'active',
+                    displaySettings: { showCountdown: true, showBadge: true, badgeText: 'FLASH SALE', badgeColor: '#DC2626' },
+                    targeting: { showOnHomepage: true, applicableCustomerSegments: ['all'] }
+                },
+                { upsert: true, new: true }
+            );
+            console.log('✅ Created Weekend Flash Sale');
+        }
+
+        const midProducts = flashProducts.slice(0, 3).map(p => ({
+            product: p._id, originalPrice: p.originalPrice || p.price,
+            salePrice: Math.round((p.originalPrice || p.price) * 0.80), discountPercent: 20,
+            quantity: -1, sold: 0
+        }));
+        if (midProducts.length > 0) {
+            await FlashSale.findOneAndUpdate(
+                { name: 'Midweek Madness' },
+                {
+                    name: 'Midweek Madness', description: '20% off wardrobe staples',
+                    products: midProducts, startDate: now, endDate: threeDays, status: 'active',
+                    displaySettings: { showCountdown: true, showBadge: true, badgeText: 'MIDWEEK DEAL', badgeColor: '#7C3AED' },
+                    targeting: { showOnHomepage: true, applicableCustomerSegments: ['all'] }
+                },
+                { upsert: true, new: true }
+            );
+            console.log('✅ Created Midweek Madness Flash Sale');
+        }
+
+        // ---- GIFT CARDS ----
+        const giftCards = [
+            { code: 'GIFT1000', name: 'Gift Card Ksh 1,000', originalValue: 1000, currentBalance: 1000, type: 'fixed', status: 'active', recipient: 'Gift Recipient', senderName: 'Trendy Wardrobe', channel: 'admin' },
+            { code: 'GIFT2500', name: 'Gift Card Ksh 2,500', originalValue: 2500, currentBalance: 2500, type: 'fixed', status: 'active', recipient: 'Gift Recipient', senderName: 'Trendy Wardrobe', channel: 'admin' },
+            { code: 'GIFT5000', name: 'Gift Card Ksh 5,000', originalValue: 5000, currentBalance: 5000, type: 'fixed', status: 'active', recipient: 'Gift Recipient', senderName: 'Trendy Wardrobe', channel: 'admin' },
+            { code: 'LOYALTY500', name: 'Loyalty Reward Ksh 500', originalValue: 500, currentBalance: 500, type: 'fixed', status: 'active', channel: 'loyalty_reward' }
+        ];
+        for (const gc of giftCards) {
+            await GiftCard.findOneAndUpdate({ code: gc.code }, gc, { upsert: true, new: true });
+        }
+        console.log(`✅ Created ${giftCards.length} gift cards`);
+
+        // ---- PROMO BANNERS ----
+        const banners = [
+            { title: 'Grand Opening Sale', subtitle: 'Enjoy 15% off your first order with code WELCOME15', buttonText: 'Shop Now', buttonLink: '/products', location: 'homepage', backgroundColor: '#1A1A1A', textColor: '#C8A35A', status: 'active', displayOrder: 1 },
+            { title: 'Free Delivery', subtitle: 'On all orders over Ksh 15,000 — Kenya wide', buttonText: 'View Products', buttonLink: '/products', location: 'homepage', backgroundColor: '#0D3B0D', textColor: '#FFFFFF', status: 'active', displayOrder: 2 },
+            { title: 'Gift Cards Available', subtitle: 'The perfect gift for someone special. Available in Ksh 1,000 – 5,000', buttonText: 'Learn More', buttonLink: '/contact.html', location: 'homepage', backgroundColor: '#1A0A2E', textColor: '#C8A35A', status: 'active', displayOrder: 3 }
+        ];
+        for (const b of banners) {
+            await PromoBanner.findOneAndUpdate({ title: b.title }, b, { upsert: true, new: true });
+        }
+        console.log(`✅ Created ${banners.length} promo banners`);
+
+        // ---- PROMOTIONS ----
+        const promos = [
+            { name: 'Summer Collection Sale', description: '20% off new arrivals for a limited time', type: 'percentage', discountValue: 20, maxDiscount: 6000, minCartValue: 5000, startDate: now, endDate: threeMonths, status: 'active', rules: [{ type: 'all_products' }] },
+            { name: 'Buy 2 Get 10% Off', description: 'Buy 2 or more items and get 10% off', type: 'percentage', discountValue: 10, minQuantity: 2, minCartValue: 4000, startDate: now, endDate: threeMonths, status: 'active', rules: [{ type: 'min_quantity', value: 2 }] }
+        ];
+        for (const p of promos) {
+            await Promotion.findOneAndUpdate({ name: p.name }, p, { upsert: true, new: true });
+        }
+        console.log(`✅ Created ${promos.length} promotions`);
+
         console.log('\n✅ Seed complete!');
         console.log(`Categories: ${createdCategories.length}`);
         console.log(`Products: ${insertedCount}`);
         console.log(`FAQs: ${createdFAQs.length}`);
         console.log(`Users: 2 (1 admin, 1 customer)`);
+        console.log(`Coupons: ${coupons.length}`);
+        console.log(`Flash Sales: 2`);
+        console.log(`Gift Cards: ${giftCards.length}`);
+        console.log(`Promo Banners: ${banners.length}`);
+        console.log(`Promotions: ${promos.length}`);
 
         process.exit(0);
     } catch (err) {
