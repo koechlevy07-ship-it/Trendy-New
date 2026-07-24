@@ -3527,6 +3527,29 @@
             applyMobileNav(mql);
         })();
 
+        // Virtual keyboard: hide fixed overlays when keyboard opens on mobile
+        (function initVirtualKeyboardHandler() {
+            if (!window.visualViewport) return;
+            const fixedEls = [
+                document.getElementById('mobileBottomNav'),
+                document.querySelector('.floating-whatsapp'),
+                document.querySelector('.back-to-top'),
+                document.getElementById('backToTop')
+            ].filter(Boolean);
+            function onResize() {
+                const vh = window.visualViewport.height;
+                const isKeyboard = vh < window.innerHeight * 0.75;
+                fixedEls.forEach(function(el) {
+                    el.style.transform = isKeyboard ? 'translateY(100vh)' : '';
+                    el.style.transition = 'transform 0.2s ease';
+                });
+            }
+            window.visualViewport.addEventListener('resize', onResize);
+            window.visualViewport.addEventListener('focusout', function() {
+                fixedEls.forEach(function(el) { el.style.transform = ''; });
+            });
+        })();
+
         function updateMobileCartBadge() {
             const badge = document.getElementById('mobileCartBadge');
             if (badge) {

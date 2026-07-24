@@ -968,9 +968,13 @@
 
     .checkout-progress {
         overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
         justify-content: flex-start;
         padding: 12px 0;
+        gap: 4px;
+        scrollbar-width: none;
     }
+    .checkout-progress::-webkit-scrollbar { display: none; }
 
     .delivery-option {
         flex-wrap: wrap;

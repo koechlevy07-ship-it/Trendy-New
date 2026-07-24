@@ -3083,6 +3083,84 @@
         }
 
         // ============================================================
+        // FLASH SALE HOMEPAGE SECTION
+        // ============================================================
+        let flashSaleTimer = null;
+
+        async function loadFlashSales() {
+            try {
+                const res = await fetch(`${API_URL}/products/flash-sale`);
+                if (!res.ok) return;
+                const json = await res.json();
+                const products = json.data || [];
+                if (!products.length) return;
+
+                const section = document.getElementById('flashSaleSection');
+                const grid = document.getElementById('flashSaleGrid');
+                const countdown = document.getElementById('flashSaleCountdown');
+                if (!section || !grid) return;
+
+                section.style.display = 'block';
+                grid.innerHTML = products.map(p => buildProductCard(p)).join('');
+                bindProductCardEvents(grid);
+
+                const earliestEnd = products.reduce((min, p) => {
+                    const end = new Date(p.flashSaleEnd);
+                    return end < min ? end : min;
+                }, new Date(products[0].flashSaleEnd));
+
+                function updateCountdown() {
+                    const now = new Date();
+                    const diff = earliestEnd - now;
+                    if (diff <= 0) { countdown.innerHTML = '<span style="color:#DC2626;font-weight:600;">Sale Ended</span>'; clearInterval(flashSaleTimer); return; }
+                    const d = Math.floor(diff / 86400000);
+                    const h = Math.floor((diff % 86400000) / 3600000);
+                    const m = Math.floor((diff % 3600000) / 60000);
+                    const s = Math.floor((diff % 60000) / 1000);
+                    countdown.innerHTML = [
+                        { v: d, l: 'Days' }, { v: h, l: 'Hrs' }, { v: m, l: 'Min' }, { v: s, l: 'Sec' }
+                    ].map(u => `<div style="text-align:center;"><div style="background:var(--text-primary);color:#fff;padding:8px 12px;border-radius:6px;font-size:1.2rem;font-weight:700;min-width:44px;">${String(u.v).padStart(2,'0')}</div><div style="font-size:0.7rem;color:var(--text-secondary);margin-top:4px;">${u.l}</div></div>`).join('');
+                }
+                updateCountdown();
+                if (flashSaleTimer) clearInterval(flashSaleTimer);
+                flashSaleTimer = setInterval(updateCountdown, 1000);
+            } catch(e) { console.error('Flash sale load error:', e); }
+        }
+
+        // ============================================================
+        // PROMO BANNER SECTION
+        // ============================================================
+        async function loadPromoBanners() {
+            try {
+                const res = await fetch(`${API_URL}/promo/banners/public?location=homepage`);
+                if (!res.ok) return;
+                const json = await res.json();
+                const banners = json.data || [];
+                if (!banners.length) return;
+
+                const area = document.getElementById('promoBannerArea');
+                if (!area) return;
+                area.innerHTML = banners.map(b => {
+                    const bgColor = b.backgroundColor || '#1A1A1A';
+                    const textColor = b.textColor || '#FFFFFF';
+                    const link = b.buttonLink || b.link || '#';
+                    const onclick = link.startsWith('http') ? `window.open('${escHtml(link)}','_blank')` : `window.location.href='${escHtml(link)}'`;
+                    return `<div class="promo-banner" style="background:${bgColor};color:${textColor};padding:24px 20px;text-align:center;cursor:pointer;margin-bottom:20px;" onclick="${onclick}" role="banner">
+                        ${b.title ? `<div style="font-size:1.4rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;">${escHtml(b.title)}</div>` : ''}
+                        ${b.subtitle ? `<div style="font-size:0.9rem;opacity:0.85;margin-top:6px;">${escHtml(b.subtitle)}</div>` : ''}
+                        ${b.buttonText ? `<div style="margin-top:10px;"><span style="display:inline-block;padding:8px 24px;border:2px solid ${textColor};border-radius:4px;font-weight:600;font-size:0.85rem;text-transform:uppercase;letter-spacing:1px;">${escHtml(b.buttonText)}</span></div>` : ''}
+                    </div>`;
+                }).join('');
+
+                banners.forEach(b => {
+                    fetch(`${API_URL}/promo/banners/${b._id}/track`, {
+                        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ event: 'view' })
+                    }).catch(() => {});
+                });
+            } catch(e) { console.error('Promo banners load error:', e); }
+        }
+
+        // ============================================================
         // COUPON SYSTEM
         // ============================================================
         let appliedCoupon = null;
@@ -3428,6 +3506,8 @@
         loadCategories();
         loadSearchTags();
         loadHomepageSections();
+        loadFlashSales();
+        loadPromoBanners();
         loadTestimonials();
         updateUI();
         console.log('🚀 Trendy_Wardrobe – All features fixed & extended');
@@ -3445,6 +3525,29 @@
             }
             mql.addEventListener('change', applyMobileNav);
             applyMobileNav(mql);
+        })();
+
+        // Virtual keyboard: hide fixed overlays when keyboard opens on mobile
+        (function initVirtualKeyboardHandler() {
+            if (!window.visualViewport) return;
+            const fixedEls = [
+                document.getElementById('mobileBottomNav'),
+                document.querySelector('.floating-whatsapp'),
+                document.querySelector('.back-to-top'),
+                document.getElementById('backToTop')
+            ].filter(Boolean);
+            function onResize() {
+                const vh = window.visualViewport.height;
+                const isKeyboard = vh < window.innerHeight * 0.75;
+                fixedEls.forEach(function(el) {
+                    el.style.transform = isKeyboard ? 'translateY(100vh)' : '';
+                    el.style.transition = 'transform 0.2s ease';
+                });
+            }
+            window.visualViewport.addEventListener('resize', onResize);
+            window.visualViewport.addEventListener('focusout', function() {
+                fixedEls.forEach(function(el) { el.style.transform = ''; });
+            });
         })();
 
         function updateMobileCartBadge() {
@@ -3830,36 +3933,6 @@
                 } finally { btn.disabled = false; btn.textContent = 'Subscribe'; }
             });
         })();
-
-        // Recently viewed products
-        window.recentlyViewed = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
-        window.trackRecentlyViewed = function(product) {
-            var rv = window.recentlyViewed.filter(function(p) { return p._id !== product._id; });
-            rv.unshift({ _id: product._id, name: product.name, price: product.price, thumbnail: product.thumbnail || (product.images && product.images[0]) || '', slug: product.slug });
-            if (rv.length > 12) rv = rv.slice(0, 12);
-            window.recentlyViewed = rv;
-            localStorage.setItem('recentlyViewed', JSON.stringify(rv));
-        renderRecentlyViewed();
-
-        // Recently viewed card click delegation
-        document.getElementById('recentlyViewedGrid')?.addEventListener('click', function(e) {
-            var card = e.target.closest('.product-card[data-rv-id]');
-            if (card && !e.target.closest('button')) openQuickView(card.dataset.rvId);
-        });
-        };
-        function renderRecentlyViewed() {
-            var rv = window.recentlyViewed;
-            var sec = document.getElementById('recentlyViewedSection');
-            var grid = document.getElementById('recentlyViewedGrid');
-            if (!sec || !grid || !rv.length) return;
-            sec.style.display = 'block';
-            grid.innerHTML = rv.map(function(p) {
-                var img = p.thumbnail || 'https://placehold.co/600x800/2C2C2C/C8A35A?text=' + encodeURIComponent(p.name);
-                var src = getImageUrl(img);
-                return '<article class="product-card" data-rv-id="' + p._id + '" tabindex="0"><div class="product-image"><img src="' + src + '" alt="' + escHtml(p.name) + '" loading="lazy" /></div><div class="product-info"><div class="product-name">' + escHtml(p.name) + '</div><div class="product-price"><span class="current">Ksh ' + (p.price || 0).toLocaleString() + '</span></div></div></article>';
-            }).join('');
-        }
-        renderRecentlyViewed();
 
         // Update breadcrumb when category filter changes
         document.querySelectorAll('.filter-btn').forEach(function(btn) {

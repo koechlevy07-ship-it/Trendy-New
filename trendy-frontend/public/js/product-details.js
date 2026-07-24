@@ -293,12 +293,10 @@ async function init() {
 
         currentProduct = product;
         renderProduct(product);
-        trackRecentlyViewed(product);
         reviewPage = 1;
         loadReviews(product._id);
         loadQA(product._id);
         loadRelated(product._id);
-        loadRecentlyViewed();
         updateUI();
         loadWishlist();
 
@@ -1069,21 +1067,6 @@ async function loadRelated(productId) {
         section.style.display = 'block';
         grid.innerHTML = products.map(renderMiniProductCard).join('');
     } catch (err) {
-        section.style.display = 'none';
-    }
-}
-
-// ---- Recently Viewed ----
-function loadRecentlyViewed() {
-    const section = $('pdRecentlySection');
-    const grid = $('pdRecentlyGrid');
-    try {
-        let viewed = JSON.parse(localStorage.getItem('tw_recently')) || [];
-        viewed = viewed.filter(v => v._id !== (currentProduct ? currentProduct._id : null));
-        if (!viewed.length) { section.style.display = 'none'; return; }
-        section.style.display = 'block';
-        grid.innerHTML = viewed.slice(0, 8).map(renderMiniProductCard).join('');
-    } catch (e) {
         section.style.display = 'none';
     }
 }
