@@ -141,21 +141,21 @@
                     </svg>
                 </a>
 
-                <div class="header-actions">
-                    <!-- Search icon (expands to search bar on mobile) -->
-                    <button class="search-btn" id="searchBtnMobile" aria-label="Search" aria-expanded="false" aria-controls="mobileSearchBar">
-                        <i class="fas fa-search" aria-hidden="true"></i>
-                    </button>
+                <!-- Search icon — own flex slot, never overlaps logo -->
+                <button class="search-btn" id="searchBtnMobile" aria-label="Search" aria-expanded="false" aria-controls="mobileSearchBar">
+                    <i class="fas fa-search" aria-hidden="true"></i>
+                </button>
 
-                    <!-- Mobile Search Bar - expands from icon -->
-                    <div class="mobile-search-bar" id="mobileSearchBar" role="search" aria-hidden="true">
-                        <div class="search-input-wrap">
-                            <i class="fas fa-search search-input-icon" aria-hidden="true"></i>
-                            <input type="text" id="mobileSearchInput" placeholder="Search products..." autocomplete="off" aria-label="Search products" />
-                            <button type="submit" class="search-submit" aria-label="Search"><i class="fas fa-arrow-right"></i></button>
-                        </div>
+                <!-- Mobile Search Bar - expands below header -->
+                <div class="mobile-search-bar" id="mobileSearchBar" role="search" aria-hidden="true">
+                    <div class="search-input-wrap">
+                        <i class="fas fa-search search-input-icon" aria-hidden="true"></i>
+                        <input type="text" id="mobileSearchInput" placeholder="Search products..." autocomplete="off" aria-label="Search products" />
+                        <button type="submit" class="search-submit" aria-label="Search"><i class="fas fa-arrow-right"></i></button>
                     </div>
+                </div>
 
+                <div class="header-actions">
                     <!-- Wishlist with badge -->
                     <button class="icon-btn wishlist-btn" id="wishlistBtn" aria-label="Wishlist (0 items)">
                         <i class="far fa-heart" aria-hidden="true"></i>
