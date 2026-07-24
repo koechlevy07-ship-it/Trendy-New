@@ -881,7 +881,7 @@
                 filtered.forEach(p => {
                     const img = (p.images && p.images[0]) ? getImageUrl(p.images[0]) : (p.thumbnail ? getImageUrl(p.thumbnail) : '');
                     const discount = p.originalPrice && p.originalPrice > p.price ? Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100) : 0;
-                    const outOfStock = p.stock !== undefined && p.stock < 1;
+                    const outOfStock = !isProductAvailable(p);
                     const rating = p.rating || 0;
                     const stars = Array.from({length: 5}, (_, i) => i < Math.round(rating) ? '&#9733;' : '&#9734;').join('');
                     html += `
@@ -918,7 +918,7 @@
                 const res = await fetch(`${API_URL}/products/${productId}`);
                 const raw = await res.json();
                 const product = raw.data || raw;
-                if (product.stock !== undefined && product.stock < 1) { showToast('Out of stock', 'error'); return; }
+                if (!isProductAvailable(product)) { showToast('Out of stock', 'error'); return; }
                 addToCart(product);
                 await removeFromWishlistAPI(productId);
                 loadWishlistDashboard();
@@ -1186,23 +1186,40 @@
             if (desktopBadge) { desktopBadge.textContent = total; desktopBadge.style.display = total > 0 ? 'flex' : 'none'; }
         }
 
+        function getEffectiveStock(product) {
+            if (product.soldOut) return 0;
+            if (product.stock > 0) return product.stock;
+            if (product.limitedAvailable && product.limitedPieces > 0) return product.limitedPieces;
+            if (product.preOrder) return 999;
+            return 0;
+        }
+
+        function isProductAvailable(product) {
+            if (product.soldOut) return false;
+            if (product.stock > 0) return true;
+            if (product.limitedAvailable && product.limitedPieces > 0) return true;
+            if (product.preOrder) return true;
+            return false;
+        }
+
         function addToCart(product) {
             const qty = product.quantity || 1;
             const size = product.size || null;
             const color = product.color || null;
+            const effectiveStock = getEffectiveStock(product);
             const existing = cartItems.find(i => i.id === product._id && i.size === size && i.color === color);
             if (existing) {
-                if (product.stock !== undefined && existing.quantity + qty > product.stock) {
-                    showToast('Not enough stock', 'error');
+                if (existing.quantity + qty > effectiveStock) {
+                    showToast(`Only ${effectiveStock} available`, 'error');
                     return;
                 }
                 existing.quantity += qty;
             } else {
-                if (product.stock !== undefined && product.stock < 1) {
+                if (effectiveStock < 1) {
                     showToast('Out of stock', 'error');
                     return;
                 }
-                cartItems.push({ id: product._id, name: product.name, price: product.price, quantity: qty, image: product.images?.[0] || '', size, color });
+                cartItems.push({ id: product._id, name: product.name, price: product.price, quantity: qty, image: product.images?.[0] || '', size, color, stock: effectiveStock });
             }
             saveCart();
             renderMiniCart();
@@ -1216,8 +1233,14 @@
         }
 
         function changeQty(index, delta) {
-            if (cartItems[index].quantity + delta <= 0) { removeFromCart(index); return; }
-            cartItems[index].quantity += delta;
+            const item = cartItems[index];
+            const maxStock = item.stock || 99;
+            if (delta > 0 && item.quantity + 1 > maxStock) {
+                showToast(`Only ${maxStock} available`, 'error');
+                return;
+            }
+            if (item.quantity + delta <= 0) { removeFromCart(index); return; }
+            item.quantity += delta;
             saveCart();
             renderMiniCart();
         }
@@ -1225,7 +1248,10 @@
         function setQty(index, val) {
             const qty = parseInt(val);
             if (!qty || qty < 1) { removeFromCart(index); return; }
-            cartItems[index].quantity = Math.min(qty, 99);
+            const item = cartItems[index];
+            const maxStock = item.stock || 99;
+            item.quantity = Math.min(qty, maxStock);
+            if (qty > maxStock) showToast(`Only ${maxStock} available`, 'error');
             saveCart();
             renderMiniCart();
         }
@@ -1248,6 +1274,7 @@
                 if (item.size) opts.push(item.size);
                 if (item.color) opts.push(item.color);
                 const optText = opts.length ? `<div style="font-size:0.75rem;color:var(--text-secondary);">${opts.join(' / ')}</div>` : '';
+                const stock = item.stock || 99;
                 html += `
                         <div class="mini-cart-item">
                             <img src="${imgSrc || 'https://placehold.co/60x60/FAF9F6/C8A35A?text=?'}" alt="${escHtml(item.name)}" loading="lazy" />
@@ -1257,8 +1284,8 @@
                                 <div class="price">Ksh ${item.price.toLocaleString()}</div>
                                 <div class="item-qty">
                                     <button onclick="changeQty(${idx}, -1)" aria-label="Decrease quantity">−</button>
-                                    <input type="number" value="${item.quantity}" min="1" max="99" onchange="setQty(${idx}, this.value)" aria-label="Quantity for ${escHtml(item.name)}" style="width:40px;text-align:center;border:1px solid var(--border-light);border-radius:4px;padding:2px;font-size:0.85rem;font-family:inherit;" />
-                                    <button onclick="changeQty(${idx}, 1)" aria-label="Increase quantity">+</button>
+                                    <input type="number" value="${item.quantity}" min="1" max="${stock}" onchange="setQty(${idx}, this.value)" aria-label="Quantity for ${escHtml(item.name)}" style="width:40px;text-align:center;border:1px solid var(--border-light);border-radius:4px;padding:2px;font-size:0.85rem;font-family:inherit;" />
+                                    <button onclick="changeQty(${idx}, 1)" ${item.quantity >= stock ? 'disabled' : ''} aria-label="Increase quantity">+</button>
                                 </div>
                             </div>
                             <button class="remove-item" onclick="removeFromCart(${idx})" aria-label="Remove ${escHtml(item.name)} from cart"><i class="fas fa-times"></i></button>
@@ -1979,7 +2006,8 @@
 
         function buildProductCard(p) {
             const inWish = isInWishlist(p._id);
-            const inStock = !p.soldOut && (p.inStock || p.stock > 0 || p.preOrder || p.limitedAvailable || (p.limitedPieces && p.limitedPieces > 0));
+            const inStock = isProductAvailable(p);
+            const effectiveStock = getEffectiveStock(p);
             const original = p.originalPrice ? `<span class="original">Ksh ${p.originalPrice.toLocaleString()}</span>` : '';
             const discount = p.originalPrice && p.originalPrice > p.price
                 ? Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100)
@@ -2032,7 +2060,7 @@
                             ${rating > 0 ? `<span class="score">${rating.toFixed(1)}</span><span class="count">(${reviewCount})</span>` : ''}
                         </div>
                         <div class="badges-row">${badges.join('')}</div>
-                        <div class="stock-status ${inStock ? (p.stock !== undefined && p.stock <= 5 && p.stock > 0 ? 'low' : 'in-stock') : 'out'}">${inStock ? (p.stock !== undefined && p.stock <= 5 && p.stock > 0 ? 'Only ' + p.stock + ' left' : 'In Stock') : 'Out of Stock'}</div>
+                        <div class="stock-status ${inStock ? (effectiveStock <= 5 && effectiveStock > 0 ? 'low' : 'in-stock') : 'out'}">${inStock ? (effectiveStock <= 5 && effectiveStock > 0 ? 'Only ' + effectiveStock + ' left' : 'In Stock') : 'Out of Stock'}</div>
                         <div class="delivery-estimate"><i class="fas fa-truck"></i>${deliveryEstimate}</div>
                         <div class="product-price">
                             <span class="current">Ksh ${(p.flashSale && p.flashSalePrice ? p.flashSalePrice : p.price).toLocaleString()}</span>
@@ -2221,15 +2249,16 @@
                 const raw = await res.json();
                 const p = raw.data || raw;
                 currentQVProduct = p;
-                const inStock = !p.soldOut && (p.inStock || p.stock > 0 || p.preOrder || p.limitedAvailable || (p.limitedPieces && p.limitedPieces > 0));
+                const inStock = isProductAvailable(p);
+                const effectiveStock = getEffectiveStock(p);
                 const original = p.originalPrice ? `<span class="original">Ksh ${p.originalPrice.toLocaleString()}</span>` : '';
                 const discount = p.originalPrice && p.originalPrice > p.price
                     ? Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100)
                     : 0;
                 const discountBadge = discount ? `<span class="discount">${discount}%</span>` : '';
                 const inStockHtml = inStock
-                    ? (p.stock !== undefined && p.stock <= 5 && p.stock > 0
-                        ? `<span class="stock-status low">Only ${p.stock} left</span>`
+                    ? (effectiveStock <= 5 && effectiveStock > 0
+                        ? `<span class="stock-status low">Only ${effectiveStock} left</span>`
                         : '<span class="stock-status in-stock">In Stock</span>')
                     : '<span class="stock-status out">Out of Stock</span>';
                 const rating = p.rating || 0;
@@ -2287,7 +2316,7 @@
                         </div>
                         ${p.flashSale && p.flashSaleEnd && new Date(p.flashSaleEnd) > new Date() ? `<div style="color:var(--error);font-size:0.85rem;font-weight:600;margin:4px 0;">⚡ Flash sale ends: ${new Date(p.flashSaleEnd).toLocaleString()}</div>` : ''}
                         ${p.installmentEligible && p.installmentPrice ? `<div style="font-size:0.8rem;color:var(--text-secondary);margin:4px 0;background:var(--bg-secondary);padding:6px 10px;border-radius:4px;">💳 Lipa Mdogo Mdogo: ${Math.ceil(p.price / p.installmentPrice)}x Ksh ${p.installmentPrice.toLocaleString()}/mo</div>` : ''}
-                        <div class="qv-stock ${inStock ? 'in-stock' : 'out'}">${inStock ? (p.stock ? `${p.stock} available` : 'In Stock') : 'Out of Stock'}</div>
+                        <div class="qv-stock ${inStock ? 'in-stock' : 'out'}">${inStock ? (effectiveStock <= 5 ? `Only ${effectiveStock} left` : 'In Stock') : 'Out of Stock'}</div>
                         ${p.shortDescription ? `<div style="font-size:0.85rem;color:var(--text-secondary);margin:8px 0;">${escHtml(p.shortDescription)}</div>` : ''}
                         ${p.description ? `<div class="qv-desc">${escHtml(p.description)}</div>` : ''}
                         ${p.sizes && p.sizes.length ? `
@@ -2304,7 +2333,7 @@
                             <label>Quantity</label>
                             <div class="qty-selector">
                                 <button class="qty-btn minus">-</button>
-                                <input type="number" id="qvQty" value="1" min="1" max="${inStock ? (p.stock || 99) : 0}" ${!inStock ? 'disabled' : ''} />
+                                <input type="number" id="qvQty" value="1" min="1" max="${inStock ? effectiveStock : 0}" ${!inStock ? 'disabled' : ''} />
                                 <button class="qty-btn plus">+</button>
                             </div>
                         </div>

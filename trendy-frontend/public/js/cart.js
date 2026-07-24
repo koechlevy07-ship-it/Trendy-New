@@ -26,6 +26,22 @@ function getImageUrl(path, width) {
     return url;
 }
 
+// ---- Stock Helpers ----
+function getEffectiveStock(product) {
+    if (product.soldOut) return 0;
+    if (product.stock > 0) return product.stock;
+    if (product.limitedAvailable && product.limitedPieces > 0) return product.limitedPieces;
+    if (product.preOrder) return 999;
+    return 0;
+}
+function isProductAvailable(product) {
+    if (product.soldOut) return false;
+    if (product.stock > 0) return true;
+    if (product.limitedAvailable && product.limitedPieces > 0) return true;
+    if (product.preOrder) return true;
+    return false;
+}
+
 // ---- Auth ----
 function getToken() { return localStorage.getItem('token'); }
 function getUser() { const u = localStorage.getItem('user'); return u ? JSON.parse(u) : null; }
@@ -209,7 +225,7 @@ function renderGuestPrompt() {
                 size: i.size || '',
                 color: i.color || '',
                 image: i.image || '',
-                stock: 99,
+                stock: i.stock || 99,
                 inStock: true
             })),
             savedForLater: [],
@@ -288,7 +304,7 @@ function renderCartItem(item, idx) {
     const qty = item.quantity || 1;
     const size = item.size || '';
     const color = item.color || '';
-    const stock = item.stock !== undefined ? item.stock : (p.stock !== undefined ? p.stock : 99);
+    const stock = item.stock !== undefined ? item.stock : (p._id ? (typeof getEffectiveStock === 'function' ? getEffectiveStock(p) : (p.stock || 99)) : 99);
     const inStock = stock > 0;
     const delivery = item.deliveryEstimate || p.deliveryEstimate || '2-5 business days';
     const itemId = item._id || idx;
@@ -329,7 +345,7 @@ function renderCartItem(item, idx) {
                 </div>
                 <div class="cart-qty-selector">
                     <button class="cart-qty-btn cart-qty-minus" ${qty <= 1 ? 'disabled' : ''}>−</button>
-                    <input type="number" class="cart-qty-input" value="${qty}" min="1" max="${Math.max(stock, 99)}" readonly />
+                    <input type="number" class="cart-qty-input" value="${qty}" min="1" max="${stock}" readonly />
                     <button class="cart-qty-btn cart-qty-plus" ${qty >= stock ? 'disabled' : ''}>+</button>
                 </div>
                 <div class="cart-item-subtotal"><strong>Ksh ${lineTotal.toLocaleString()}</strong></div>
@@ -509,7 +525,8 @@ async function updateQuantity(itemEl, newQty) {
         const items = getLocalCart();
         const idx = parseInt(itemEl.dataset.idx);
         if (items[idx]) {
-            items[idx].quantity = Math.max(1, newQty);
+            const maxStock = items[idx].stock || 99;
+            items[idx].quantity = Math.max(1, Math.min(newQty, maxStock));
             setLocalCart(items);
             loadCart();
         }
@@ -757,7 +774,7 @@ function renderProductCard(p) {
             <div class="product-image-wrap">
                 <img src="${img}" alt="${escHtml(p.name)}" loading="lazy" />
                 ${discount ? `<span class="badge-discount">-${discount}%</span>` : ''}
-                ${p.stock !== undefined && p.stock < 1 ? '<span class="badge-out">Out of Stock</span>' : ''}
+                ${!isProductAvailable(p) ? '<span class="badge-out">Out of Stock</span>' : ''}
             </div>
             <div class="product-info">
                 <div class="product-brand">${escHtml(p.brand || p.category || 'Trendy Wardrobe')}</div>
@@ -998,7 +1015,7 @@ $('checkoutForm')?.addEventListener('submit', async function(e) {
             const res = await fetch(`${API_URL}/products/${item.id}`);
             const raw = await res.json();
             const p = raw.data || raw;
-            if (p.stock !== undefined && p.stock < (item.quantity || 1)) {
+            if (!isProductAvailable(p) || getEffectiveStock(p) < (item.quantity || 1)) {
                 showToast(`Insufficient stock for ${p.name}`, 'error');
                 btn.disabled = false; btn.textContent = 'Place Order'; return;
             }

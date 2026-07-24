@@ -26,6 +26,22 @@ function getImageUrl(path, width) {
     return url;
 }
 
+// ---- Stock Helpers ----
+function getEffectiveStock(product) {
+    if (product.soldOut) return 0;
+    if (product.stock > 0) return product.stock;
+    if (product.limitedAvailable && product.limitedPieces > 0) return product.limitedPieces;
+    if (product.preOrder) return 999;
+    return 0;
+}
+function isProductAvailable(product) {
+    if (product.soldOut) return false;
+    if (product.stock > 0) return true;
+    if (product.limitedAvailable && product.limitedPieces > 0) return true;
+    if (product.preOrder) return true;
+    return false;
+}
+
 // ---- Auth ----
 function getToken() { return localStorage.getItem('token'); }
 function getUser() { const u = localStorage.getItem('user'); return u ? JSON.parse(u) : null; }
@@ -120,10 +136,19 @@ function addToCart(product) {
     const qty = product.quantity || 1;
     const size = product.size || '';
     const color = product.color || '';
+    const effectiveStock = getEffectiveStock(product);
     const idx = items.findIndex(i => i.id === product._id && i.size === size && i.color === color);
     if (idx > -1) {
+        if (items[idx].quantity + qty > effectiveStock) {
+            showToast(`Only ${effectiveStock} available`, 'error');
+            return;
+        }
         items[idx].quantity += qty;
     } else {
+        if (effectiveStock < 1) {
+            showToast('Out of stock', 'error');
+            return;
+        }
         items.push({
             id: product._id,
             name: product.name,
@@ -133,7 +158,8 @@ function addToCart(product) {
             quantity: qty,
             size: size,
             color: color,
-            slug: product.slug || ''
+            slug: product.slug || '',
+            stock: effectiveStock
         });
     }
     saveCart(items);
@@ -245,7 +271,7 @@ function renderMiniProductCard(product) {
             <div class="product-image-wrap">
                 <img src="${img}" alt="${escHtml(product.name)}" loading="lazy" />
                 ${discount ? `<span class="badge-discount">-${discount}%</span>` : ''}
-                ${product.stock !== undefined && product.stock < 1 ? '<span class="badge-out">Out of Stock</span>' : ''}
+                ${!isProductAvailable(product) ? '<span class="badge-out">Out of Stock</span>' : ''}
                 ${product.isNewArrival ? '<span class="badge-new">New</span>' : ''}
             </div>
             <div class="product-info">
@@ -317,7 +343,8 @@ function renderProduct(p) {
     pdContent.style.display = 'block';
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
-    const inStock = !p.soldOut && (p.inStock || p.stock > 0 || p.preOrder || p.limitedAvailable);
+    const inStock = isProductAvailable(p);
+    const effectiveStock = getEffectiveStock(p);
     const displayPrice = (p.flashSale && p.flashSalePrice) ? p.flashSalePrice : p.price;
     const discount = p.originalPrice && p.originalPrice > p.price ? Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100) : 0;
 
@@ -352,7 +379,7 @@ function renderProduct(p) {
             "@type": "Offer",
             "priceCurrency": "KES",
             "price": p.price,
-            "availability": (p.stock > 0) ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+            "availability": isProductAvailable(p) ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
             "url": window.location.href.split('?')[0] + '?id=' + p._id
         },
         "aggregateRating": p.rating ? {
@@ -432,14 +459,14 @@ function renderProduct(p) {
         stockEl.innerHTML = '<i class="fas fa-times-circle"></i> Out of Stock';
         $('pdAddToCart').disabled = true;
         $('pdBuyNow').disabled = true;
-    } else if (p.stock !== undefined && p.stock <= 5) {
+    } else if (effectiveStock <= 5) {
         stockEl.className = 'pd-stock low-stock';
-        stockEl.innerHTML = `<i class="fas fa-exclamation-circle"></i> Only ${p.stock} left in stock`;
+        stockEl.innerHTML = `<i class="fas fa-exclamation-circle"></i> Only ${effectiveStock} left in stock`;
     } else {
         stockEl.className = 'pd-stock in-stock';
-        stockEl.innerHTML = '<i class="fas fa-check-circle"></i> In Stock';
-        if (p.stock !== undefined) stockEl.innerHTML += ` &mdash; ${p.stock} available`;
+        stockEl.innerHTML = `<i class="fas fa-check-circle"></i> In Stock — ${effectiveStock} available`;
     }
+    if (qtyInput) qtyInput.max = effectiveStock || 1;
 
     // Delivery info
     if (p.deliveryEstimate) {
@@ -1415,7 +1442,7 @@ document.getElementById('checkoutForm').addEventListener('submit', async functio
             const res = await fetch(`${API_URL}/products/${item.id}`);
             const raw = await res.json();
             const p = raw.data || raw;
-            if (p.stock !== undefined && p.stock < (item.quantity || 1)) {
+            if (!isProductAvailable(p) || getEffectiveStock(p) < (item.quantity || 1)) {
                 showToast(`Insufficient stock for ${p.name}`, 'error');
                 btn.disabled = false;
                 btn.textContent = 'Place Order';

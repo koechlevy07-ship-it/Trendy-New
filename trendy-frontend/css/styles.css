@@ -2311,14 +2311,14 @@
         .products-section .section-head h2 { font-size: 1.15rem; }
         .products-grid {
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+            gap: 16px;
             padding: 0;
             max-width: 100%;
         }
 
         /* === MOBILE PRODUCT CARD — compact density === */
         .product-card {
-            border-radius: 8px;
+            border-radius: 18px;
             border: 1px solid #eee;
             box-shadow: 0 1px 4px rgba(0,0,0,0.06);
             overflow: hidden;
@@ -2338,7 +2338,7 @@
 
         /* Card image — 1:1 square */
         .product-card .product-image {
-            aspect-ratio: 1 / 1;
+            aspect-ratio: 4 / 3;
             height: auto;
             overflow: hidden;
             background: #fafafa;

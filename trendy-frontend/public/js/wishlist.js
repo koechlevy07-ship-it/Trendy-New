@@ -20,6 +20,22 @@ function escHtml(str) {
     return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
 
+// ---- Stock Helpers ----
+function getEffectiveStock(product) {
+    if (product.soldOut) return 0;
+    if (product.stock > 0) return product.stock;
+    if (product.limitedAvailable && product.limitedPieces > 0) return product.limitedPieces;
+    if (product.preOrder) return 999;
+    return 0;
+}
+function isProductAvailable(product) {
+    if (product.soldOut) return false;
+    if (product.stock > 0) return true;
+    if (product.limitedAvailable && product.limitedPieces > 0) return true;
+    if (product.preOrder) return true;
+    return false;
+}
+
 // ---- Image Helper ----
 function getImageUrl(path, width) {
     if (!path) return '';
@@ -116,7 +132,7 @@ function computeStats(items) {
     items.forEach(item => {
         const p = item.productId || item;
         if (p) {
-            if (p.stock > 0) inStock++;
+            if (isProductAvailable(p)) inStock++;
             estimatedValue += p.price || 0;
         }
     });
@@ -156,7 +172,7 @@ function renderWishlistItems() {
     if (moveAllBtn) {
         const hasInStock = items.some(item => {
             const p = item.productId || item;
-            return p && p.stock > 0;
+            return p && isProductAvailable(p);
         });
         moveAllBtn.style.display = items.length > 0 && !isGuest ? 'flex' : 'none';
         moveAllBtn.disabled = !hasInStock;
@@ -185,11 +201,11 @@ function renderWishlistItems() {
     });
     if (wlAvailabilityFilter === 'in-stock') filtered = filtered.filter(item => {
         const p = item.productId || item;
-        return p && p.stock > 0;
+        return p && isProductAvailable(p);
     });
     if (wlAvailabilityFilter === 'out-of-stock') filtered = filtered.filter(item => {
         const p = item.productId || item;
-        return p && p.stock < 1;
+        return p && !isProductAvailable(p);
     });
     if (wlSearchQuery) {
         const q = wlSearchQuery.toLowerCase();
@@ -233,7 +249,7 @@ function renderWishlistCard(item, isGuest) {
     if (!p) return '';
     const img = (p.images && p.images[0]) ? getImageUrl(p.images[0], 400) : (p.thumbnail ? getImageUrl(p.thumbnail) : 'https://placehold.co/300x400/FAF9F6/C8A35A?text=Product');
     const discount = p.originalPrice && p.originalPrice > p.price ? Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100) : 0;
-    const outOfStock = p.stock !== undefined && p.stock < 1;
+    const outOfStock = !isProductAvailable(p);
     const rating = p.rating || 0;
     const stars = Array.from({length: 5}, (_, i) => i < Math.round(rating) ? '&#9733;' : '&#9734;').join('');
     const itemId = item._id || item.id || '';
@@ -250,9 +266,10 @@ function renderWishlistCard(item, isGuest) {
     if (item.color) metaHtml += `<span class="wishlist-item-meta-tag"><i class="fas fa-palette"></i>${escHtml(item.color)}</span>`;
     if (p.sku) metaHtml += `<span class="wishlist-item-meta-tag">SKU: ${escHtml(p.sku)}</span>`;
 
-    const stockLabel = outOfStock ? 'Out of Stock' : p.stock <= (p.stockThreshold || 5) ? `Only ${p.stock} left` : 'In Stock';
+    const effStock = getEffectiveStock(p);
+    const stockLabel = outOfStock ? 'Out of Stock' : effStock <= (p.stockThreshold || 5) ? `Only ${effStock} left` : 'In Stock';
     const stockClass = outOfStock ? 'out-of-stock' : 'in-stock';
-    const stockIcon = outOfStock ? 'fa-times-circle' : p.stock <= (p.stockThreshold || 5) ? 'fa-exclamation-circle' : 'fa-check-circle';
+    const stockIcon = outOfStock ? 'fa-times-circle' : effStock <= (p.stockThreshold || 5) ? 'fa-exclamation-circle' : 'fa-check-circle';
 
     return `
         <div class="wishlist-item" data-product-id="${escHtml(productId)}">

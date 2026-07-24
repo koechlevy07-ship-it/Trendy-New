@@ -2103,6 +2103,7 @@
                 <div id="stdSizesField" class="form-group"><label>Sizes (comma separated)</label><input type="text" id="productSizes" placeholder="S, M, L, XL" /></div>
                 <div id="stdColorsField" class="form-group"><label>Colors (comma separated)</label><input type="text" id="productColors" placeholder="Black, Navy, Beige" /></div>
                 <div id="stdLimitedField" class="form-group"><label style="display:flex;align-items:center;gap:8px;"><input type="checkbox" id="productLimitedAvailable" /> Limited pieces available</label></div>
+                <div id="stdLimitedPiecesField" class="form-group"><label>Limited Pieces</label><input type="number" id="productLimitedPieces" min="0" value="0" /></div>
                 <div class="form-group"><label>Short Description</label><input type="text" id="productShortDesc" placeholder="Brief tagline (max 300 chars)" maxlength="300" /></div>
                 <div class="form-group"><label>Tags (comma separated)</label><input type="text" id="productTags" placeholder="summer, casual, premium" /></div>
                 <div class="form-group"><label>Visibility</label><select id="productVisibility"><option value="visible">Visible</option><option value="hidden">Hidden</option><option value="featured-only">Featured Only</option></select></div>
@@ -2115,6 +2116,8 @@
                         <label style="font-weight:400;font-size:0.85rem;display:flex;align-items:center;gap:4px;"><input type="checkbox" id="productNewArrival" /> New Arrival</label>
                         <label style="font-weight:400;font-size:0.85rem;display:flex;align-items:center;gap:4px;"><input type="checkbox" id="productBestSeller" /> Best Seller</label>
                         <label style="font-weight:400;font-size:0.85rem;display:flex;align-items:center;gap:4px;"><input type="checkbox" id="productSponsored" /> Sponsored</label>
+                        <label style="font-weight:400;font-size:0.85rem;display:flex;align-items:center;gap:4px;"><input type="checkbox" id="productSoldOut" /> Sold Out</label>
+                        <label style="font-weight:400;font-size:0.85rem;display:flex;align-items:center;gap:4px;"><input type="checkbox" id="productPreOrder" /> Pre-Order</label>
                     </div>
                 </div>
                 <!-- Flash Sale -->
@@ -4496,6 +4499,9 @@ const pageTitles = { dashboard:'Dashboard', products:'Products', categories:'Cat
             document.getElementById('productOgImage').value=p.ogImage||'';
             document.getElementById('productCanonicalUrl').value=p.canonicalUrl||'';
             document.getElementById('productLimitedAvailable').checked=!!p.limitedAvailable;
+            document.getElementById('productLimitedPieces').value=p.limitedPieces||0;
+            document.getElementById('productSoldOut').checked=!!p.soldOut;
+            document.getElementById('productPreOrder').checked=!!p.preOrder;
             loadCategories().then(()=>{populateCategorySelect();document.getElementById('productCategory').value=p.category||'';toggleTrenchFields();});
             document.getElementById('productGender').value=p.gender||'unisex';
             document.getElementById('productSizes').value=(p.sizes||[]).join(', '); document.getElementById('productColors').value=(p.colors||[]).join(', ');
@@ -4516,7 +4522,10 @@ const pageTitles = { dashboard:'Dashboard', products:'Products', categories:'Cat
             document.getElementById('productFormTitle').textContent='Add Product'; document.getElementById('productForm').reset();
             document.getElementById('productId').value=''; document.getElementById('productImages').value='';
             document.getElementById('productImagePreview').innerHTML=''; document.getElementById('productStock').value=0;
-            document.getElementById('productStockThreshold').value=5; document.getElementById('productOriginalPrice').value=''; document.getElementById('productLimitedAvailable').checked=false;
+            document.getElementById('productStockThreshold').value=5; document.getElementById('productOriginalPrice').value='';             document.getElementById('productLimitedAvailable').checked=false;
+            document.getElementById('productLimitedPieces').value=0;
+            document.getElementById('productSoldOut').checked=false;
+            document.getElementById('productPreOrder').checked=false;
             document.getElementById('tcPreOrder').checked=false; document.getElementById('tcSoldOut').checked=false; document.getElementById('tcLimitedAvailable').checked=false;
             document.getElementById('tcLimitedPieces').value=0; document.getElementById('tcColor').value=''; document.getElementById('tcSize').value=''; document.getElementById('tcOriginalPrice').value='';
             document.getElementById('productFeatured').checked=false; document.getElementById('productNewArrival').checked=false;
@@ -4615,6 +4624,9 @@ const pageTitles = { dashboard:'Dashboard', products:'Products', categories:'Cat
                     sizes:document.getElementById('productSizes').value.split(',').map(s=>s.trim()).filter(Boolean),
                     colors:document.getElementById('productColors').value.split(',').map(s=>s.trim()).filter(Boolean),
                     limitedAvailable:document.getElementById('productLimitedAvailable').checked,
+                    limitedPieces:parseInt(document.getElementById('productLimitedPieces').value)||0,
+                    soldOut:document.getElementById('productSoldOut').checked,
+                    preOrder:document.getElementById('productPreOrder').checked,
                     tags:document.getElementById('productTags').value.split(',').map(s=>s.trim()).filter(Boolean),
                     visibility:document.getElementById('productVisibility').value,
                     status:document.getElementById('productPublishStatus').value,
