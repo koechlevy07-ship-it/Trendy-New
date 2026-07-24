@@ -49,6 +49,7 @@ async function processCampaign(campaignId) {
                     html: personalizedHtml
                 });
                 sent++;
+                await new Promise(r => setTimeout(r, 250));
             } catch (e) {
                 failed++;
             }

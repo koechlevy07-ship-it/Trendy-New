@@ -282,12 +282,16 @@ let paypalClient = null;
 
 async function getPaypalClient() {
     if (!paypalClient && PAYPAL_CONFIG.clientId && PAYPAL_CONFIG.clientSecret) {
-        const { Client } = require('@paypal/checkout-server-sdk');
-        const environment = PAYPAL_CONFIG.mode === 'live' 
-            ? new (require('@paypal/checkout-server-sdk')).core.LiveEnvironment(PAYPAL_CONFIG.clientId, PAYPAL_CONFIG.clientSecret)
-            : new (require('@paypal/checkout-server-sdk')).core.SandboxEnvironment(PAYPAL_CONFIG.clientId, PAYPAL_CONFIG.clientSecret);
-        
-        paypalClient = new Client(environment);
+        try {
+            const paypalSdk = require('@paypal/checkout-server-sdk');
+            const environment = PAYPAL_CONFIG.mode === 'live'
+                ? new paypalSdk.core.LiveEnvironment(PAYPAL_CONFIG.clientId, PAYPAL_CONFIG.clientSecret)
+                : new paypalSdk.core.SandboxEnvironment(PAYPAL_CONFIG.clientId, PAYPAL_CONFIG.clientSecret);
+            paypalClient = new paypalSdk.Client(environment);
+        } catch (err) {
+            console.error('PayPal SDK not available:', err.message);
+            return null;
+        }
     }
     return paypalClient;
 }
@@ -295,9 +299,10 @@ async function getPaypalClient() {
 async function processPaypalPayment({ amount, currency = 'USD', returnUrl, cancelUrl, description, items }) {
     try {
         const client = await getPaypalClient();
-        if (!paypalClient) throw new Error('PayPal not configured');
+        if (!client) throw new Error('PayPal not configured');
         
-        const request = new (require('@paypal/checkout-server-sdk')).orders.OrdersCreateRequest();
+        const paypalSdk = require('@paypal/checkout-server-sdk');
+        const request = new paypalSdk.orders.OrdersCreateRequest();
         request.prefer('return=representation');
         request.requestBody({
             intent: 'CAPTURE',
@@ -347,7 +352,9 @@ async function processPaypalPayment({ amount, currency = 'USD', returnUrl, cance
 async function capturePaypalPayment(orderId) {
     try {
         const client = await getPaypalClient();
-        const request = new (require('@paypal/checkout-server-sdk')).orders.OrdersCaptureRequest(orderId);
+        if (!client) throw new Error('PayPal not configured');
+        const paypalSdk = require('@paypal/checkout-server-sdk');
+        const request = new paypalSdk.orders.OrdersCaptureRequest(orderId);
         request.requestBody({});
         
         const response = await client.execute(request);
@@ -461,6 +468,10 @@ async function verifyPayment({ provider, transactionId, checkoutSessionToken }) 
         default:
             return { success: false, error: `Unsupported provider: ${provider}` };
     }
+}
+
+function generateTransactionId(prefix = 'TXN') {
+    return `${prefix}_${Date.now()}_${crypto.randomBytes(8).toString('hex')}`;
 }
 
 module.exports = {

@@ -26,13 +26,17 @@ console.log('[INFO] Environment variables validated.');
 
 app.use(helmet());
 
+const ALLOWED_ORIGINS = [
+  process.env.FRONTEND_URL || 'https://trendy-frontend-ashen.vercel.app',
+  'https://trendy-frontend-ashen.vercel.app'
+];
+
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin) return callback(null, true);
-    if (origin.endsWith('.vercel.app') || origin.includes('localhost')) {
-      return callback(null, true);
-    }
-    return callback(null, true);
+    if (ALLOWED_ORIGINS.includes(origin)) return callback(null, true);
+    if (origin.includes('localhost') && origin.match(/^https?:\/\/localhost(:\d+)?$/)) return callback(null, true);
+    return callback(null, false);
   },
   credentials: true,
 }));

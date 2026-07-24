@@ -1,13 +1,4 @@
-const nodemailer = require('nodemailer');
-
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-    },
-    tls: { rejectUnauthorized: true }
-});
+const { sendEmail } = require('./emailService');
 
 const STORE_NAME = 'Trendy Wardrobe';
 const STORE_URL = 'https://trendy-frontend-ashen.vercel.app';
@@ -89,8 +80,7 @@ async function sendInvoiceEmail(invoice) {
         </body>
         </html>`;
 
-        await transporter.sendMail({
-            from: `"${STORE_NAME}" <${process.env.EMAIL_USER}>`,
+        await sendEmail({
             to,
             subject: `Invoice ${invoice.invoiceNumber} — ${STORE_NAME}`,
             html

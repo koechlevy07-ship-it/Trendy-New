@@ -15,6 +15,68 @@ const STORE_URL = 'https://trendy-frontend-ashen.vercel.app';
 const STORE_PHONE = '+254 728 985 417';
 const STORE_WHATSAPP = 'https://wa.me/254728985417';
 
+const DAILY_EMAIL_LIMIT = parseInt(process.env.EMAIL_DAILY_LIMIT, 10) || 450;
+const SEND_INTERVAL_MS = 200;
+let emailQueue = [];
+let emailsSentToday = 0;
+let lastResetDate = new Date().toDateString();
+let processing = false;
+
+function resetDailyCountIfNeeded() {
+    const today = new Date().toDateString();
+    if (today !== lastResetDate) {
+        emailsSentToday = 0;
+        lastResetDate = today;
+    }
+}
+
+function processQueue() {
+    if (processing || emailQueue.length === 0) return;
+    processing = true;
+    const next = () => {
+        if (emailQueue.length === 0) { processing = false; return; }
+        resetDailyCountIfNeeded();
+        if (emailsSentToday >= DAILY_EMAIL_LIMIT) {
+            console.warn(`⚠️ Daily email limit reached (${DAILY_EMAIL_LIMIT}). ${emailQueue.length} emails queued for tomorrow.`);
+            processing = false;
+            return;
+        }
+        const job = emailQueue.shift();
+        emailsSentToday++;
+        transporter.sendMail(job.mailOptions)
+            .then(info => { console.log(`📧 Email sent to ${job.to}: ${info.messageId}`); if (job.resolve) job.resolve(info); })
+            .catch(err => { console.error(`❌ Email failed to ${job.to}: ${err.message}`); if (job.resolve) job.resolve(null); })
+            .finally(() => setTimeout(next, SEND_INTERVAL_MS));
+    };
+    next();
+}
+
+async function sendEmail({ to, subject, html, text }) {
+    resetDailyCountIfNeeded();
+    if (emailsSentToday >= DAILY_EMAIL_LIMIT) {
+        console.warn(`⚠️ Daily email limit reached, deferring email to ${to}`);
+    }
+    return new Promise(resolve => {
+        emailQueue.push({
+            to,
+            mailOptions: {
+                from: `"${STORE_NAME}" <${process.env.EMAIL_USER}>`,
+                to,
+                subject,
+                text: text || '',
+                html: html || ''
+            },
+            resolve
+        });
+        processQueue();
+    });
+}
+
+function getEmailStats() {
+    resetDailyCountIfNeeded();
+    return { sentToday: emailsSentToday, dailyLimit: DAILY_EMAIL_LIMIT, queueLength: emailQueue.length };
+}
+
 function emailWrapper(content) {
     return `
     <!DOCTYPE html>
@@ -24,20 +86,15 @@ function emailWrapper(content) {
         <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f7;padding:40px 0;">
             <tr><td align="center">
                 <table width="600" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
-                    <!-- Header -->
                     <tr>
                         <td style="background:#1a1a1a;padding:28px 40px;text-align:center;">
                             <h1 style="margin:0;font-family:'Helvetica Neue',sans-serif;font-size:22px;font-weight:700;letter-spacing:3px;color:#C8A35A;">TRENDY WARDROBE</h1>
                             <p style="margin:4px 0 0;font-size:11px;letter-spacing:2px;color:#888;text-transform:uppercase;">More Than Just A Brand</p>
                         </td>
                     </tr>
-                    <!-- Content -->
                     <tr>
-                        <td style="padding:40px;">
-                            ${content}
-                        </td>
+                        <td style="padding:40px;">${content}</td>
                     </tr>
-                    <!-- Footer -->
                     <tr>
                         <td style="background:#f8f9fa;padding:24px 40px;text-align:center;border-top:1px solid #eee;">
                             <p style="margin:0;font-size:12px;color:#999;">&copy; ${new Date().getFullYear()} ${STORE_NAME}. All rights reserved.</p>
@@ -52,23 +109,6 @@ function emailWrapper(content) {
         </table>
     </body>
     </html>`;
-}
-
-async function sendEmail({ to, subject, html, text }) {
-    try {
-        const info = await transporter.sendMail({
-            from: `"${STORE_NAME}" <${process.env.EMAIL_USER}>`,
-            to,
-            subject,
-            text: text || '',
-            html: html || ''
-        });
-        console.log(`📧 Email sent to ${to}: ${info.messageId}`);
-        return info;
-    } catch (err) {
-        console.error(`❌ Email failed to ${to}`);
-        return null;
-    }
 }
 
 async function sendOrderConfirmation(order, user) {
@@ -438,5 +478,6 @@ module.exports = {
     sendAdminContactReply,
     sendCheckoutAbandoned,
     sendPaymentConfirmation,
-    sendBulkEmail
+    sendBulkEmail,
+    getEmailStats
 };
